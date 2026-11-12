@@ -1,0 +1,24 @@
+<!-- Automatikus tükör a privát Projekt S műhelyrepóból (scripts/docs_tukor.py). Személyes és hálózati adatok kitakarva. Ne itt szerkeszd. -->
+
+{
+ "_leiras": "Az ügygazda (scripts/ugygazda.py) szabályzata. VÉDETT fájl: az ügygazda nem módosíthatja (saját felhatalmazás); változtatását toti hagyja jóvá. Forrás: toti tartós megbízása, 2026-11-12.",
+ "szolgaltatasok": ["project-s-executor.service", "project-s-panel.service", "project-s-mcp.service", "project-s-torrent.service"],
+ "idozitok": {"project-s-near.timer": 2700, "project-s-mentes.timer": 93600},
+ "mentes_max_kor_ora": 26,
+ "visszaallitasi_proba_ora": 24,
+ "queued_elakadas_perc": 30,
+ "waiting_model_turelem_perc": 60,
+ "max_javitasi_proba": 3,
+ "max_sajat_ugy": 1,
+ "kezdemenyezes_ora": 12,
+ "tervezes_max_hivas_naponta": 12,
+ "vegrehajtok": ["claude", "codex", "copilot"],
+ "onallo_ugyek": ["near-bevetel", "bevetel-kutatas", "ugynok-piac-felmeres", "project-s-ujjaepites"],
+ "vedett_fajlok": ["ugygazda/szabalyzat.json", "scripts/ugygazda.py", "CLAUDE.md", "executor/zar.py", "scripts/rendszerlepes.py", "scripts/near_kulso.py", "executor/acceptance.py"],
+ "celok": [
+  {"id": "bevetel", "leiras": "Igazolt bevétel AI-ügynöki munkából (NEAR Agent Market és hasonló piacok): ajánlat → kiosztás → leadás → elfogadás → kifizetés, mért ráfordítással."},
+  {"id": "kepesseg", "leiras": "A Projekt S hiányzó képességeinek megépítése és használatba vétele (lásd ugyek/project-s-ujjaepites/eredmenyek/osszevetes-blueprint.md 3. szakasz és docs/KEPESSEGEK.md), gépileg ellenőrizhető lépésekben."},
+  {"id": "megbizhatosag", "leiras": "A futó rendszer (végrehajtó, panel, NEAR-munkás, mentés) hibamentes, helyreállítható működése; ismétlődő hibák okának megszüntetése."}
+ ],
+ "kulso_engedely_kell": ["új külső vállalás (új piac, új fiók, új szerződés)", "nem engedélyezett kiadás", "saját felhatalmazás vagy elfogadási szabály módosítása", "root művelet (rendszerlepes – toti jóváhagyása)"]
+}

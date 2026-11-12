@@ -2,13 +2,20 @@
 
 # Folytatás – hol tartunk
 
-_Utolsó frissítés: 2026-11-11 20:00 UTC_
+_Utolsó frissítés: 2026-11-12 10:15 UTC_
 
 > **A teljes rendszer leírása: `docs/RENDSZER.md`.** **Új munkamenet:** a `CLAUDE.md` automatikusan betöltődik. Utána: `ugy lista`, majd a kért ügy
 > (`ugy allapot <ügy>`, `ugy folytat <ügy>`). Rendszerellenőrzés: `systemctl status project-s-rc`,
 > `scripts/gpt-kapcsolat.sh status`.
 
-## ⏭️ HOL TARTUNK (2026-11-11 este) – a panel beszélgetéséből folytatható
+## ⏭️ HOL TARTUNK (2026-11-12) – önálló működés
+- **Ügygazda él** (toti tartós megbízása, 2026-11-12; `docs/UGYGAZDA.md`, panel `/ugygazda`, `ugygazda allapot|dontesek|napi`):
+  10 percenként figyel (szolgáltatások, időzítők, mentés + napi visszaállítási próba, beragadt feladatok), folytatja az önálló
+  ügyeket, és legfeljebb 1 saját ügyet kezdeményez a tartós célokból. Kikapcsolás: panel vagy `ugygazda ki`.
+- Visszaállítási próba (`scripts/visszaallitas_proba.py`), NEAR külső műveletek védőrétege (`scripts/near_kulso.py`),
+  ügyszintű eseménynapló (`ugy naplo ellenoriz`) kész. CodeWhale titokelérés: döntés-előkészítés `docs/CODEWHALE-DONTES.md`.
+
+## Korábbi állapot (2026-11-11 este)
 - **Bevétel / ügynökpiac (ügy `ugynok-piac-felmeres`):** döntések: `eredmenyek/2026-11-11-dontesek.md`. Kiesett: Taskmarket,
   MoltJobs, toku, dealwork, általános kutatás; Moltbook parkol; kifizetési út nem akadály. **Következő: NEAR Agent Market**
   vevői keresletének csak olvasó felmérése. Listázás/jelentkezés/befizetés: toti döntése, még NEM.
@@ -131,7 +138,7 @@ Megjegyzés: a folytató munkamenet telepítette a `smartmontools` csomagot (SMA
 3. Befejezéskor értesítés a telefonra (pl. a Remote Control-munkamenetbe vagy push-értesítés).
 
 ## Ne felejtsd
-- Nagyobb Project-S-rendszert (SAI, tanácsrendszer, modellrouter) most nem építünk.
+- Az önálló fejlődés a cél (toti, 2026-11-12); a méretet a feladat indokolja. Ügygazda: `docs/UGYGAZDA.md`.
 - Hitelesítő adatok csak a szerveren (`~/.config/...`), a repóba soha.
 - A háttérfeladatok nem kapnak sudo-t (`NoNewPrivileges`); root-igényű lépés: közvetlenül a munkamenetben, utána `ugy rogzit`.
 - A meglévő `project-s` tmux-munkamenetet ne töröld.

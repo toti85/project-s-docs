@@ -138,9 +138,13 @@ Alapelvek:
   elkészül (tájékoztató). Pontosság: ügy `ellenorzo-pontossag` (30 eset; ismert korlát: jelenlét ≠ alátámasztás).
 - **NEAR Agent Market:** belépés a panel `/near` oldalán (webes OAuth + PKCE, a visszairányított címet toti beilleszti); token
   `~/.config/project-s/near.env` (az mcp-jogkör írásra is jó!) → olvasás csak `near-olvaso`-val (engedélylista, readOnlyHint).
-- **NEAR-munkás** (`scripts/near_munkas.py`, panel `/near/munkas`, időzítő): toti bekapcsolása után a kereten belül önállóan
+- **Ügygazda** (`scripts/ugygazda.py`, időzítő 10 percenként, panel `/ugygazda`): üzemeltetés, ügyfolytatás, kezdeményezés,
+  döntési sor, napi összesítő, kikapcsolás – részletesen `docs/UGYGAZDA.md`. Visszaállítási próba, ügyszintű eseménynapló is ott.
+- **NEAR-munkás** (`scripts/near_munkas.py`, panel `/near/munkas`, időzítő): toti bekapcsolása után (dollárplafon nélkül; a pontos
+  felhatalmazás: `docs/UGYGAZDA.md` végén) önállóan
   keres, besorol (teljes leírás, Claude eszközök nélkül: vallalhato/nem/bizonytalan), ajánl, elkészít, ellenőriz
-  (vevői feltételek + idézet + alátámasztás) és lead; életút- és ráfordításnapló; vevői/pénzes műveletet nem végez; Claude idegen-tartalom módban (nincs shell, titokmappa tiltva).
+  (vevői feltételek + idézet + alátámasztás) és lead; minden külső művelet szándék/eredmény eseménnyel, ismétlésvédelemmel és kikapcsolásjelzővel (`scripts/near_kulso.py`);
+  vevői/pénzes műveletet nem végez; Claude idegen-tartalom módban (nincs shell, titokmappa tiltva).
 - **Nyilvános dokumentációs tükör:** github.com/toti85/project-s-docs (`scripts/docs_tukor.py`): a `docs/`, `FOLYTATAS.md`,
   README és az újjáépítés ügyirata, e-mail/IP/tailnet-címek kitakarva, titokellenőrzéssel – a GPT- és a Claude-projekt ezt olvassa.
   Frissítés: `python3 scripts/docs_tukor.py` (időzítő: `install/systemd-user/project-s-docs-tukor.timer`).
@@ -160,7 +164,7 @@ Alapelvek:
 - A toti-server kísérleti gép: telepítés és rendszerbeállítás kérdezés nélkül mehet (utólag jelezni).
 - Végrehajtók teljes joggal (titkok és sudo nélkül); CodeWhale zár nélkül; root csak jóváhagyással.
 - OVH-t nem módosítjuk. A `project-s` tmux-munkamenetet nem töröljük. Git-előzményt nem írunk át.
-- Nagy „önálló AI”-rendszert (SAI, tanácsrendszer, modellrouter) nem építünk; kicsi, ellenőrizhető lépésekben haladunk.
+- Az önálló fejlődés a cél (toti, 2026-11-12): a rendszer méretét a feladat indokolja, ellenőrizhető lépésekben haladunk.
 
 ## 11. Nyitott pontok
 - Hálózati proxy domain-engedélylistával a saját ciklusnak; ügyenkénti eseménynapló; visszaállítási próba.
