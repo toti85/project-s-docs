@@ -8,13 +8,13 @@
 | Azonosító | `project-s-ujjaepites` |
 | Állapot | **elfogadasra_var** |
 | Cél | Egyszerű, a szerveren futó Project-S mag: telefonról ügy + cél → tartós ügyállapot → végrehajtás → mentett eredmény → rövid beszámoló; a régi unified kódból csak a közvetlenül hasznos részek. |
-| Következő lépés | Ügygazda mérése 1–2 napon át (napi összesítő); toti döntései a döntési sorban; CodeWhale-döntés. |
-| Utolsó feladat | kozvetlen-20261112-102309 – elfogadasra_var |
-| Frissítve | 2026-11-12 10:48 UTC |
+| Következő lépés | A jelölt API-mentését közvetlen, rekordonként azonosítható NEAR-válaszrögzítéssel kell kiegészíteni. |
+| Utolsó feladat | t20261112-131027-e452e1 – elfogadasra_var |
+| Frissítve | 2026-11-12 13:15 UTC |
 
-**Legutóbbi eredmény:** Ügygazda első változat élesben (figyel/folytat/kezdeményez), visszaállítási próba RENDBEN 55/55, NEAR külső-művelet védőréteg, ügynapló; 21 új teszt zöld; a rendszer saját ellenőrzése talált és javíttatott egy NEAR-életút hibát.
+**Legutóbbi eredmény:** Elkészült a szerepalapú elfogadás tesztelt javításjelöltje és az átadási jelentés. Az éles és a jelölt teljes tesztcsomagja zöld, a végső célzott tesztekből 13/13 sikeres. Az éles kód változatlan maradt. A feladat részlegesen teljesített, mert az API-bizonyíték rögzítése és néhány folytatási út még kiegészítést igényel.
 
-**Döntésre vár:** `kozvetlen-20261105-174732` (elfogadasra_var), `t20261108-195153-318d73` (elfogadasra_var), `kozvetlen-20261108-201135` (elfogadasra_var), `kozvetlen-20261111-163223` (elfogadasra_var), `t20261112-075002-bc0419` (elfogadasra_var), `kozvetlen-20261112-102309` (elfogadasra_var)
+**Döntésre vár:** `t20261112-124102-b5adb8` (hianyos), `t20261112-131027-e452e1` (elfogadasra_var)
 
 <!-- ALLAPOT:VEG -->
 
@@ -165,3 +165,49 @@ A dokumentum legyen önmagában érthető (külső olvasó, aki a repót nem lá
  — elvárt: Régi Master Blueprint ⇄ mai műhely összevetése: összefoglaló, tételes táblázat bizonyítékkal, következő lépések, kérdések a GPT/Claude-projektnek → `eredmenyek/osszevetes-blueprint.md`; ellenőrzés: letezik:eredmenyek/osszevetes-blueprint.md, min-meret:eredmenyek/osszevetes-blueprint.md:4000, tartalmaz:eredmenyek/osszevetes-blueprint.md:(?i)megvan, tartalmaz:eredmenyek/osszevetes-blueprint.md:(?i)hiányzik, tartalmaz:eredmenyek/osszevetes-blueprint.md:(?i)kérdés, ember
 - 2026-11-12 07:53 UTC – feladat `t20261112-075002-bc0419`: végrehajtó állapota **needs_acceptance** → **elfogadasra_var** (szolgáltatók: claude)
 - 2026-11-12 10:23 UTC – közvetlen munka rögzítve (elfogadásra vár) → [`eredmenyek/2026-11-12-ugygazda.md`](eredmenyek/2026-11-12-ugygazda.md): Ügygazda első változat élesben (figyel/folytat/kezdeményez), visszaállítási próba RENDBEN 55/55, NEAR külső-művelet védőréteg, ügynapló; 21 új teszt zöld; a rendszer saját ellenőrzése talált és javítt
+- 2026-11-12 12:36 UTC – feladat `kozvetlen-20261105-174732`: elfogadasra_var → **elfogadva** (döntött: toti (rábízta: claude-code, 2026-11-12)): Az ügygazda ajánlása alapján.
+- 2026-11-12 12:36 UTC – feladat `t20261108-195153-318d73`: végrehajtó állapota **rejected** → **hianyos** (szolgáltatók: codewhale)
+- 2026-11-12 12:36 UTC – feladat `t20261108-195153-318d73`: elfogadasra_var → **elutasitva** (döntött: toti (rábízta: claude-code, 2026-11-12)): A gépi szabályok teljesültek, de a független utóellenőrzés (kozvetlen-20261108-201135) két téves állapotállítást talált (böngésző, Codex: valójában telepítve és működik). [KORÁBBI 2026-11-08]
+- 2026-11-12 12:36 UTC – feladat `kozvetlen-20261108-201135`: elfogadasra_var → **elfogadva** (döntött: toti (rábízta: claude-code, 2026-11-12)): Az ügygazda ajánlása alapján.
+- 2026-11-12 12:36 UTC – feladat `kozvetlen-20261111-163223`: elfogadasra_var → **elfogadva** (döntött: toti (rábízta: claude-code, 2026-11-12)): Az ügygazda ajánlása alapján.
+- 2026-11-12 12:36 UTC – feladat `t20261112-075002-bc0419`: végrehajtó állapota **accepted** → **elfogadva** (szolgáltatók: claude)
+- 2026-11-12 12:36 UTC – feladat `t20261112-075002-bc0419`: elfogadasra_var → **elfogadva** (döntött: toti (rábízta: claude-code, 2026-11-12)): Az ügygazda ajánlása alapján.
+- 2026-11-12 12:36 UTC – feladat `kozvetlen-20261112-102309`: elfogadasra_var → **elfogadva** (döntött: toti (rábízta: claude-code, 2026-11-12)): Az ügygazda ajánlása alapján.
+- 2026-11-12 12:41 UTC – feladat beküldve a végrehajtónak `t20261112-124102-b5adb8`: Vezesd be az ügyszintű, hash-láncolt `esemenyek.jsonl` naplót az `ugy.py`-ban. Minden ügyállapot-változás fűzzön hozzá egy eseményt (idő, típus, adat, előző hash, saját hash). Készíts visszajátszó függvényt, amely a naplóból előállítja az `allapot.json` tartalmát. Írj hozzá egységtesztet: a visszajátszott állapot egyezzen az `allapot.json`-nal, és a napló manipulálása (hash-törés) legyen észlelve. Röviden rögzítsd az eredményt az eredmenyek/esemenynaplo-ugyszint.md fájlban (mi készült, teszt eredménye). — elvárt: Az `ugy.py` ügyszinten hash-láncolt `esemenyek.jsonl`-t ír, a visszajátszás reprodukálja az `allapot.json`-t, a hash-lánc törését a teszt észleli, a tesztek zöldek, az eredményfájl létezik. → `eredmenyek/esemenynaplo-ugyszint.md`; ellenőrzés: letezik:eredmenyek/esemenynaplo-ugyszint.md, min-meret:eredmenyek/esemenynaplo-ugyszint.md:600, tartalmaz:eredmenyek/esemenynaplo-ugyszint.md:(?i)esemenyek\.jsonl, tartalmaz:eredmenyek/esemenynaplo-ugyszint.md:(?i)hash, parancs:cd /home/sagent/project-s-workshop && python3 -m pytest -q -k esemeny, parancs:python3 /home/sagent/project-s-workshop/scripts/ugygazda.py vedett-ellenor 76fb75458cb4a541728c73f7c9a3a0d202d752c3
+- 2026-11-12 12:44 UTC – feladat `t20261112-124102-b5adb8`: végrehajtó állapota **rejected** → **hianyos** (szolgáltatók: codex, claude) (nem teljesült: parancs:cd /home/sagent/project-s-workshop && python3 -m pytest -q -k esemeny)
+- 2026-11-12 13:10 UTC – feladat beküldve a végrehajtónak `t20261112-131027-e452e1`: Olvasd el és hajtsd végre: ugyek/project-s-ujjaepites/munka/feladat-allitas-kuszob.md
+
+# A) Bizonyítékalapú automatikus elfogadás (toti/GPT döntése, 2026-11-12)
+
+Kód: `scripts/ugy.py` (`ellenor_lepes` – a független ellenőr utasítása, `inditas`), `executor/acceptance.py` (szabálymotor),
+`scripts/ugygazda.py` (folytatás, döntési sor, `ellenor_tablazat`, `javitas`). Ezek közül `executor/acceptance.py` és
+`scripts/ugygazda.py` VÉDETT: a változtatás toti külön jóváhagyásával élesedik (a te feladatod a megvalósítás + tesztek).
+
+## Szabály (induló, működési küszöb – nem tudományos határ)
+Az ellenőr táblázata kapjon „szerep” oszlopot: | # | állítás | szerep | ítélet | bizonyíték |, szerep ∈ {dontesi, erdemi, feltaro}.
+- dontesi (döntést meghatározó: ár, jogosultság, finanszírozás, vállalhatóság): automatikus lezárás csak ha MIND IGAZOLT
+  és nincs feloldatlan ellentmondás (CÁFOLT vagy egymásnak ellentmondó sor).
+- erdemi (egyéb érdemi): legfeljebb 20% ELLENŐRIZHETETLEN (a küszöb paraméter legyen, alap 0.20).
+- feltaro (kifejezetten feltáró jelentés / állítás): lezárható „tájékoztató” eredményként; tájékoztató eredményből az
+  ügygazda NEM indíthat vállalást (NEAR-ajánlat, külső művelet, pénz) – csak további kutatást/javítást.
+- A régi, szerep nélküli táblázat: minden sor erdemi-nek számít (visszafelé kompatibilis).
+- Bizonyítékhiány → célzott javítás (az ügygazda `javitas` útja: a hiányzó döntési/érdemi bizonyíték is kifogás), és csak a
+  keret kimerülésekor akadályjelentés; nem emberi elfogadás, nem automatikus továbblépés.
+- A nem nyilvános API-adat (pl. NEAR MCP) állítása akkor IGAZOLT, ha mentett válaszra hivatkozik: fájl, időpont,
+  rekordazonosító. Készíts mentési segédet: `allapot/api-valaszok/<forras>/<UTC-idő>-<rekord>.json` (titok nélkül),
+  és az export (`ugygazda.export`) ide is mentse a NEAR-listákat (ajánlatok, kiosztások) időbélyeggel.
+
+## Megvalósítás
+1. Új elfogadási szabály (pl. `allitasok:<ellenorzes.md>[:0.20]`) az `acceptance.py`-ban: ítélet = ok / tajekoztato / hianyos,
+   részletes indoklással (hány dontesi nem igazolt, érdemi arány). Az `ugy inditas` kutatási/jelentés feladatoknál
+   automatikusan tegye a meglévő `nem-tartalmaz:…CÁFOLT` mellé.
+2. A tájékoztató eredmény jelölése az ügyállapotban (pl. feladat `tajekoztato: true`), a psx-ben és a panelen látható.
+3. Az ügygazda: tájékoztató eredményből nem indít vállalást; a hiányzó bizonyítékot célzott javítással kéri.
+4. Tesztek (`scripts/tesztek.sh`-ba kötve): dontesi ELLENŐRIZHETETLEN → nincs lezárás; erdemi 25% → nincs; 15% → ok;
+   feltaro → tajekoztato; CÁFOLT → hianyos; régi formátum; tájékoztatóból nincs vállalás.
+
+## Átadás
+`ugyek/project-s-ujjaepites/eredmenyek/allitas-kuszob.md`: mi változott (fájl:sor commit-azonosítóval), tesztkimenet,
+és mely védett fájl változott (toti jóváhagyásához). `scripts/tesztek.sh` ZÖLD.
+ — elvárt: Állítás-szerep szerinti elfogadás (dontesi mind igazolt, erdemi ≤20% ellenőrizhetetlen, feltaro → tájékoztató), mentett API-válaszok, tesztek → `eredmenyek/allitas-kuszob.md`; ellenőrzés: letezik:eredmenyek/allitas-kuszob.md, min-meret:eredmenyek/allitas-kuszob.md:1500, tartalmaz:eredmenyek/allitas-kuszob.md:(?i)dontesi, parancs:/home/sagent/project-s-workshop/scripts/tesztek.sh, ember
+- 2026-11-12 13:15 UTC – feladat `t20261112-131027-e452e1`: végrehajtó állapota **needs_acceptance** → **elfogadasra_var** (szolgáltatók: codex)
