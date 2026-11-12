@@ -1,6 +1,6 @@
 <!-- Automatikus tükör a privát Projekt S műhelyrepóból (scripts/docs_tukor.py). Személyes és hálózati adatok kitakarva. Ne itt szerkeszd. -->
 
-# Szerver-képességek (generált: 2026-11-12 03:17 UTC, `scripts/kepessegek.py`)
+# Szerver-képességek (generált: 2026-11-12 10:18 UTC, `scripts/kepessegek.py`)
 
 > Mért állapot. Ha ez ellentmond egy régebbi ügyiratnak vagy javaslatlistának, EZ az érvényes.
 
@@ -38,7 +38,7 @@ proba    NEM elérhető  a végpont nem válaszol (http://127.0.0.1:18080/v1): U
 
 - ✅ `bwrap`
 
-- ❌ `gh`
+- ✅ `gh`
 
 - ✅ `git`
 
@@ -54,9 +54,13 @@ proba    NEM elérhető  a végpont nem válaszol (http://127.0.0.1:18080/v1): U
 - Feliratkozások: 1
 
 ## Mentés
-- helyi: `~/mentes` (napi 03:17, 14 nap): 9 mentés
+- helyi: `~/mentes` (napi 03:17, 14 nap): 10 mentés
 - Google Drive (titkosított): ❌ még nincs bekötve (`drive-belepes`, toti)
-- visszaállítási próba: ❌ még nem volt
+- visszaállítási próba: ✅ RENDBEN (2026-11-12T09:46:40+00:00, 55/55 napló, `scripts/visszaallitas_proba.py`)
+
+## Ügygazda (önálló irányító)
+- állapot: bekapcsolva; saját ügyek: near-hiba-gyokerok; döntési sor: 17; elakadás (összes/megoldott): 0/0
+- leírás: `docs/UGYGAZDA.md`; NEAR külső műveletek: `scripts/near_kulso.py`; ügynapló: `ugy naplo ellenoriz`
 
 ## Jog és zár
 - Alapértelmezés: `teljes` jog (írás/futtatás mindenhol) a titkok/fiókadatok és sudo kivételével (`executor/zar.py` TELJES_KIVETEL); root csak `rendszerlepes`-kéréssel. Részletek: `docs/VEGREHAJTO.md` 11–13.
