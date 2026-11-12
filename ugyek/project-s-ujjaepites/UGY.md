@@ -9,12 +9,12 @@
 | Állapot | **fut** |
 | Cél | Egyszerű, a szerveren futó Project-S mag: telefonról ügy + cél → tartós ügyállapot → végrehajtás → mentett eredmény → rövid beszámoló; a régi unified kódból csak a közvetlenül hasznos részek. |
 | Következő lépés | A jelölt API-mentését közvetlen, rekordonként azonosítható NEAR-válaszrögzítéssel kell kiegészíteni. |
-| Utolsó feladat | t20261112-155023-06a667 – fut |
-| Frissítve | 2026-11-12 15:50 UTC |
+| Utolsó feladat | t20261112-170023-ffb1a6 – fut |
+| Frissítve | 2026-11-12 17:00 UTC |
 
-**Legutóbbi eredmény:** A négy kifogásolt állítást forrással és időponttal pontosítottam, a 6 teszt zöld. A 15:37-es `DIFF=0` a korábbi naplóból származik. 15:40:39-kor a `scripts/` könyvtár már eltér a HEAD-től, de nem a jelölt munkája miatt. Emiatt a `vedett-ellenor` most 1-es kóddal megbukik. Ez toti döntésével oldható fel; a jelölt kódja ettől rendben van.
+**Legutóbbi eredmény:** A cáfolt #17-es állítást javítottam: nincs javítandó fájljogosultság, a hibát a végrehajtó szándékos Landlock-zára okozza. Ezt rögzített commitra (`ec66ba4`) mutató fájl–sor hivatkozások igazolják. Ebből a környezetből a `vedett-ellenor` rc=0-val fut. A jelentésből kikerült a toti-nak szóló téves teendő. A többi hiányzó bizonyítékú állítás vagy időpontos mérést kapott, vagy „[nem ellenőrizhető]” jelölést. Az ellenőrzési fájl csak az ellenőr újrafuttatása után frissül.
 
-**Döntésre vár:** `t20261112-124102-b5adb8` (hianyos), `t20261112-152107-ac35dc` (hianyos), `t20261112-153643-e1fbdf` (hianyos), `t20261112-154023-bf9dad` (hianyos)
+**Döntésre vár:** `t20261112-124102-b5adb8` (hianyos), `t20261112-152107-ac35dc` (hianyos), `t20261112-153643-e1fbdf` (hianyos), `t20261112-154023-bf9dad` (hianyos), `t20261112-155023-06a667` (hianyos), `t20261112-160017-04208e` (hianyos), `t20261112-164422-68156c` (hianyos), `t20261112-165023-8bb41c` (hianyos)
 
 <!-- ALLAPOT:VEG -->
 
@@ -307,3 +307,103 @@ Kódra, fájlra mindig rögzített változattal hivatkozz (`<commit>:<fájl>:<so
 - allitasok:eredmenyek/near-valaszrogzites-ellenorzes.md:0.20 → most: hianyos: dontesi nem igazolt=6; erdemi hiány=5/22 (22.73%); küszöb=20.00%; cáfolt=0; ellentmondás=False; hibák=0
 
 (Ügygazda-javítás, lánc: t20261112-152107-ac35dc, előző: t20261112-154023-bf9dad. Az eredeti feladat: CÉLZOTT JAVÍTÁS (celzott-javitas-masik): Másik végrehajtó javítja célzottan, friss szemmel, a forrás közvetlen újraolvasásával. A javítandó fájl: `eredmenyek/near-valaszrogzites.md` (az ügy mappájához képest). NE végezz teljes új kutatást, és ne írd újra a már igazolt részeket: csak a lent felsorolt kifogásokat kezeld. ## Cáfolt állítások (kötelező javítani vagy elhagyni; az ellenőr bizonyítéka mellette) - [#18] ÁLLÍTÁS: `git diff --quiet HEAD -- scripts executor mcp` 15:37 UTC-kor `DIFF=0`, a `93f6956` HEAD-hez képest ELLENŐR BIZONYÍTÉKA: Szerzői napló 2. parancs kimenete: `DIFF=0`. Megjegyzé) — elvárt: Létezik a jelölt modul, a teszt és az eredményjelentés; a teszt lefut és zöld; a jelentés rögzíti a tesztszámokat, és hogy az éles és védett kód változatlan maradt. → `eredmenyek/near-valaszrogzites.md`; ellenőrzés: min-meret:eredmenyek/near-valaszrogzites.md:600, letezik:munka/jelolt/near_valasz_rogzites.py, letezik:munka/jelolt/test_near_valasz_rogzites.py, tartalmaz:munka/jelolt/near_valasz_rogzites.py:sha256, tartalmaz:munka/jelolt/near_valasz_rogzites.py:rekord_id, nem-tartalmaz:eredmenyek/near-valaszrogzites.md:FAILED, parancs:python3 /home/sagent/project-s-workshop/scripts/ugygazda.py vedett-ellenor ea9578cd1a0facb82cdf5fbb9c8a3bd79aad4970
+- 2026-11-12 15:51 UTC – feladat `t20261112-155023-06a667`: végrehajtó állapota **waiting_model** → **varakozik** (szolgáltatók: copilot, claude) — várakozás: model
+- 2026-11-12 16:00 UTC – feladat beküldve a végrehajtónak `t20261112-160017-04208e`: Toti megbízása: az ügygazdával vizsgáld át a nyitott ügyeket, és vigyél végig egy hasznos, most végrehajtható következő lépést önállóan. Te vagy a tervező, Copilot. Először olvasd el docs/UGYGAZDA.md, FOLYTATAS.md, docs/KEPESSEGEK.md és az aktuális allapot/rendszer.json állapotot; ellenőrizd az ügygazda és a futó/queued/waiting_model feladatok állapotát. A folyamatban lévő fejlesztést ne indítsd újra és ne duplikáld. Ebben a beszélgető környezetben ugy lista és psx status ModuleNotFoundError: acceptance hibával leállt, ugygazda nem volt PATH-on, a könyvtárlistázás Permission denied; ne feltételezd, hogy a szerver szolgáltatásai is hibásak, külön ellenőrizd a környezetet. Válassz egy hasznos, nem duplikált lépést a nyitott ügyekből az ügygazda meglévő mechanizmusaival. A választás hasznát és a konkrét gépi és tartalmi elfogadási feltételeket a végrehajtás ELŐTT írd munka/ugygazda-eles-proba-20261112-terv.md fájlba. A munkára és független ellenőrzésére frissen ellenőrzött, alkalmas, külön gyártójú végrehajtókat válassz; kód/rutin Codex vagy Copilot vagy DeepSeek, webkutatás Claude + Codex ellenőr. Claude-limit esetén csak a valóban Claude-függő lépés várjon, keress más most végrehajtható lépést. A meglévő felhatalmazáson belül hajtsd végre vagy az ügygazdán keresztül indítsd a munkát, ellenőriztesd függetlenül, szükség esetén célzott javítással; védett fájlok és root jóváhagyási határok betartásával. Ha háttérfeladatot indítasz, kövesd az eredményig; futó munkát ne jelents késznek. Jelentés eredmenyek/ugygazda-eles-proba-20261112.md: választás és haszon, előre rögzített feltételek, változtatások/használható eredmény, gépi bizonyíték, független ellenőr megállapításai és azonosítója, minden futásazonosító, célzott javítások. Teljesült cél: kész; egyébként konkrét függőség és folytatási feltétel. Ne kérj új engedélyt már engedélyezett munkára, ne változtasd saját felhatalmazásodat. Tényeket csak bizonyítékkal állíts, titkot ne írj ki. — elvárt: Egy hasznos következő lépés használható eredménye, független ellenőrzése és visszakereshető futásazonosítók; vagy igazolt konkrét függőség és folytatási feltétel. → `eredmenyek/20261112-160017.md`; ellenőrzés: letezik:munka/ugygazda-eles-proba-20261112-terv.md, letezik:eredmenyek/ugygazda-eles-proba-20261112.md
+- 2026-11-12 16:02 UTC – feladat `t20261112-160017-04208e`: végrehajtó állapota **waiting_model** → **varakozik** (szolgáltatók: copilot) — várakozás: model
+- 2026-11-12 16:42 UTC – feladat `t20261112-155023-06a667`: végrehajtó állapota **rejected** → **hianyos** (szolgáltatók: copilot, claude, claude) (nem teljesült: allitasok:eredmenyek/near-valaszrogzites-ellenorzes.md:0.20)
+- 2026-11-12 16:43 UTC – feladat `t20261112-160017-04208e`: végrehajtó állapota **rejected** → **hianyos** (szolgáltatók: copilot, claude) (nem teljesült: letezik:eredmenyek/20261112-160017.md, tartalmaz:eredmenyek/20261112-160017.md:(?m)^## Elkészült, tartalmaz:eredmenyek/20261112-160017.md:(?m)^## Ellenőrizve, tartalmaz:eredmenyek/20261112-160017.md:(?m)^## Bizonytalan, tartalmaz:eredmenyek/20261112-160017.md:(?m)^## Következő lépés, idezetek:eredmenyek/20261112-160017.md:1, allitasok:eredmenyek/20261112-160017-ellenorzes.md:0.20, nem-tartalmaz:eredmenyek/20261112-160017-ellenorzes.md:\|\s*CÁFOLT\s*\|)
+- 2026-11-12 16:44 UTC – feladat beküldve a végrehajtónak `t20261112-164422-68156c`: CÉLZOTT JAVÍTÁS (celzott-javitas-szerzo): A jelentés szerzőjével azonos típusú végrehajtó javítja célzottan a kifogásolt állításokat.
+
+A javítandó fájl: `eredmenyek/20261112-160017.md` (az ügy mappájához képest). NE végezz teljes új kutatást, és ne írd újra a már igazolt részeket: csak a lent felsorolt kifogásokat kezeld.
+
+## Cáfolt állítások (kötelező javítani vagy elhagyni; az ellenőr bizonyítéka mellette)
+- [#1] ÁLLÍTÁS: A `eredmenyek/20261112-160017.md` jelentés elkészült (ezt a feladat előfeltételezi)
+  ELLENŐR BIZONYÍTÉKA: A fájl nem létezik, ezért nincs ellenőrizhető tartalom; a munka lépés más fájlnevet használt
+- [#13] ÁLLÍTÁS: A gépi bizonyíték ideje „~16:10Z”
+  ELLENŐR BIZONYÍTÉKA: `idezet_ujra.json` `"ido": "2026-11-12T16:01:47Z"`, a fájl mtime 16:01; kis eltérés, a tartalmat nem érinti
+
+## Hiányzó bizonyítékok (dontesi mind igazolandó; erdemi hiány legfeljebb 20%; adj forrást, jelöld „[nem ellenőrizhető]”-ként; ne töröld indokolatlanul)
+- [#1] A `eredmenyek/20261112-160017.md` jelentés elkészült (ezt a feladat előfeltételezi) — ellenőr: A fájl nem létezik, ezért nincs ellenőrizhető tartalom; a munka lépés más fájlnevet használt
+- [#5] executor, panel, mcp, torrent: active/running; mentes, near, ugygazda időzítők: active/waiting — ellenőr: `systemctl --user list-units 'project-s*' --all` 16:42Z
+- [#7] `scripts/`, `executor/`, `~/.codex/config.toml` olvashatatlan (Permission denied) a végrehajtó környezetében — ellenőr: A copilot homokozója nem reprodukálható; sagent felhasználóként `scripts` 775, `executor` 755, `config.toml` 600 (tulaj: sagent), tehát innen olvasható
+- [#9] `rendszer.json` frissítve 16:00:19Z — ellenőr: A fájl azóta felülíródott (mtime 16:40), nincs mentett 16:00-s példány
+- [#17] Nosana: a lekéréskor 4 beküldés („4th 4 SUBMISSIONS”) — ellenőr: Időfüggő adat, és nincs mentett oldal a 16:0x-s állapotról (az `idezet_ujra.json` csak a régi idézet hiányát rögzíti). Most (16:42Z) az oldal ezt mutatja: [[idézet: "4th 5 SUBMISSIONS" \| https://superteam.fun/earn/listing/create-nosana-content-explainer-threadarticle-or-creative-memevideo]]
+
+Kódra, fájlra mindig rögzített változattal hivatkozz (`<commit>:<fájl>:<sor>`, a `git log -1 --format=%h` szerinti commit), ne mozgó sorszámmal; az állapotleírásnál add meg az időpontot, mert a rendszer közben változhat.
+
+## Teljesítendő feltételek (változatlanok)
+- letezik:eredmenyek/20261112-160017.md → most: nincs meg
+- tartalmaz:eredmenyek/20261112-160017.md:(?m)^## Elkészült → most: nincs meg
+- tartalmaz:eredmenyek/20261112-160017.md:(?m)^## Ellenőrizve → most: nincs meg
+- tartalmaz:eredmenyek/20261112-160017.md:(?m)^## Bizonytalan → most: nincs meg
+- tartalmaz:eredmenyek/20261112-160017.md:(?m)^## Következő lépés → most: nincs meg
+- idezetek:eredmenyek/20261112-160017.md:1 → most: nincs meg
+- allitasok:eredmenyek/20261112-160017-ellenorzes.md:0.20 → most: hianyos: dontesi nem igazolt=1; erdemi hiány=1/9 (11.11%); küszöb=20.00%; cáfolt=1; ellentmondás=False; hibák=0
+- nem-tartalmaz:eredmenyek/20261112-160017-ellenorzes.md:\|\s*CÁFOLT\s*\| → most: tiltott találat: | CÁFOLT |
+
+(Ügygazda-javítás, lánc: t20261112-160017-04208e, előző: t20261112-160017-04208e. Az eredeti feladat: Toti megbízása: az ügygazdával vizsgáld át a nyitott ügyeket, és vigyél végig egy hasznos, most végrehajtható következő lépést önállóan. Te vagy a tervező, Copilot. Először olvasd el docs/UGYGAZDA.md, FOLYTATAS.md, docs/KEPESSEGEK.md és az aktuális allapot/rendszer.json állapotot; ellenőrizd az ügygazda és a futó/queued/waiting_model feladatok állapotát. A folyamatban lévő fejlesztést ne indítsd újra és ne duplikáld. Ebben a beszélgető környezetben ugy lista és psx status ModuleNotFoundError: acceptance hibával leállt, ugygazda nem volt PATH-on, a könyvtárlistázás Permission denied; ne feltéte) — elvárt: Egy hasznos következő lépés használható eredménye, független ellenőrzése és visszakereshető futásazonosítók; vagy igazolt konkrét függőség és folytatási feltétel. → `eredmenyek/20261112-160017.md`; ellenőrzés: letezik:munka/ugygazda-eles-proba-20261112-terv.md, letezik:eredmenyek/ugygazda-eles-proba-20261112.md, parancs:python3 /home/sagent/project-s-workshop/scripts/ugygazda.py vedett-ellenor 115bdc9ec864fb3c763171d9d02ddefe34e31392
+- 2026-11-12 16:47 UTC – feladat `t20261112-164422-68156c`: végrehajtó állapota **rejected** → **hianyos** (szolgáltatók: copilot, claude) (nem teljesült: allitasok:eredmenyek/20261112-160017-ellenorzes.md:0.20, nem-tartalmaz:eredmenyek/20261112-160017-ellenorzes.md:\|\s*CÁFOLT\s*\|)
+- 2026-11-12 16:50 UTC – feladat beküldve a végrehajtónak `t20261112-165023-8bb41c`: CÉLZOTT JAVÍTÁS (celzott-javitas-masik): Másik végrehajtó javítja célzottan, friss szemmel, a forrás közvetlen újraolvasásával.
+
+A javítandó fájl: `eredmenyek/20261112-160017.md` (az ügy mappájához képest). NE végezz teljes új kutatást, és ne írd újra a már igazolt részeket: csak a lent felsorolt kifogásokat kezeld.
+
+## Cáfolt állítások (kötelező javítani vagy elhagyni; az ellenőr bizonyítéka mellette)
+- [#17] ÁLLÍTÁS: Ez „toti/rendszer oldali jogosultság”, a `vedett_jovahagyott.json` jogosultságát toti javítsa
+  ELLENŐR BIZONYÍTÉKA: A fájl jogosultsága rendben: `644 sagent`, könyvtár `755 sagent`, sagent-ként `vedett-ellenor` rc=0. A hiba oka a végrehajtó szándékos Landlock-zára: `executor/zar.py:9` („~/.local/state nem olvasható”) és `:47` (`TELJES_KIVETEL` … `"~/.local/state/project-s"]  # psx-napló és bizonyíték: nem hamisítható`); `scripts/ugygazda.py:1161` („a végrehajtók zárja ezt a mappát nem írhatja”). Javítandó jogosultság nincs, a javasolt teendő téves
+
+## Hiányzó bizonyítékok (dontesi mind igazolandó; erdemi hiány legfeljebb 20%; adj forrást, jelöld „[nem ellenőrizhető]”-ként; ne töröld indokolatlanul)
+- [#7] Szolgáltatások: executor, panel, mcp, torrent active/running; mentes, near, ugygazda időzítők active/waiting; az egylövéses service-ek inactive/dead — ellenőr: `systemctl --user list-units 'project-s*' --all`, 16:45Z: pontosan így
+- [#9] A korábbi „Permission denied” a homokozóra vonatkozott, innen nem reprodukálható — ellenőr: A homokozó állapota nincs mentve; sagent-ként minden olvasható (lásd 8.)
+- [#11] A „frissítve 16:00:19Z” állítás nem igazolható (a fájl felülíródott) — ellenőr: Nincs 16:00-s mentett példány; a jelentés maga is ezt mondja
+- [#13] A munkalépés idején (~16:01Z) 4 beküldés volt — ellenőr: Időfüggő; nincs 16:0x-s mentett oldal (a jelentés is így jelöli)
+- [#16] `ugygazda.py vedett-ellenor …` 16:44Z-kor `PermissionError`-ral állt le a jelentés környezetében — ellenőr: Nincs mentett hibakimenet (zárolt végrehajtóban várható, lásd 17.). Most (16:46Z, sagent) `vedett-ellenor 115bdc9…` rc=0: „védett fájlok változatlanok”
+
+Kódra, fájlra mindig rögzített változattal hivatkozz (`<commit>:<fájl>:<sor>`, a `git log -1 --format=%h` szerinti commit), ne mozgó sorszámmal; az állapotleírásnál add meg az időpontot, mert a rendszer közben változhat.
+
+## Teljesítendő feltételek (változatlanok)
+- allitasok:eredmenyek/20261112-160017-ellenorzes.md:0.20 → most: hianyos: dontesi nem igazolt=0; erdemi hiány=1/6 (16.67%); küszöb=20.00%; cáfolt=1; ellentmondás=False; hibák=0
+- nem-tartalmaz:eredmenyek/20261112-160017-ellenorzes.md:\|\s*CÁFOLT\s*\| → most: tiltott találat: | CÁFOLT |
+
+(Ügygazda-javítás, lánc: t20261112-160017-04208e, előző: t20261112-164422-68156c. Az eredeti feladat: CÉLZOTT JAVÍTÁS (celzott-javitas-szerzo): A jelentés szerzőjével azonos típusú végrehajtó javítja célzottan a kifogásolt állításokat. A javítandó fájl: `eredmenyek/20261112-160017.md` (az ügy mappájához képest). NE végezz teljes új kutatást, és ne írd újra a már igazolt részeket: csak a lent felsorolt kifogásokat kezeld. ## Cáfolt állítások (kötelező javítani vagy elhagyni; az ellenőr bizonyítéka mellette) - [#1] ÁLLÍTÁS: A `eredmenyek/20261112-160017.md` jelentés elkészült (ezt a feladat előfeltételezi) ELLENŐR BIZONYÍTÉKA: A fájl nem létezik, ezért nincs ellenőrizhető tartalom; a munka lépés) — elvárt: Egy hasznos következő lépés használható eredménye, független ellenőrzése és visszakereshető futásazonosítók; vagy igazolt konkrét függőség és folytatási feltétel. → `eredmenyek/20261112-160017.md`; ellenőrzés: letezik:munka/ugygazda-eles-proba-20261112-terv.md, letezik:eredmenyek/ugygazda-eles-proba-20261112.md, parancs:python3 /home/sagent/project-s-workshop/scripts/ugygazda.py vedett-ellenor 80ea2eec16c867075556230dd88b6804cdb9a5c7
+- 2026-11-12 16:53 UTC – feladat `t20261112-165023-8bb41c`: végrehajtó állapota **rejected** → **hianyos** (szolgáltatók: claude, codex) (nem teljesült: allitasok:eredmenyek/20261112-160017-ellenorzes.md:0.20)
+- 2026-11-12 17:00 UTC – feladat beküldve a végrehajtónak `t20261112-170023-ffb1a6`: CÉLZOTT JAVÍTÁS (szukites): Másik végrehajtó a kifogásolt és nem igazolható állításokat elhagyja vagy feltételesre szűkíti; új állítást nem vezet be.
+
+A javítandó fájl: `eredmenyek/20261112-160017.md` (az ügy mappájához képest). NE végezz teljes új kutatást, és ne írd újra a már igazolt részeket: csak a lent felsorolt kifogásokat kezeld.
+
+## Cáfolt állítások (kötelező javítani vagy elhagyni; az ellenőr bizonyítéka mellette)
+- [#27] ÁLLÍTÁS: Ha PermissionError előfordul, annak oka biztosan Landlock, és nincs javítandó jogosultság
+  ELLENŐR BIZONYÍTÉKA: A kód szándékos zárat dokumentál, a mostani olvasási hiba ezzel összeegyeztethető, de az egykori folyamat zárparamétereit és környezetét nem mértem. A mód bitek helyessége önmagában nem teljes oksági bizonyíték.
+- [#28] ÁLLÍTÁS: A vedett_jovahagyott.json 644 sagent; könyvtára 755 sagent, 16:50:35Z-s stat szerint
+  ELLENŐR BIZONYÍTÉKA: Saját mostani stat a fájlra valóban 644 sagent; a megadott korábbi időpont nyers stat-kimenete nincs meg. A teljes történeti, fájlra és könyvtárra együtt vonatkozó állítás így nem igazolható.
+- [#29] ÁLLÍTÁS: A megnevezett vedett-ellenor 16:50:35Z körül rc=0-val, „védett fájlok változatlanok...” kimenettel zárult
+  ELLENŐR BIZONYÍTÉKA: A korábbi futás kimenete nincs mentve. Saját futás ugyanezzel a 80ea2eec16c867075556230dd88b6804cdb9a5c7 paraméterrel rc=1, PermissionError; eltérő végrehajtási környezet miatt ez nem a korábbi siker cáfolata.
+- [#10] ÁLLÍTÁS: A 25 idézet a megjelölt korábbi friss lekéréseken ténylegesen igazolt volt
+  ELLENŐR BIZONYÍTÉKA: A JSON a program következtetéseit tárolja, nem a 26 korabeli HTTP-válasz teljes mentését. A történeti webtartalmakat ebből önállóan nem lehet visszaellenőrizni.
+- [#17] ÁLLÍTÁS: A Nosana beküldésszáma 16:44Z-kor 5 volt
+  ELLENŐR BIZONYÍTÉKA: A meglevő mentés 16:45:41Z-t jelöl a fájlnévben, nem 16:44Z-t. Abban az id=173f8e0c-f2d4-4303-aa5d-bbfba2121ff0 rekord Submission értéke 5, de az eltérő időpont nem bizonyítja az állított pontos mérést.
+- [#20] ÁLLÍTÁS: ~16:01Z-kor ténylegesen 4 Nosana-beküldés volt
+  ELLENŐR BIZONYÍTÉKA: Nem találtam az adott időpontból teljes mentett API-rekordot/oldalt. A mostani 5-ös érték nem alkalmas a korábbi 4 igazolására vagy cáfolatára.
+
+## Hiányzó bizonyítékok (dontesi mind igazolandó; erdemi hiány legfeljebb 20%; adj forrást, jelöld „[nem ellenőrizhető]”-ként; ne töröld indokolatlanul)
+- [#1] A jelentés 2026-11-12T16:45Z-kor készült, és azóta létezik — ellenőr: A jelenlegi mtime 16:50:54 UTC; ez módosítást mutat, az első létrehozást nem bizonyítja. Korábbi hiteles pillanatkép nincs a hozzáférhető bizonyítékok között.
+- [#3] Az eredeti jelentés 16:00–16:02Z között íródott — ellenőr: Az eredeti jelentés mtime 16:02:17 UTC, a tervé 16:01:17 UTC. A munkakezdés időpontját és a teljes írási intervallumot ezek nem igazolják; a feladatnapló nem olvasható.
+- [#5] A 16:44Z-kori `git log -1` eredménye 8039f8b volt — ellenőr: Most a HEAD ec66ba4. A korábbi HEAD-parancs hiteles mentett kimenete nem hozzáférhető.
+- [#10] A 25 idézet a megjelölt korábbi friss lekéréseken ténylegesen igazolt volt — ellenőr: A JSON a program következtetéseit tárolja, nem a 26 korabeli HTTP-válasz teljes mentését. A történeti webtartalmakat ebből önállóan nem lehet visszaellenőrizni.
+- [#12] A szolgáltatások 16:44Z-kor és 16:50:38Z-kor a felsorolt állapotban voltak — ellenőr: A saját, mentett 16:51:34 UTC mérés mind a tíz unit felsorolt állapotát megerősíti, de a két korábbi mérés időbélyeges nyers kimenetét nem találtam.
+- [#14] Ezeket a jogosultságokat 16:44Z-kor ls -ld paranccsal mérték — ellenőr: A jelenlegi metaadat ellenőrizhető, a korábbi parancsfuttatás mentett nyers kimenete nincs meg.
+- [#15] A korábbi Permission denied feltehetően a munkalépés zárolt környezetére vonatkozott, sagent-ként nem reprodukálható — ellenőr: A konkrét korábbi környezet nincs dokumentálva hozzáférhető mentésben. Most sagent alatt is reprodukálható a vedett-ellenor olvasási hibája; ez nem azonos a korábbi scripts/config olvasási kísérlettel.
+- [#16] allapot/rendszer.json mtime 16:40:23Z volt a 16:44Z-s mérésben — ellenőr: Saját stat most 16:50:23.376447 UTC-t ad. Ez nem cáfolja a korábbi mtime-ot, de nem is igazolja; a 16:44-es stat-kimenet nincs mentve a hozzáférhető anyagban.
+- [#17] A Nosana beküldésszáma 16:44Z-kor 5 volt — ellenőr: A meglevő mentés 16:45:41Z-t jelöl a fájlnévben, nem 16:44Z-t. Abban az id=173f8e0c-f2d4-4303-aa5d-bbfba2121ff0 rekord Submission értéke 5, de az eltérő időpont nem bizonyítja az állított pontos mérést.
+- [#20] ~16:01Z-kor ténylegesen 4 Nosana-beküldés volt — ellenőr: Nem találtam az adott időpontból teljes mentett API-rekordot/oldalt. A mostani 5-ös érték nem alkalmas a korábbi 4 igazolására vagy cáfolatára.
+- [#23] A rendszer.json korábbi „frissítve 16:00:19Z” tartalma nem igazolható — ellenőr: Korabeli állapotmentés nem hozzáférhető. A mostani mtime önmagában nem igazolja a korábbi belső mező értékét.
+- [#24] A 16:44Z-s vedett-ellenor PermissionError ténylegesen előfordult — ellenőr: A korábbi eseménynek nincs olvasható, mentett hibakimenete. A saját mostani hibát külön rögzítettem a fuggetlen-meres.json-ban; az nem a korábbi futás.
+- [#27] Ha PermissionError előfordul, annak oka biztosan Landlock, és nincs javítandó jogosultság — ellenőr: A kód szándékos zárat dokumentál, a mostani olvasási hiba ezzel összeegyeztethető, de az egykori folyamat zárparamétereit és környezetét nem mértem. A mód bitek helyessége önmagában nem teljes oksági bizonyíték.
+- [#28] A vedett_jovahagyott.json 644 sagent; könyvtára 755 sagent, 16:50:35Z-s stat szerint — ellenőr: Saját mostani stat a fájlra valóban 644 sagent; a megadott korábbi időpont nyers stat-kimenete nincs meg. A teljes történeti, fájlra és könyvtárra együtt vonatkozó állítás így nem igazolható.
+- [#29] A megnevezett vedett-ellenor 16:50:35Z körül rc=0-val, „védett fájlok változatlanok...” kimenettel zárult — ellenőr: A korábbi futás kimenete nincs mentve. Saját futás ugyanezzel a 80ea2eec16c867075556230dd88b6804cdb9a5c7 paraméterrel rc=1, PermissionError; eltérő végrehajtási környezet miatt ez nem a korábbi siker cáfolata.
+
+Kódra, fájlra mindig rögzített változattal hivatkozz (`<commit>:<fájl>:<sor>`, a `git log -1 --format=%h` szerinti commit), ne mozgó sorszámmal; az állapotleírásnál add meg az időpontot, mert a rendszer közben változhat.
+
+## Teljesítendő feltételek (változatlanok)
+- allitasok:eredmenyek/20261112-160017-ellenorzes.md:0.20 → most: hianyos: dontesi nem igazolt=3; erdemi hiány=3/9 (33.33%); küszöb=20.00%; cáfolt=0; ellentmondás=False; hibák=0
+
+(Ügygazda-javítás, lánc: t20261112-160017-04208e, előző: t20261112-165023-8bb41c. Az eredeti feladat: CÉLZOTT JAVÍTÁS (celzott-javitas-masik): Másik végrehajtó javítja célzottan, friss szemmel, a forrás közvetlen újraolvasásával. A javítandó fájl: `eredmenyek/20261112-160017.md` (az ügy mappájához képest). NE végezz teljes új kutatást, és ne írd újra a már igazolt részeket: csak a lent felsorolt kifogásokat kezeld. ## Cáfolt állítások (kötelező javítani vagy elhagyni; az ellenőr bizonyítéka mellette) - [#17] ÁLLÍTÁS: Ez „toti/rendszer oldali jogosultság”, a `vedett_jovahagyott.json` jogosultságát toti javítsa ELLENŐR BIZONYÍTÉKA: A fájl jogosultsága rendben: `644 sagent`, könyvtár `755 sagent`) — elvárt: Egy hasznos következő lépés használható eredménye, független ellenőrzése és visszakereshető futásazonosítók; vagy igazolt konkrét függőség és folytatási feltétel. → `eredmenyek/20261112-160017.md`; ellenőrzés: letezik:munka/ugygazda-eles-proba-20261112-terv.md, letezik:eredmenyek/ugygazda-eles-proba-20261112.md, parancs:python3 /home/sagent/project-s-workshop/scripts/ugygazda.py vedett-ellenor 0715692d4bd59ba647e296be87cbbf19b959b05d

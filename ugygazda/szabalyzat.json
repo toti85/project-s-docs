@@ -19,7 +19,7 @@
  "max_javitasi_proba": 3,
  "max_sajat_ugy": 1,
  "kezdemenyezes_ora": 12,
- "tervezes_max_hivas_naponta": 12,
+ "tervezes_max_hivas_naponta": 40,
  "vegrehajtok": [
   "claude",
   "codex",
