@@ -2,7 +2,10 @@
 
 # Döntés-előkészítés: CodeWhale fogyasztás-elkülönítés és titokelérés
 
-_2026-11-12. Döntés: toti. A jelenlegi zár nélküli működést ez az anyag NEM módosítja._
+_2026-11-12. **DÖNTÉS (toti, 2026-11-12): B + C élesítve.** A CodeWhale Landlock `--teljes` zárban fut, külön
+OpenRouter-kulccsal (`~/.config/project-s/openrouter-codewhale.env`, limit 5 USD, panel `/kulcs/codewhale`).
+[MÉRT 2026-11-12 14:49 UTC, t20261112-144918-9dd4df]: near.env és gh/hosts.yml olvasása exit 1, munkakönyvtárba írás ok,
+kulcsforrás: külön kulcs. A GitHub-pusht a psx-hook végzi (a végrehajtónak nem kell hitelesítés). Az alábbi a döntés előtti anyag._
 
 ## Tények
 - [LEÍRÁS – `executor/psx.py` CodeWhaleAdapter] A CodeWhale `exec --auto` (Full Access) módban, **zár nélkül** fut

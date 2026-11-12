@@ -6,15 +6,15 @@
 | Mező | Érték |
 |---|---|
 | Azonosító | `project-s-ujjaepites` |
-| Állapot | **elfogadasra_var** |
+| Állapot | **fut** |
 | Cél | Egyszerű, a szerveren futó Project-S mag: telefonról ügy + cél → tartós ügyállapot → végrehajtás → mentett eredmény → rövid beszámoló; a régi unified kódból csak a közvetlenül hasznos részek. |
 | Következő lépés | A jelölt API-mentését közvetlen, rekordonként azonosítható NEAR-válaszrögzítéssel kell kiegészíteni. |
-| Utolsó feladat | t20261112-131027-e452e1 – elfogadasra_var |
-| Frissítve | 2026-11-12 13:15 UTC |
+| Utolsó feladat | t20261112-155023-06a667 – fut |
+| Frissítve | 2026-11-12 15:50 UTC |
 
-**Legutóbbi eredmény:** Elkészült a szerepalapú elfogadás tesztelt javításjelöltje és az átadási jelentés. Az éles és a jelölt teljes tesztcsomagja zöld, a végső célzott tesztekből 13/13 sikeres. Az éles kód változatlan maradt. A feladat részlegesen teljesített, mert az API-bizonyíték rögzítése és néhány folytatási út még kiegészítést igényel.
+**Legutóbbi eredmény:** A négy kifogásolt állítást forrással és időponttal pontosítottam, a 6 teszt zöld. A 15:37-es `DIFF=0` a korábbi naplóból származik. 15:40:39-kor a `scripts/` könyvtár már eltér a HEAD-től, de nem a jelölt munkája miatt. Emiatt a `vedett-ellenor` most 1-es kóddal megbukik. Ez toti döntésével oldható fel; a jelölt kódja ettől rendben van.
 
-**Döntésre vár:** `t20261112-124102-b5adb8` (hianyos), `t20261112-131027-e452e1` (elfogadasra_var)
+**Döntésre vár:** `t20261112-124102-b5adb8` (hianyos), `t20261112-152107-ac35dc` (hianyos), `t20261112-153643-e1fbdf` (hianyos), `t20261112-154023-bf9dad` (hianyos)
 
 <!-- ALLAPOT:VEG -->
 
@@ -211,3 +211,99 @@ Az ellenőr táblázata kapjon „szerep” oszlopot: | # | állítás | szerep 
 és mely védett fájl változott (toti jóváhagyásához). `scripts/tesztek.sh` ZÖLD.
  — elvárt: Állítás-szerep szerinti elfogadás (dontesi mind igazolt, erdemi ≤20% ellenőrizhetetlen, feltaro → tájékoztató), mentett API-válaszok, tesztek → `eredmenyek/allitas-kuszob.md`; ellenőrzés: letezik:eredmenyek/allitas-kuszob.md, min-meret:eredmenyek/allitas-kuszob.md:1500, tartalmaz:eredmenyek/allitas-kuszob.md:(?i)dontesi, parancs:/home/sagent/project-s-workshop/scripts/tesztek.sh, ember
 - 2026-11-12 13:15 UTC – feladat `t20261112-131027-e452e1`: végrehajtó állapota **needs_acceptance** → **elfogadasra_var** (szolgáltatók: codex)
+- 2026-11-12 14:50 UTC – feladat `t20261112-131027-e452e1`: végrehajtó állapota **accepted** → **elfogadva** (szolgáltatók: codex)
+- 2026-11-12 14:50 UTC – feladat `t20261112-131027-e452e1`: elfogadasra_var → **elfogadva** (döntött: toti (2026-11-12: „Jóváhagyom az A-t és a B-t, élesítsd”)): Élesítve Claude-átnézéssel (API-szabály szűkítve, mentés javítva)
+- 2026-11-12 15:21 UTC – feladat beküldve a végrehajtónak `t20261112-152107-ac35dc`: Készíts jelölt modult munka/jelolt/near_valasz_rogzites.py néven, amely az API-mentés mellé minden NEAR-válaszról külön rekordot ment hozzáfűzős JSONL-ként, hash-láncolva. Egy rekord: egyedi rekord_id, idő, kérés-azonosító, a nyers válasz sha256 hash-e, állapot, a válasz tartalma vagy hivatkozása. Írj hozzá egységtesztet munka/jelolt/test_near_valasz_rogzites.py néven: rekord_id egyedisége, a lánc sértetlensége, módosított rekord felismerése, hiányzó válasz külön jelölése. A NEAR-hez ne nyúlj közvetlenül, a tesztben hamis válaszokat használj. Ne módosíts éles vagy védett fájlt. Futtasd a tesztet, és írd le az eredményt (tesztek száma, sikeres/sikertelen, az éles és védett kód változatlansága, hátralévő hiányok) az eredmenyek/near-valaszrogzites.md fájlba. — elvárt: Létezik a jelölt modul, a teszt és az eredményjelentés; a teszt lefut és zöld; a jelentés rögzíti a tesztszámokat, és hogy az éles és védett kód változatlan maradt. → `eredmenyek/near-valaszrogzites.md`; ellenőrzés: letezik:eredmenyek/near-valaszrogzites.md, min-meret:eredmenyek/near-valaszrogzites.md:600, letezik:munka/jelolt/near_valasz_rogzites.py, letezik:munka/jelolt/test_near_valasz_rogzites.py, tartalmaz:munka/jelolt/near_valasz_rogzites.py:sha256, tartalmaz:munka/jelolt/near_valasz_rogzites.py:rekord_id, nem-tartalmaz:eredmenyek/near-valaszrogzites.md:FAILED, parancs:python3 /home/sagent/project-s-workshop/scripts/ugygazda.py vedett-ellenor b63d4b0acc4d29e6f1e5fa0a66e4fabf6c1364e1
+- 2026-11-12 15:24 UTC – feladat `t20261112-152107-ac35dc`: végrehajtó állapota **rejected** → **hianyos** (szolgáltatók: codex, claude) (nem teljesült: allitasok:eredmenyek/near-valaszrogzites-ellenorzes.md:0.20)
+- 2026-11-12 15:36 UTC – feladat beküldve a végrehajtónak `t20261112-153643-e1fbdf`: CÉLZOTT JAVÍTÁS (celzott-javitas-szerzo): A jelentés szerzőjével azonos típusú végrehajtó javítja célzottan a kifogásolt állításokat.
+
+A javítandó fájl: `eredmenyek/near-valaszrogzites.md` (az ügy mappájához képest). NE végezz teljes új kutatást, és ne írd újra a már igazolt részeket: csak a lent felsorolt kifogásokat kezeld.
+
+## Cáfolt állítások (kötelező javítani vagy elhagyni; az ellenőr bizonyítéka mellette)
+- [#13] ÁLLÍTÁS: `git diff --quiet HEAD -- scripts executor mcp` kilépési kódja 0
+  ELLENŐR BIZONYÍTÉKA: Újrafuttatva: `DIFF=0`
+
+## Hiányzó bizonyítékok (dontesi mind igazolandó; erdemi hiány legfeljebb 20%; adj forrást, jelöld „[nem ellenőrizhető]”-ként; ne töröld indokolatlanul)
+- [#8] A teszt csak hamis helyi válaszokat használ; a jelölt nem tartalmaz NEAR-hívást — ellenőr: `grep -i "near\|http\|requests\|urllib"` a J fájlban: 0 találat; J importjai (J:8–15) csak stdlib; T csak bájtliterálokat ad át
+- [#13] `git diff --quiet HEAD -- scripts executor mcp` kilépési kódja 0 — ellenőr: Újrafuttatva: `DIFF=0`
+- [#19] Élő NEAR-próba és API-mentővel közös futtatás nem történt; az éles bekötés nem része a jelöltnek — ellenőr: #8 (nincs hálózati kód); #13 (executor/scripts változatlan); J:65–66 docstring
+
+Kódra, fájlra mindig rögzített változattal hivatkozz (`<commit>:<fájl>:<sor>`, a `git log -1 --format=%h` szerinti commit), ne mozgó sorszámmal; az állapotleírásnál add meg az időpontot, mert a rendszer közben változhat.
+
+## Teljesítendő feltételek (változatlanok)
+- allitasok:eredmenyek/near-valaszrogzites-ellenorzes.md:0.20 → most: hianyos: dontesi nem igazolt=1; erdemi hiány=2/13 (15.38%); küszöb=20.00%; cáfolt=0; ellentmondás=False; hibák=0
+
+(Ügygazda-javítás, lánc: t20261112-152107-ac35dc, előző: t20261112-152107-ac35dc. Az eredeti feladat: Készíts jelölt modult munka/jelolt/near_valasz_rogzites.py néven, amely az API-mentés mellé minden NEAR-válaszról külön rekordot ment hozzáfűzős JSONL-ként, hash-láncolva. Egy rekord: egyedi rekord_id, idő, kérés-azonosító, a nyers válasz sha256 hash-e, állapot, a válasz tartalma vagy hivatkozása. Írj hozzá egységtesztet munka/jelolt/test_near_valasz_rogzites.py néven: rekord_id egyedisége, a lánc sértetlensége, módosított rekord felismerése, hiányzó válasz külön jelölése. A NEAR-hez ne nyúlj közvetlenül, a tesztben hamis válaszokat használj. Ne módosíts éles vagy védett fájlt. Futtasd a teszt) — elvárt: Létezik a jelölt modul, a teszt és az eredményjelentés; a teszt lefut és zöld; a jelentés rögzíti a tesztszámokat, és hogy az éles és védett kód változatlan maradt. → `eredmenyek/near-valaszrogzites.md`; ellenőrzés: min-meret:eredmenyek/near-valaszrogzites.md:600, letezik:munka/jelolt/near_valasz_rogzites.py, letezik:munka/jelolt/test_near_valasz_rogzites.py, tartalmaz:munka/jelolt/near_valasz_rogzites.py:sha256, tartalmaz:munka/jelolt/near_valasz_rogzites.py:rekord_id, nem-tartalmaz:eredmenyek/near-valaszrogzites.md:FAILED, parancs:python3 /home/sagent/project-s-workshop/scripts/ugygazda.py vedett-ellenor 36e53aaab1833273941b63dafeb4b0dee15845b8
+- 2026-11-12 15:39 UTC – feladat `t20261112-153643-e1fbdf`: végrehajtó állapota **rejected** → **hianyos** (szolgáltatók: codex, claude) (nem teljesült: allitasok:eredmenyek/near-valaszrogzites-ellenorzes.md:0.20)
+- 2026-11-12 15:40 UTC – feladat beküldve a végrehajtónak `t20261112-154023-bf9dad`: CÉLZOTT JAVÍTÁS (celzott-javitas-masik): Másik végrehajtó javítja célzottan, friss szemmel, a forrás közvetlen újraolvasásával.
+
+A javítandó fájl: `eredmenyek/near-valaszrogzites.md` (az ügy mappájához képest). NE végezz teljes új kutatást, és ne írd újra a már igazolt részeket: csak a lent felsorolt kifogásokat kezeld.
+
+## Cáfolt állítások (kötelező javítani vagy elhagyni; az ellenőr bizonyítéka mellette)
+- [#18] ÁLLÍTÁS: `git diff --quiet HEAD -- scripts executor mcp` 15:37 UTC-kor `DIFF=0`, a `93f6956` HEAD-hez képest
+  ELLENŐR BIZONYÍTÉKA: Szerzői napló 2. parancs kimenete: `DIFF=0`. Megjegyzés: `scripts/ugygazda.py` és `scripts/test_allitas_kuszob.py` 15:37:49 UTC-kor módosult, és a `cdf4290` (15:38:19, „Ügygazda: …”) commitba került; most `DIFF=0` a `cdf4290`-hez, `executor`/`mcp` a `93f6956`-hoz képest is változatlan. Az állítás kifejezetten időponthoz kötött, ezért nem cáfolt
+
+## Hiányzó bizonyítékok (dontesi mind igazolandó; erdemi hiány legfeljebb 20%; adj forrást, jelöld „[nem ellenőrizhető]”-ként; ne töröld indokolatlanul)
+- [#13] `rg -ni 'near\|http\|requests\|urllib'` J-n 0 találat, kilépés 1 — ellenőr: Újrafuttatva: nincs kimenet, `RG=1`; szerzői napló: `KERESÉS=1`
+- [#18] `git diff --quiet HEAD -- scripts executor mcp` 15:37 UTC-kor `DIFF=0`, a `93f6956` HEAD-hez képest — ellenőr: Szerzői napló 2. parancs kimenete: `DIFF=0`. Megjegyzés: `scripts/ugygazda.py` és `scripts/test_allitas_kuszob.py` 15:37:49 UTC-kor módosult, és a `cdf4290` (15:38:19, „Ügygazda: …”) commitba került; most `DIFF=0` a `cdf4290`-hez, `executor`/`mcp` a `93f6956`-hoz képest is változatlan. Az állítás ki
+- [#21] J:65–66 a hívóra bízza az API-mentés mellé illesztést — ellenőr: J:65–66 szó szerint: „Az API-mentés mellé a hívó illeszti be; a két mentés közötti tranzakciót ez az önálló modul nem biztosítja.”
+- [#22] Élő NEAR-próba és API-mentővel közös futtatás nem történt a vizsgált futásokban — ellenőr: Szerzői napló: 5 parancs, egyikben sincs NEAR/hálózati hívás; #12–#13 (hálózatmentes modul és teszt)
+
+Kódra, fájlra mindig rögzített változattal hivatkozz (`<commit>:<fájl>:<sor>`, a `git log -1 --format=%h` szerinti commit), ne mozgó sorszámmal; az állapotleírásnál add meg az időpontot, mert a rendszer közben változhat.
+
+## Teljesítendő feltételek (változatlanok)
+- allitasok:eredmenyek/near-valaszrogzites-ellenorzes.md:0.20 → most: hianyos: dontesi nem igazolt=1; erdemi hiány=3/17 (17.65%); küszöb=20.00%; cáfolt=0; ellentmondás=False; hibák=0
+
+(Ügygazda-javítás, lánc: t20261112-152107-ac35dc, előző: t20261112-153643-e1fbdf. Az eredeti feladat: CÉLZOTT JAVÍTÁS (celzott-javitas-szerzo): A jelentés szerzőjével azonos típusú végrehajtó javítja célzottan a kifogásolt állításokat. A javítandó fájl: `eredmenyek/near-valaszrogzites.md` (az ügy mappájához képest). NE végezz teljes új kutatást, és ne írd újra a már igazolt részeket: csak a lent felsorolt kifogásokat kezeld. ## Cáfolt állítások (kötelező javítani vagy elhagyni; az ellenőr bizonyítéka mellette) - [#13] ÁLLÍTÁS: `git diff --quiet HEAD -- scripts executor mcp` kilépési kódja 0 ELLENŐR BIZONYÍTÉKA: Újrafuttatva: `DIFF=0` ## Hiányzó bizonyítékok (dontesi mind igazolandó; erdemi hiá) — elvárt: Létezik a jelölt modul, a teszt és az eredményjelentés; a teszt lefut és zöld; a jelentés rögzíti a tesztszámokat, és hogy az éles és védett kód változatlan maradt. → `eredmenyek/near-valaszrogzites.md`; ellenőrzés: min-meret:eredmenyek/near-valaszrogzites.md:600, letezik:munka/jelolt/near_valasz_rogzites.py, letezik:munka/jelolt/test_near_valasz_rogzites.py, tartalmaz:munka/jelolt/near_valasz_rogzites.py:sha256, tartalmaz:munka/jelolt/near_valasz_rogzites.py:rekord_id, nem-tartalmaz:eredmenyek/near-valaszrogzites.md:FAILED, parancs:python3 /home/sagent/project-s-workshop/scripts/ugygazda.py vedett-ellenor 722d7c927354b00d28c6c3898230e35fc931c57e
+- 2026-11-12 15:43 UTC – feladat `t20261112-154023-bf9dad`: végrehajtó állapota **rejected** → **hianyos** (szolgáltatók: claude, codex) (nem teljesült: allitasok:eredmenyek/near-valaszrogzites-ellenorzes.md:0.20)
+- 2026-11-12 15:50 UTC – feladat beküldve a végrehajtónak `t20261112-155023-06a667`: CÉLZOTT JAVÍTÁS (szukites): Másik végrehajtó a kifogásolt és nem igazolható állításokat elhagyja vagy feltételesre szűkíti; új állítást nem vezet be.
+
+A javítandó fájl: `eredmenyek/near-valaszrogzites.md` (az ügy mappájához képest). NE végezz teljes új kutatást, és ne írd újra a már igazolt részeket: csak a lent felsorolt kifogásokat kezeld.
+
+## Cáfolt állítások (kötelező javítani vagy elhagyni; az ellenőr bizonyítéka mellette)
+- [#25] ÁLLÍTÁS: 15:37 UTC-kor HEAD 93f6956 mellett DIFF=0 volt
+  ELLENŐR BIZONYÍTÉKA: A git log tartalmazza a commitot 15:36:43 idővel, de az akkori diffhez hivatkozott szerzői napló nem olvasható.
+- [#26] ÁLLÍTÁS: 15:40:39-kor HEAD 21dcd06 mellett DIFF=1 és a megadott három scripts-fájl eltérése volt
+  ELLENŐR BIZONYÍTÉKA: A közvetlen első diff-stat valóban +15/−4, +1, +4/−2 változást mutatott, de a 15:41:53 utáni újrafuttatás DIFF=0-t adott. A történeti időpont pontos állapota nem rekonstruálható; az eltérő időpontú eredmény nem cáfolat.
+- [#28] ÁLLÍTÁS: A scripts-változásokat más folyamat írta, az ugygazda.py módosítása llm_json-ra váltás
+  ELLENŐR BIZONYÍTÉKA: A diff-stat nem mutat szerzőt; a későbbi `git diff HEAD -- ../../scripts/ugygazda.py` üres. Az eredeti módosítás szövege és folyamatattribúciója nem hozzáférhető.
+- [#30] ÁLLÍTÁS: A végrehajtó csak a jelölt alatt tesztelt és a jelentést írta, éles fájlt nem módosított
+  ELLENŐR BIZONYÍTÉKA: Ehhez teljes olvasható szerzői végrehajtási napló szükséges; a hivatkozott napló olvasása PermissionError hibát adott.
+- [#31] ÁLLÍTÁS: 15:40 UTC-kor a vedett-ellenor védettfájl-változást jelzett, 1-gyel lépett ki, PermissionError nélkül
+  ELLENŐR BIZONYÍTÉKA: A történeti kimenethez nincs olvasható napló. Saját futás: kilépés 1, de PermissionError a vedett_jovahagyott.json olvasásakor, ezért a jelentésben szereplő diagnózis most nem igazolható.
+- [#38] ÁLLÍTÁS: A védettfájl-hibát a nem commitolt ugygazda.py okozza, commit vagy visszavonás feloldja
+  ELLENŐR BIZONYÍTÉKA: Saját védettellenőrzés a jóváhagyási JSON olvasási jogosultságánál megáll; ebből a munkapéldány módosításának okozati szerepe és a javasolt megoldás elégségessége nem dönthető el.
+- [#17] ÁLLÍTÁS: A teljes J-ben nincs NEAR- vagy hálózati hívás; az rg keresés nincs találattal, 1-gyel tér vissza
+  ELLENŐR BIZONYÍTÉKA: J teljes áttekintése és saját `rg -ni 'near\|http\|requests\|urllib'` futtatás a jelentés szerinti reguláris alternációval: nincs kimenet, RG=1.
+- [#19] ÁLLÍTÁS: Az éles API-mentő módosítása és automatikus bekötése nem része a jelöltnek
+  ELLENŐR BIZONYÍTÉKA: J teljes fájlja kizárólag naplókezelő függvényeket tartalmaz; J:65–66 a hívóra bízza az illesztést. T kizárólag ezeket importálja. Más fájlok szerzőségére ez nem bizonyíték.
+- [#29] ÁLLÍTÁS: Az executor és mcp a 93f6956-hoz képest változatlan
+  ELLENŐR BIZONYÍTÉKA: Saját `git -C /home/sagent/project-s-workshop diff --quiet 93f6956 -- executor mcp`: EXECUTOR_MCP=0.
+- [#32] ÁLLÍTÁS: Élő NEAR-próba és API-mentővel közös futtatás nem történt a vizsgált korábbi futásokban; a régi napló 5 parancsot tartalmaz
+  ELLENŐR BIZONYÍTÉKA: A teljes futásnapló nem olvasható. J/T hálózatmentessége önmagában nem bizonyítja, hogy külön parancsban sem történt API-hívás.
+- [#33] ÁLLÍTÁS: J:65–66 a hívóra bízza az API-mentés mellé illesztést, és nem biztosít közös tranzakciót
+  ELLENŐR BIZONYÍTÉKA: J:65–66 közvetlen olvasása egyezik az idézett mondattal; J:62–87 nem tartalmaz második mentési rendszerrel tranzakciót.
+
+## Hiányzó bizonyítékok (dontesi mind igazolandó; erdemi hiány legfeljebb 20%; adj forrást, jelöld „[nem ellenőrizhető]”-ként; ne töröld indokolatlanul)
+- [#1] A javítás friss mérése 2026-11-12 15:40:39 UTC-kor történt, akkor HEAD 21dcd06 volt — ellenőr: A git log szerint 21dcd06 commitideje 15:40:23 UTC, de ez nem bizonyítja a mérés végrehajtási időpontját és akkori HEAD-jét; olvasható futásnapló nem áll rendelkezésre.
+- [#3] Commitolást a feladat tiltja — ellenőr: A vizsgált szerző eredeti teljes feladatutasítása nem hozzáférhető; a mostani ellenőri utasítás nem bizonyítja annak tartalmát.
+- [#6] A J/T tartalma a korábbi és a 15:40:39-es méréskor is azonos volt a megadott lenyomatokkal — ellenőr: A jelenlegi lenyomat ellenőrizhető, de történeti pillanatkép vagy olvasható hiteles futásnapló nincs.
+- [#17] A teljes J-ben nincs NEAR- vagy hálózati hívás; az rg keresés nincs találattal, 1-gyel tér vissza — ellenőr: J teljes áttekintése és saját `rg -ni 'near\|http\|requests\|urllib'` futtatás a jelentés szerinti reguláris alternációval: nincs kimenet, RG=1.
+- [#18] Az rg ugyanezt adta 15:40:39-kor és a korábbi futásban is — ellenőr: A korábbi napló közvetlen olvasása PermissionError; a jelenlegi keresés nem igazolja a történeti futást.
+- [#19] Az éles API-mentő módosítása és automatikus bekötése nem része a jelöltnek — ellenőr: J teljes fájlja kizárólag naplókezelő függvényeket tartalmaz; J:65–66 a hívóra bízza az illesztést. T kizárólag ezeket importálja. Más fájlok szerzőségére ez nem bizonyíték.
+- [#21] A szerző célzott javításakor is ugyanez volt a teszteredmény — ellenőr: A saját újrafuttatás a mostani működést igazolja, a korábbi futás időpontját és eredményét nem; hozzáférhető végrehajtási napló nincs.
+- [#25] 15:37 UTC-kor HEAD 93f6956 mellett DIFF=0 volt — ellenőr: A git log tartalmazza a commitot 15:36:43 idővel, de az akkori diffhez hivatkozott szerzői napló nem olvasható.
+- [#26] 15:40:39-kor HEAD 21dcd06 mellett DIFF=1 és a megadott három scripts-fájl eltérése volt — ellenőr: A közvetlen első diff-stat valóban +15/−4, +1, +4/−2 változást mutatott, de a 15:41:53 utáni újrafuttatás DIFF=0-t adott. A történeti időpont pontos állapota nem rekonstruálható; az eltérő időpontú eredmény nem cáfolat.
+- [#28] A scripts-változásokat más folyamat írta, az ugygazda.py módosítása llm_json-ra váltás — ellenőr: A diff-stat nem mutat szerzőt; a későbbi `git diff HEAD -- ../../scripts/ugygazda.py` üres. Az eredeti módosítás szövege és folyamatattribúciója nem hozzáférhető.
+- [#29] Az executor és mcp a 93f6956-hoz képest változatlan — ellenőr: Saját `git -C /home/sagent/project-s-workshop diff --quiet 93f6956 -- executor mcp`: EXECUTOR_MCP=0.
+- [#30] A végrehajtó csak a jelölt alatt tesztelt és a jelentést írta, éles fájlt nem módosított — ellenőr: Ehhez teljes olvasható szerzői végrehajtási napló szükséges; a hivatkozott napló olvasása PermissionError hibát adott.
+- [#31] 15:40 UTC-kor a vedett-ellenor védettfájl-változást jelzett, 1-gyel lépett ki, PermissionError nélkül — ellenőr: A történeti kimenethez nincs olvasható napló. Saját futás: kilépés 1, de PermissionError a vedett_jovahagyott.json olvasásakor, ezért a jelentésben szereplő diagnózis most nem igazolható.
+- [#32] Élő NEAR-próba és API-mentővel közös futtatás nem történt a vizsgált korábbi futásokban; a régi napló 5 parancsot tartalmaz — ellenőr: A teljes futásnapló nem olvasható. J/T hálózatmentessége önmagában nem bizonyítja, hogy külön parancsban sem történt API-hívás.
+- [#33] J:65–66 a hívóra bízza az API-mentés mellé illesztést, és nem biztosít közös tranzakciót — ellenőr: J:65–66 közvetlen olvasása egyezik az idézett mondattal; J:62–87 nem tartalmaz második mentési rendszerrel tranzakciót.
+
+Kódra, fájlra mindig rögzített változattal hivatkozz (`<commit>:<fájl>:<sor>`, a `git log -1 --format=%h` szerinti commit), ne mozgó sorszámmal; az állapotleírásnál add meg az időpontot, mert a rendszer közben változhat.
+
+## Teljesítendő feltételek (változatlanok)
+- allitasok:eredmenyek/near-valaszrogzites-ellenorzes.md:0.20 → most: hianyos: dontesi nem igazolt=6; erdemi hiány=5/22 (22.73%); küszöb=20.00%; cáfolt=0; ellentmondás=False; hibák=0
+
+(Ügygazda-javítás, lánc: t20261112-152107-ac35dc, előző: t20261112-154023-bf9dad. Az eredeti feladat: CÉLZOTT JAVÍTÁS (celzott-javitas-masik): Másik végrehajtó javítja célzottan, friss szemmel, a forrás közvetlen újraolvasásával. A javítandó fájl: `eredmenyek/near-valaszrogzites.md` (az ügy mappájához képest). NE végezz teljes új kutatást, és ne írd újra a már igazolt részeket: csak a lent felsorolt kifogásokat kezeld. ## Cáfolt állítások (kötelező javítani vagy elhagyni; az ellenőr bizonyítéka mellette) - [#18] ÁLLÍTÁS: `git diff --quiet HEAD -- scripts executor mcp` 15:37 UTC-kor `DIFF=0`, a `93f6956` HEAD-hez képest ELLENŐR BIZONYÍTÉKA: Szerzői napló 2. parancs kimenete: `DIFF=0`. Megjegyzé) — elvárt: Létezik a jelölt modul, a teszt és az eredményjelentés; a teszt lefut és zöld; a jelentés rögzíti a tesztszámokat, és hogy az éles és védett kód változatlan maradt. → `eredmenyek/near-valaszrogzites.md`; ellenőrzés: min-meret:eredmenyek/near-valaszrogzites.md:600, letezik:munka/jelolt/near_valasz_rogzites.py, letezik:munka/jelolt/test_near_valasz_rogzites.py, tartalmaz:munka/jelolt/near_valasz_rogzites.py:sha256, tartalmaz:munka/jelolt/near_valasz_rogzites.py:rekord_id, nem-tartalmaz:eredmenyek/near-valaszrogzites.md:FAILED, parancs:python3 /home/sagent/project-s-workshop/scripts/ugygazda.py vedett-ellenor ea9578cd1a0facb82cdf5fbb9c8a3bd79aad4970

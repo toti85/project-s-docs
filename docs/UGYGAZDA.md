@@ -42,6 +42,18 @@ Bizonyítékcímkék: **[MÉRT]** friss mérés (dátum, környezet, futásazono
 - **Külső tartalom:** az ügygazda strukturált állapotot kap; a weboldalak és feladatleírások feldolgozását végrehajtókra
   delegálja (NEAR: Claude idegen-tartalom módban). A beágyazott utasítás nem felhatalmazás.
 
+## Bizonyítékalapú elfogadás (toti/GPT, 2026-11-12)
+A független ellenőr minden állításhoz szerepet ad: **dontesi** (ár, jogosultság, finanszírozás, vállalhatóság – mind
+IGAZOLT kell, ellentmondás nélkül), **erdemi** (legfeljebb 20% ELLENŐRIZHETETLEN – induló működési küszöb), **feltaro**
+(lezárható „tájékoztató” eredményként; ebből az ügygazda nem indít vállalást). Szabály: `allitasok:<ellenorzes.md>[:0.20]`
+(`executor/allitasok.py`), kutatási feladatokra automatikusan. Bizonyítékhiány → célzott javítás. Nem nyilvános API-adat
+(webes forrás nélkül) csak mentett válasszal igazolt: `allapot/api-valaszok/<forrás>/<UTC>-<rekord>.json` (14 nap).
+
+## Futásidejű védelem (toti jóváhagyása, 2026-11-12)
+Minden zárolt végrehajtó (a CodeWhale is) Landlock-zárban fut: titokmappák nem olvashatók, a védett fájlok
+(`ugygazda/szabalyzat.json` listája + kötelezők) nem írhatók – nem csak utólag ellenőrizve. [MÉRT 2026-11-12]: titok olvasás
+exit 1, védett írás exit 1, nem védett írás exit 0.
+
 ## Napló, összesítő, kikapcsolás
 - Minden intézkedés: `~/.local/state/project-s/ugygazda/esemenyek.jsonl`, szereplő `ugygazda`.
 - Napi összesítő (18 UTC után, push): `…/ugygazda/napi/<nap>.md` – figyelő körök, elakadások, sikeres javítások,
