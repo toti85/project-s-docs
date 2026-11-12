@@ -141,6 +141,9 @@ Alapelvek:
 - **NEAR-munkás** (`scripts/near_munkas.py`, panel `/near/munkas`, időzítő): toti bekapcsolása után a kereten belül önállóan
   keres, besorol (teljes leírás, Claude eszközök nélkül: vallalhato/nem/bizonytalan), ajánl, elkészít, ellenőriz
   (vevői feltételek + idézet + alátámasztás) és lead; életút- és ráfordításnapló; vevői/pénzes műveletet nem végez; Claude idegen-tartalom módban (nincs shell, titokmappa tiltva).
+- **Nyilvános dokumentációs tükör:** github.com/toti85/project-s-docs (`scripts/docs_tukor.py`): a `docs/`, `FOLYTATAS.md`,
+  README és az újjáépítés ügyirata, e-mail/IP/tailnet-címek kitakarva, titokellenőrzéssel – a GPT- és a Claude-projekt ezt olvassa.
+  Frissítés: `python3 scripts/docs_tukor.py` (időzítő: `install/systemd-user/project-s-docs-tukor.timer`).
 - **Tesztcsomag:** `scripts/tesztek.sh` (végrehajtó + ATA tesztek + szintaxis); a beszélgetésben készült kódnál automatikusan fut.
 - **SMB-hozzáférés:** `smb-belepes [IP]` – Windows-megosztás belépési adatai a repón kívülre (pl. a <helyi-ip> mesemappája).
 - **Titokvédelem:** `scripts/titok_ellenor.py` pre-commit hook; titkok: `~/.config/project-s/` (600), soha nem repóba.
