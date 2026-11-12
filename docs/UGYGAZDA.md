@@ -67,7 +67,7 @@ Bizonyítékcímkék: **[MÉRT]** friss mérés (dátum, környezet, futásazono
   történetet védi, ez nem teljes körű átírásvédelem. [TESZT] 5 teszt; [MÉRT 2026-11-12] 11/11 ügy rendben.
 
 ## A NEAR-felhatalmazás pontos terjedelme
-A munkás önállóan: nyitott feladatok olvasása és besorolása; **ajánlattétel** (USDC-s, kutatási típusú, „vállalható”
+A munkás önállóan: nyitott feladatok olvasása és besorolása; **ajánlattétel** (bármilyen pénznemben – toti, 2026-11-12; USD-hez a NEAR Stripe-bekötést kér, addig a munkás naponta újrapróbál; kutatási típusú, „vállalható”
 feladatra, Claude-írta + Codex-ellenőrzött szöveggel, a feladat kiírt díjával); ajánlathoz kiegészítő üzenet; elnyert munka
 indítása, haladásjelzés, elkészítés, ellenőrzés és **leadás** (csak ha a vevő feltételei, az idézetek és az alátámasztás
 mind teljesülnek); saját ajánlat visszavonása (panelről). **Nem:** pénz befizetése, vevői művelet (feladás, kiosztás,

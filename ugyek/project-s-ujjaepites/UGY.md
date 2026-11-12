@@ -8,13 +8,13 @@
 | Azonosító | `project-s-ujjaepites` |
 | Állapot | **elfogadasra_var** |
 | Cél | Egyszerű, a szerveren futó Project-S mag: telefonról ügy + cél → tartós ügyállapot → végrehajtás → mentett eredmény → rövid beszámoló; a régi unified kódból csak a közvetlenül hasznos részek. |
-| Következő lépés | Az ügyszintű `esemenyek.jsonl` (hash-lánc) bevezetése az `ugy.py`-ban, egységteszttel: a napló visszajátszása az `allapot.json`-t adja. |
-| Utolsó feladat | t20261112-075002-bc0419 – elfogadasra_var |
-| Frissítve | 2026-11-12 07:53 UTC |
+| Következő lépés | Ügygazda mérése 1–2 napon át (napi összesítő); toti döntései a döntési sorban; CodeWhale-döntés. |
+| Utolsó feladat | kozvetlen-20261112-102309 – elfogadasra_var |
+| Frissítve | 2026-11-12 10:48 UTC |
 
-**Legutóbbi eredmény:** A régi terv végrehajtási magja feladatszinten megvan és igazolt: hash-láncolt napló, ebből számolt állapot, a végrehajtás és az elfogadás külön, a gépi kapu független. Ügyszinten viszont nincs eseménynapló, és az átmenetek jogszerűségét nem egy központi helyen ellenőrizzük. A gépen kívüli mentés és a visszaállítási próba is hiányzik. Az „intelligencia”-rétegek szándékosan maradtak ki. A tételes táblázat bizonyítékokkal, a lépések és a kérdések az eredményfájlban vannak.
+**Legutóbbi eredmény:** Ügygazda első változat élesben (figyel/folytat/kezdeményez), visszaállítási próba RENDBEN 55/55, NEAR külső-művelet védőréteg, ügynapló; 21 új teszt zöld; a rendszer saját ellenőrzése talált és javíttatott egy NEAR-életút hibát.
 
-**Döntésre vár:** `kozvetlen-20261105-174732` (elfogadasra_var), `t20261108-195153-318d73` (elfogadasra_var), `kozvetlen-20261108-201135` (elfogadasra_var), `kozvetlen-20261111-163223` (elfogadasra_var), `t20261112-075002-bc0419` (elfogadasra_var)
+**Döntésre vár:** `kozvetlen-20261105-174732` (elfogadasra_var), `t20261108-195153-318d73` (elfogadasra_var), `kozvetlen-20261108-201135` (elfogadasra_var), `kozvetlen-20261111-163223` (elfogadasra_var), `t20261112-075002-bc0419` (elfogadasra_var), `kozvetlen-20261112-102309` (elfogadasra_var)
 
 <!-- ALLAPOT:VEG -->
 
@@ -164,3 +164,4 @@ Ne találgass: ha a mai állapot nem igazolható a fájlokból, írd „nem igaz
 A dokumentum legyen önmagában érthető (külső olvasó, aki a repót nem látja).
  — elvárt: Régi Master Blueprint ⇄ mai műhely összevetése: összefoglaló, tételes táblázat bizonyítékkal, következő lépések, kérdések a GPT/Claude-projektnek → `eredmenyek/osszevetes-blueprint.md`; ellenőrzés: letezik:eredmenyek/osszevetes-blueprint.md, min-meret:eredmenyek/osszevetes-blueprint.md:4000, tartalmaz:eredmenyek/osszevetes-blueprint.md:(?i)megvan, tartalmaz:eredmenyek/osszevetes-blueprint.md:(?i)hiányzik, tartalmaz:eredmenyek/osszevetes-blueprint.md:(?i)kérdés, ember
 - 2026-11-12 07:53 UTC – feladat `t20261112-075002-bc0419`: végrehajtó állapota **needs_acceptance** → **elfogadasra_var** (szolgáltatók: claude)
+- 2026-11-12 10:23 UTC – közvetlen munka rögzítve (elfogadásra vár) → [`eredmenyek/2026-11-12-ugygazda.md`](eredmenyek/2026-11-12-ugygazda.md): Ügygazda első változat élesben (figyel/folytat/kezdeményez), visszaállítási próba RENDBEN 55/55, NEAR külső-művelet védőréteg, ügynapló; 21 új teszt zöld; a rendszer saját ellenőrzése talált és javítt
