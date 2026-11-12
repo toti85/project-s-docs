@@ -6,15 +6,15 @@
 | Mező | Érték |
 |---|---|
 | Azonosító | `project-s-ujjaepites` |
-| Állapot | **fut** |
+| Állapot | **elfogadasra_var** |
 | Cél | Egyszerű, a szerveren futó Project-S mag: telefonról ügy + cél → tartós ügyállapot → végrehajtás → mentett eredmény → rövid beszámoló; a régi unified kódból csak a közvetlenül hasznos részek. |
 | Következő lépés | A jelölt API-mentését közvetlen, rekordonként azonosítható NEAR-válaszrögzítéssel kell kiegészíteni. |
-| Utolsó feladat | t20261112-170023-ffb1a6 – fut |
-| Frissítve | 2026-11-12 17:00 UTC |
+| Utolsó feladat | t20261112-170023-ffb1a6 – hianyos |
+| Frissítve | 2026-11-12 17:02 UTC |
 
-**Legutóbbi eredmény:** A cáfolt #17-es állítást javítottam: nincs javítandó fájljogosultság, a hibát a végrehajtó szándékos Landlock-zára okozza. Ezt rögzített commitra (`ec66ba4`) mutató fájl–sor hivatkozások igazolják. Ebből a környezetből a `vedett-ellenor` rc=0-val fut. A jelentésből kikerült a toti-nak szóló téves teendő. A többi hiányzó bizonyítékú állítás vagy időpontos mérést kapott, vagy „[nem ellenőrizhető]” jelölést. Az ellenőrzési fájl csak az ellenőr újrafuttatása után frissül.
+**Legutóbbi eredmény:** A jelentés célzott javítása elkészült. A kifogásolt következtetéseket visszavontam vagy a bizonyítékok erejére szűkítettem. A védettfájl-ellenőrzés olvasási hibával leállt, ezért sikeres ellenőrzést nem állítok. A végleges elfogadáshoz független újraellenőrzés szükséges.
 
-**Döntésre vár:** `t20261112-124102-b5adb8` (hianyos), `t20261112-152107-ac35dc` (hianyos), `t20261112-153643-e1fbdf` (hianyos), `t20261112-154023-bf9dad` (hianyos), `t20261112-155023-06a667` (hianyos), `t20261112-160017-04208e` (hianyos), `t20261112-164422-68156c` (hianyos), `t20261112-165023-8bb41c` (hianyos)
+**Döntésre vár:** `t20261112-124102-b5adb8` (hianyos), `t20261112-152107-ac35dc` (hianyos), `t20261112-153643-e1fbdf` (hianyos), `t20261112-154023-bf9dad` (hianyos), `t20261112-155023-06a667` (hianyos), `t20261112-160017-04208e` (hianyos), `t20261112-164422-68156c` (hianyos), `t20261112-165023-8bb41c` (hianyos), `t20261112-170023-ffb1a6` (hianyos)
 
 <!-- ALLAPOT:VEG -->
 
@@ -407,3 +407,4 @@ Kódra, fájlra mindig rögzített változattal hivatkozz (`<commit>:<fájl>:<so
 - allitasok:eredmenyek/20261112-160017-ellenorzes.md:0.20 → most: hianyos: dontesi nem igazolt=3; erdemi hiány=3/9 (33.33%); küszöb=20.00%; cáfolt=0; ellentmondás=False; hibák=0
 
 (Ügygazda-javítás, lánc: t20261112-160017-04208e, előző: t20261112-165023-8bb41c. Az eredeti feladat: CÉLZOTT JAVÍTÁS (celzott-javitas-masik): Másik végrehajtó javítja célzottan, friss szemmel, a forrás közvetlen újraolvasásával. A javítandó fájl: `eredmenyek/20261112-160017.md` (az ügy mappájához képest). NE végezz teljes új kutatást, és ne írd újra a már igazolt részeket: csak a lent felsorolt kifogásokat kezeld. ## Cáfolt állítások (kötelező javítani vagy elhagyni; az ellenőr bizonyítéka mellette) - [#17] ÁLLÍTÁS: Ez „toti/rendszer oldali jogosultság”, a `vedett_jovahagyott.json` jogosultságát toti javítsa ELLENŐR BIZONYÍTÉKA: A fájl jogosultsága rendben: `644 sagent`, könyvtár `755 sagent`) — elvárt: Egy hasznos következő lépés használható eredménye, független ellenőrzése és visszakereshető futásazonosítók; vagy igazolt konkrét függőség és folytatási feltétel. → `eredmenyek/20261112-160017.md`; ellenőrzés: letezik:munka/ugygazda-eles-proba-20261112-terv.md, letezik:eredmenyek/ugygazda-eles-proba-20261112.md, parancs:python3 /home/sagent/project-s-workshop/scripts/ugygazda.py vedett-ellenor 0715692d4bd59ba647e296be87cbbf19b959b05d
+- 2026-11-12 17:02 UTC – feladat `t20261112-170023-ffb1a6`: végrehajtó állapota **rejected** → **hianyos** (szolgáltatók: codex, claude) (nem teljesült: allitasok:eredmenyek/20261112-160017-ellenorzes.md:0.20)
