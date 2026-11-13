@@ -138,3 +138,13 @@ A fejlesztések élesítése külön feltételekhez kötött; az akadályozott t
 10. **Figyelő: nem commitolt kódváltozás az éles repóban.** Ha a kódkönyvtárakban (executor/scripts/mcp/install/docs/ugygazda) nem commitolt követett
    módosítás van 15 percnél tovább, az ügygazda jelezzen (döntési tétel + egyszeri értesítés, a módosított fájlok listájával) – nem blokkoló.
    Ez a helyzet órákig akadályozta az automatikus élesítést.
+
+   **Elkészült (fejlesztési példány, 2026-11-13):** a figyelő Gitből, csak olvasással méri a követett
+   index- és munkafamódosításokat a hat megadott könyvtárban; az új, nem követett fájlok nem tartoznak ide.
+   Fájlonként menti az első észlelés idejét, 15 percnél tovább fennálló módosításnál `figyelmeztetes`
+   döntési tételt és egyszeri push-jelzést készít; a teljes aktuális fájllista a döntési sorban van.
+   Tiszta repónál a jelzés és a mérés törlődik, új epizód ismét jelezhet. Mérési hiba nem jelent tisztaságot;
+   nem törli a korábbi figyelmeztetést. A figyelő nem commitol, nem javít és nem állít le ügyet.
+   Az `ugygazda` push-azonosítót a feldolgozó most elfogadja; a jelzés a `/ugygazda` oldalra mutat.
+   Regresszió: 15 perces határ, egyszeri/tartós értesítési állapot, fájllistaváltás, tisztulás/új epizód,
+   mérési hiba melletti továbbműködés, valódi Gitben staged/unstaged/törlés/átnevezés és különleges fájlnevek.

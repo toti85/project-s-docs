@@ -136,6 +136,21 @@ Napló: `~/.local/state/project-s/fonok-auto/naplo.jsonl`.
   a fájlban van. A push best effort: a kézbesítés nem garantált, a kész jelentést értesítési hiba miatt nem ismétli.
   Jelentéshiba `reggeli_jelentes_hiba` eseményt okoz; nem állítja le az ügygazda további működését.
 
+## Nem commitolt éles kód figyelése
+
+A `figyel` a telepített repó `executor/`, `scripts/`, `mcp/`, `install/`, `docs/`, `ugygazda/`
+könyvtáraiban követett index- és munkafamódosításokat vizsgálja (a nem követett új fájlokat nem).
+Fájlonként az első észlelés időpontját menti; 15 percnél hosszabb megfigyelt módosításnál
+`figyelmeztetes:nem-commitolt-kod` döntési tételt és egyszeri push-jelzést ad. A tétel aktuális
+fájllistája frissül, a push a `/ugygazda` oldalra vezet. A generált képességleltár módosítása is
+látható itt, bár az élesítés tisztasági kapuja azt kihagyja.
+
+Ez csak jelzés: a figyelő nem commitol, nem állít helyre, és nem blokkolja az ügyfolytatást.
+A mérés és az értesítési jelző tartós állapotban van, így újraindításkor nem indul új 15 perces időablak.
+Tiszta repónál a tétel megszűnik; újabb módosítás új epizód. Sikertelen Git-mérésnél a korábbi jelzés
+megmarad, és a többi ellenőrzés folytatódik. [TESZT] `scripts/test_ugygazda.py`, hamis óra és valódi
+ideiglenes Git-repó; éles push-kézbesítést ez a fejlesztési teszt nem igazol.
+
 ## Napló, összesítő, kikapcsolás
 - Minden intézkedés: `~/.local/state/project-s/ugygazda/esemenyek.jsonl`, szereplő `ugygazda`.
 - Napi összesítő (18 UTC után, push): `…/ugygazda/napi/<nap>.md` – figyelő körök, elakadások, sikeres javítások,
