@@ -54,6 +54,14 @@ Minden zárolt végrehajtó (a CodeWhale is) Landlock-zárban fut: titokmappák 
 (`ugygazda/szabalyzat.json` listája + kötelezők) nem írhatók – nem csak utólag ellenőrizve. [MÉRT 2026-11-12]: titok olvasás
 exit 1, védett írás exit 1, nem védett írás exit 0.
 
+## Tartós felhatalmazás védett fájlokra (toti, 2026-11-13)
+A védett fájl érintése önmagában nem kér új engedélyt: a már felhatalmazott feladatok módosításai az ellenőrzött élesítésen mennek át
+(`scripts/elesites.py`: pontosan az átnézett commit, más gyártó független átnézése, zöld éles teszt, futó feladat nélkül, utólagos
+szolgáltatás-ellenőrzés, automatikus visszaállítás), és az élesítő rögzíti a jóváhagyást (`ugygazda vedett-jovahagy`, „ellenőrzött
+élesítés … toti tartós felhatalmazása”). Kivétel: a felhatalmazást rögzítő fájl (`jovahagyast_igenylo_fajlok`, jelenleg
+`ugygazda/szabalyzat.json`) – ennek módosítása toti kifejezett jóváhagyását kéri (`elesit … --vedett-jovahagyva "<toti>"`).
+Az ügygazda saját ciklushibáját is jelzi (döntési tétel + push), a következő sikeres ciklus feloldja; mindkét esemény a naplóban marad.
+
 ## Napló, összesítő, kikapcsolás
 - Minden intézkedés: `~/.local/state/project-s/ugygazda/esemenyek.jsonl`, szereplő `ugygazda`.
 - Napi összesítő (18 UTC után, push): `…/ugygazda/napi/<nap>.md` – figyelő körök, elakadások, sikeres javítások,
@@ -85,3 +93,14 @@ indítása, haladásjelzés, elkészítés, ellenőrzés és **leadás** (csak h
 mind teljesülnek); saját ajánlat visszavonása (panelről). **Nem:** pénz befizetése, vevői művelet (feladás, kiosztás,
 elfogadás), vita, új fiók/piac. **Keret:** dollárplafon nincs (toti, 2026-11-11); korlát a körönkénti legfeljebb 10 új
 ajánlat. A korábbi „kereten belül” megfogalmazások erre értendők.
+
+### Saját ciklushiba jelzése
+
+A figyelő ellenőrzi a `project-s-ugygazda.service` `Result` értékét. Hibás eredménynél,
+vagy a ciklusból kiszökő kivételnél azonnal ment egy `akadaly:ugygazda-ciklus` döntési tételt,
+és egyszer push-értesítést küld. A `/ugygazda` döntési sorában megjelenik a hiba és a
+`journalctl --user -u project-s-ugygazda.service -n 20` titokszűrt vége.
+A tétel teljes sikeres ciklus után automatikusan eltűnik; a folyamatban lévő ciklus
+`Result=success` értéke önmagában nem törli. A figyelő külön futtatva a már befejezett,
+sikeres systemd-egység alapján is töröl. Nem olvasható systemd-állapot nem igazol sikert.
+A kivétel továbbra is hibás kilépést okoz; a jelzés nem rejti el a systemd elől.

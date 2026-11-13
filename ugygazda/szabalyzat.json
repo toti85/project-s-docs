@@ -38,7 +38,8 @@
   "executor/zar.py",
   "scripts/rendszerlepes.py",
   "scripts/near_kulso.py",
-  "executor/acceptance.py"
+  "executor/acceptance.py",
+  "scripts/elesites.py"
  ],
  "celok": [
   {
@@ -61,5 +62,9 @@
   "root művelet (rendszerlepes – toti jóváhagyása)"
  ],
  "kezdemenyezes_tetlen_perc": 60,
- "_kezdemenyezes": "toti (2026-11-12): minden körben keress végrehajtható lépést; ha a kijelölt ügyek várnak, kezdeményezz egy konkrét, hasznos feladatot a tartós célokon belül (tétlenségnél legfeljebb óránként). Az irányt és a célokat az ügygazda nem módosítja."
+ "_kezdemenyezes": "toti (2026-11-12): minden körben keress végrehajtható lépést; ha a kijelölt ügyek várnak, kezdeményezz egy konkrét, hasznos feladatot a tartós célokon belül (tétlenségnél legfeljebb óránként). Az irányt és a célokat az ügygazda nem módosítja.",
+ "jovahagyast_igenylo_fajlok": [
+  "ugygazda/szabalyzat.json"
+ ],
+ "_vedett_elesites": "toti tartós felhatalmazása (2026-11-13): a védett fájl érintése önmagában nem kér új engedélyt – a már felhatalmazott feladatok módosításai az ellenőrzött élesítésen mennek át (átnézett commit, más gyártó független átnézése, zöld éles teszt, futó feladat nélkül, automatikus visszaállítás); az élesítő rögzíti a jóváhagyást. Kivétel: a felhatalmazást rögzítő fájl (jovahagyast_igenylo_fajlok) módosítása toti kifejezett jóváhagyását kéri."
 }
