@@ -19,7 +19,8 @@ _Utolsó frissítés: 2026-11-13 02:40 UTC_
   közben új commitra lépett. Új, az aktuális ághoz tartozó elfogadott átnézés kell. A reggeli jelentés fájlja
   ekkor még nincs az éles repóban; a fejlesztési példány zöld tesztje nem bizonyít éles működést.
 - **Főnök-folyamat:** saját fejlesztési klón → zöld teszt → commit → más gyártó átnézése → bekapcsolt
-  ügygazda automatikus élesítési kísérlete. Futó/sorban álló feladatnál vár, más hibát véglegesként naplóz.
+  ügygazda automatikus élesítési kísérlete. Az átmeneti akadályok (futó feladat, nem commitolt kód, helyi ütközés)
+  újrapróbálását és a 6 órás jelzést a 7. backlog-tétel fejlesztése kezeli; élesítése külön lépés.
   Pontosan az átnézett ágfej, összefésült változat tesztje és szolgáltatás-ellenőrzés kell; hiba esetén visszalépés.
   Élesítési napló: `~/.local/state/project-s/elesites.jsonl`; visszaállítás: `scripts/elesites.py visszaallit <elozo-címke>`.
   Részletek és főnök-automatika kapcsolói: `docs/UGYGAZDA.md`.

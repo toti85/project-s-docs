@@ -78,7 +78,9 @@ Az ügygazda saját ciklushibáját is jelzi (döntési tétel + push), a követ
    Tisztán dokumentációs változás önmagában nem vált ki új kódátnézést.
 3. Bekapcsolt ügygazda minden ciklusában meghívja az `elesites.auto()` függvényt. Az elfogadott,
    még nem élesített főnök-átnézéseket próbálja élesíteni. Futó/sorban álló psx-feladatnál vár a következő
-   ciklusra. Más élesítési hibát `auto_vegleges_hiba` eseménnyel rögzít, azt nem ismétli automatikusan.
+   ciklusra. Nem commitolt kódnál vagy ütköző helyi elemnél is újrapróbál; a generált képességleltárt kihagyja
+   a tisztaságvizsgálatból. Azonos akadálytípus 6 óra után egyszeri jelzést kap. Egyéb, végleges hibát
+   `auto_vegleges_hiba` eseménnyel rögzít, azt nem ismétli automatikusan.
 4. Az élesítő ellenőrzi, hogy a fejlesztési ág feje **pontosan az átnézett commit**. Ha az ág újabb
    commitra lépett, új átnézés kell; a régi elfogadás nem elég. Az éles munkafában nem lehet nem commitolt
    kódváltozás. Ideiglenes munkafában összefésül, újra lefuttatja a teljes tesztcsomagot, és csak zöld

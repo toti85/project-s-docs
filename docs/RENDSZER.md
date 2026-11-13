@@ -148,7 +148,9 @@ Alapelvek:
   Az elfogadási szabályokat az éles kód állítja össze; csak dokumentáció módosítása önmagában nem indít kódátnézést.
 - **Automatikus élesítés** (`scripts/elesites.py`, hívója az ügygazda ciklusa): bekapcsolt ügygazda az elfogadott
   főnök-átnézéseket élesíti. A fejlesztési ág feje az átnézett commit kell legyen; új commit után új átnézés kell.
-  Futó/sorban álló psx-feladatnál később próbálkozik, más hiba véglegesként naplózódik. Az összefésülés külön
+  Futó/sorban álló psx-feladat, nem commitolt kód vagy ütköző helyi elem esetén később próbálkozik;
+  azonos akadálytípus 6 óra után egyszer jelez. A generált `docs/KEPESSEGEK.md` nem bukik a tisztaságvizsgálaton;
+  ütköző helyi adatot továbbra sem ír felül. Egyéb hiba véglegesként naplózódik. Az összefésülés külön
   munkafában készül, teljes tesztcsomaggal; csak zöld eredménnyel változik az éles ág. Szolgáltatás-ellenőrzés,
   hiba esetén automatikus visszalépés; előtte `elozo-*`, siker után `elo-*` címke, napló: `…/elesites.jsonl`.
   A felhatalmazási fájl (`ugygazda/szabalyzat.json`) változása toti kifejezett döntése; a többi már felhatalmazott

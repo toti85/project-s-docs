@@ -76,3 +76,21 @@ A fejlesztések élesítése külön feltételekhez kötött; az akadályozott t
    indítás `.md`/`.py`/`.json` eredménnyel). Pontosítás: a `near-kivalasztas-proba` tényleges célútja
    `eredmenyek/kivalasztas-proba.md`, ez szabályos és továbbra is elfogadható; az első két ügy útja hibás.
    A régi ügyek eredményeit nem minősítettük át és javítási keretüket nem állítottuk vissza.
+
+7. **Az automatikus élesítés ideiglenes akadályai nem lehetnek végleges hibák (új, 2026-11-13 04:00).** Éjjel egy elfogadott átnézés
+   órákig nem élesedett: (a) a napi generált `docs/KEPESSEGEK.md` (mentes.sh → kepessegek.py) nem commitolt módosításként a kódkönyvtár
+   tisztaságvizsgálatán megbuktatta az élesítést; (b) egy kézi/automata próbálkozás „nem commitolt változás” miatt `auto_vegleges_hiba`
+   eseményt írt, és az `auto()` ettől az átnézést örökre kihagyta. Javítsd az `elesites.py`-ban: az ideiglenes okok (nem commitolt
+   változás, futó feladat, ütköző helyi elem) ne legyenek végleges hibák (újrapróba a következő körben, a naplóban látható okkal, ismétlődő
+   azonos ok 6 óra után értesítés); a generált `docs/KEPESSEGEK.md` ne akadályozza az élesítést (a tisztaságvizsgálat kihagyja, vagy a
+   kepessegek.py commitolja magát – válaszd a kisebb kockázatút, teszttel). Előtte: `git pull --no-edit origin main`.
+
+   **Elkészült (fejlesztési példány, 2026-11-13):** az átmeneti akadály kilépési kódja 2,
+   az `auto()` nem véglegesíti, hanem minden következő körben próbálja, okkal naplózva (`auto_varakozas`).
+   Ugyanaz az akadálytípus 6 óra után egyszer szálüzenetet és push-jelzést kap; okváltás új időablakot indít,
+   a várakozás/értesítés állapota naplóból visszaáll. A régi, ismert átmeneti okból tévesen véglegesített
+   hibák újrapróbálhatók; a valódi végleges hibák és jóváhagyási korlátok megmaradnak.
+   A tisztaságvizsgálat csak a generált `docs/KEPESSEGEK.md` fájlt hagyja ki; azt nem commitolja és nem törli.
+   Ütköző helyi tartalmat a Git továbbra sem írhat felül (ilyen ütközésnél várakozik).
+   Teszt: valódi ideiglenes Git-repókban leltármegőrzés, piszkos kód/ignorált fájl utáni sikeres újrapróba;
+   hamis órával naplóból folytatott várakozás, okváltás, egyszeri 6 órás jelzés és régi hibák feloldása.
