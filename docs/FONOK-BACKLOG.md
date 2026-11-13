@@ -94,3 +94,47 @@ A fejlesztések élesítése külön feltételekhez kötött; az akadályozott t
    Ütköző helyi tartalmat a Git továbbra sem írhat felül (ilyen ütközésnél várakozik).
    Teszt: valódi ideiglenes Git-repókban leltármegőrzés, piszkos kód/ignorált fájl utáni sikeres újrapróba;
    hamis órával naplóból folytatott várakozás, okváltás, egyszeri 6 órás jelzés és régi hibák feloldása.
+
+8. **SÜRGŐS – a végrehajtók zárában a repó testvér-moduljai nem importálhatók (2026-11-13 22:00).** Reprodukálható: `python3 executor/zar.py --teljes
+   --ir $PWD/kozos -- bash -c 'cd $PWD && ls scripts; python3 -c "import sys;sys.path[:0]=[\"scripts\",\"executor\"];import celut,web,psx"'` →
+   „cannot open directory 'scripts'" / ModuleNotFoundError: celut, web, psx. Ok: az `irhato_agak` (executor/zar.py) a védett fájlt tartalmazó
+   szülőket (repó gyökere, scripts/, executor/) szétbontja, de magukra a szülőkre nem ad olvasási/listázási jogot (READ_DIR), csak a gyerekekre.
+   Következmény: a zárban futó végrehajtók és független átnézők nem tudják futtatni a tesztcsomagot („PIROS”), miközben a psx elfogadási
+   `parancs:` szabálya zár nélkül fut („exit 0”) – ez az ellentmondás. Javítás (egy másolaton már igazolva): `irhato_agak` gyűjtse a szétbontott
+   szülőket (`szulok` lista), és az `alkalmaz` adjon rájuk `olvas` jogot (írás nélkül). Elvárt: (a) importok és `ugy lista` működnek a zárban;
+   (b) a védett fájl írása, új fájl létrehozása a védett fájlt tartalmazó szülőben továbbra is tiltott; (c) a nem védett meglévő fájl írható;
+   (d) REGRESSZIÓS TESZT a tesztcsomagban (scripts/tesztek.sh): `zar.py --teljes -- python3 -c "import celut, web, psx, ugy"` a repó gyökeréből
+   és `ls scripts`, hogy a jövőben a zár-hiba a zár nélküli elfogadási futásban is pirosat adjon; (e) tesztek.sh a zárban is ZÖLD.
+   Előtte: `git pull --no-edit origin main`. Második rész (9. tétel lent) külön commit.
+   **Elkészült (fejlesztési példány, 2026-11-13):** az `irhato_agak` az írható ágak mellett a szétbontott
+   szülőket is visszaadja; az `alkalmaz` ezekre csak olvasás/listázás/futtatás jogot ad, írásjogot nem.
+   Új regresszió: `scripts/test_zar_import.py`, a `scripts/tesztek.sh` része. Valódi Landlock alatt teszteli
+   a `--teljes` importokat (`celut`, `web`, `psx`, `ugy`), az `ls scripts` és az `ugy lista` futását,
+   továbbá elkülönített fixture-rel a védett írás/csere és új fájl tiltását, a meglévő nem védett fájl írhatóságát.
+   A beágyazott teljes zár próbája explicit `--ir <példány>` utat használ, külön `--olvas <példány>` nélkül;
+   a külső zár home-listázási korlátozását a belső zár nem tudja feloldani. A pusztán `--ir kozos` alak itt
+   emiatt továbbra sem elég; ez különbözik a szétbontott szülők most javított READ_DIR-hiányától.
+   Teljes csomag normál és szűk záras futása ellenőrizve; a szűk próba külön repo-olvasási engedély nélkül:
+   `python3 executor/zar.py --ir "$PWD" --ir /tmp -- scripts/tesztek.sh`.
+   A mentési hibát (9. tétel) ez a commit nem módosítja.
+
+9. **Visszaállítási próba: abszolút symlink a mentésben.** A napi próba (scripts/visszaallitas_proba.py) 2026-11-13 03:17 óta HIBA:
+   `AbsoluteLinkError … ugyek/titok-vedelem/munka/fixture/alias is a link to an absolute path` (a titokvédelmi próba fixture-je került a mentésbe).
+   Javítás: a kibontás az abszolút symlinkeket NE hozza létre (kihagyja, naplózza: név + cél), minden mást a `data_filter` szerint; a hiba csak akkor
+   legyen HIBA, ha nem symlink-szűrési eredetű. Teszt: szintetikus tar abszolút linkkel (kihagyva, naplózva, a többi ép), valamint a valódi
+   archívum. A korábbi gazdátlan próbálkozás: ugyek/mentes-abszolut-link-javitas/munka/gazdatlan-modositas-visszaallitas_proba.patch (referencia, nem
+   átveendő: a valódi archívumra nem hatott).
+   **Kódjavítás elkészült; valódi archívumos ellenőrzés AKADÁLYOZOTT (2026-11-13):**
+   a kibontás minden abszolút symlinket kihagy, névvel és céllal naplózza a `kibontas.jsonl`-ben és
+   az `osszegzes.json` `kibontasi_naplo` mezőjében. Nincs fixture-engedélylista vagy külön CLI-kapcsoló.
+   A tag saját útvonala is `data_filter`-ellenőrzést kap; a relatív kilépő link, abszolút hardlink és
+   egyéb szűrési/naplózási hiba továbbra is hibát okoz. Az eredeti teljességi és naplóellenőrzések megmaradnak.
+   Regresszió: `scripts/test_visszaallitas_proba.py` (6 teszt), a teljes tesztcsomagba bekötve;
+   szintetikus teljes archívum öt valódi psx-ellenőrzéssel és `ugy lista` futtatással RENDBEN,
+   elrontott naplóval HIBA. A valódi `/home/sagent/mentes` könyvtár olvasása `PermissionError` (errno 13),
+   ezért a valódi archívumon a javítást ebből a fejlesztési környezetből nem ellenőriztem.
+   Az éles napi próba eredményét ez a fejlesztési futás nem minősíti át; jogosult környezetből újra kell futtatni.
+
+10. **Figyelő: nem commitolt kódváltozás az éles repóban.** Ha a kódkönyvtárakban (executor/scripts/mcp/install/docs/ugygazda) nem commitolt követett
+   módosítás van 15 percnél tovább, az ügygazda jelezzen (döntési tétel + egyszeri értesítés, a módosított fájlok listájával) – nem blokkoló.
+   Ez a helyzet órákig akadályozta az automatikus élesítést.
