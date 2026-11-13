@@ -2,7 +2,7 @@
 
 # Ügygazda – a Projekt S önálló megfigyelője és irányítója
 
-_Állapot: 2026-11-12. Forrás: toti tartós megbízása (2026-11-12): „tartsátok működésben és fejlesszétek a Projekt S-t,
+_Állapot: 2026-11-13. Forrás: toti tartós megbízása (2026-11-12): „tartsátok működésben és fejlesszétek a Projekt S-t,
 vigyétek tovább a bevételi és egyéb kijelölt ügyeket, építsétek meg a hiányzó képességeket”. A rendszer méretét a feladat
 indokolja; a korábbi „nagy önálló AI-rendszert nem építünk” szabály ezzel megszűnt._
 
@@ -61,6 +61,78 @@ szolgáltatás-ellenőrzés, automatikus visszaállítás), és az élesítő r�
 élesítés … toti tartós felhatalmazása”). Kivétel: a felhatalmazást rögzítő fájl (`jovahagyast_igenylo_fajlok`, jelenleg
 `ugygazda/szabalyzat.json`) – ennek módosítása toti kifejezett jóváhagyását kéri (`elesit … --vedett-jovahagyva "<toti>"`).
 Az ügygazda saját ciklushibáját is jelzi (döntési tétel + push), a következő sikeres ciklus feloldja; mindkét esemény a naplóban marad.
+
+## Főnök-fejlesztés és ellenőrzött élesítés
+
+[LEÍRÁS, 2026-11-13] A folyamat forrása: `executor/beszelgetes.py`, `scripts/elesites.py`,
+`scripts/ugygazda.py`. A fejlesztési példányban elkészült kód önmagában még nem éles szolgáltatás.
+
+1. A panel `/c` szála a saját `~/project-s-dev/<szál>` klónjában, `fonok/<szál>` ágon dolgozik.
+   A szálhoz közös munkaállapot tartozik; modellváltáskor ebből folytat. A főnök szűk zárja az éles
+   `~/project-s-workshop` repót csak olvasni engedi. Munka: módosítás → `scripts/tesztek.sh` → commit;
+   a fejlesztő nem pushol és nem írja át az éles repót.
+2. Új commit és az átnézést kiváltó kódfájl-változás esetén automatikus psx-átnézés indul.
+   Az átnéző más gyártó modellje; az elfogadási szabályokat az éles kód állítja össze:
+   teljes tesztcsomag, átnézési jelentés, nincs `HIBA` tétel, nincs követett munkafamódosítás.
+   A jelentés `kozos/kimeno/atnezes-*.md`; a feladat specifikációja rögzíti a szerzőt és az átnézett commitot.
+   Tisztán dokumentációs változás önmagában nem vált ki új kódátnézést.
+3. Bekapcsolt ügygazda minden ciklusában meghívja az `elesites.auto()` függvényt. Az elfogadott,
+   még nem élesített főnök-átnézéseket próbálja élesíteni. Futó/sorban álló psx-feladatnál vár a következő
+   ciklusra. Más élesítési hibát `auto_vegleges_hiba` eseménnyel rögzít, azt nem ismétli automatikusan.
+4. Az élesítő ellenőrzi, hogy a fejlesztési ág feje **pontosan az átnézett commit**. Ha az ág újabb
+   commitra lépett, új átnézés kell; a régi elfogadás nem elég. Az éles munkafában nem lehet nem commitolt
+   kódváltozás. Ideiglenes munkafában összefésül, újra lefuttatja a teljes tesztcsomagot, és csak zöld
+   eredménnyel tekeri előre az éles ágat. Ütköző helyi fájlt nem ír felül.
+5. Élesítés előtt `elozo-<idő>`, siker után `elo-<idő>` címke készül. Az érintett szolgáltatások
+   újraindítása és egészségellenőrzése után naplózás és push következik. Az alkalmazás utáni hiba
+   automatikus visszalépést indít; a visszalépés sikertelenségét külön naplózza, ekkor kézi vizsgálat kell.
+   A push sikerességét a napló külön jelöli.
+
+A már felhatalmazott védett kód módosítása is ezen a kapun megy át. A felhatalmazást rögzítő
+`ugygazda/szabalyzat.json` módosításához továbbra is toti kifejezett jóváhagyása kell; az átnézés nem
+helyettesíti ezt. A pontos határ a fenti „Tartós felhatalmazás védett fájlokra” szakaszban van.
+
+Üzemeltetési parancsok az éles repó gyökeréből, az arra jogosult környezetben:
+
+```sh
+python3 scripts/elesites.py allapot
+python3 scripts/elesites.py elesit <átnézési-feladat-id>
+python3 scripts/elesites.py visszaallit <elozo-címke>
+```
+
+A kézi visszaállítás a `scripts/elesites.py:KOD_UTAK` alatt kezelt könyvtárakat/fájlokat korábbi tartalomra
+állítja **új commitban**, ideiglenes munkafában tesztelve, majd szolgáltatás-ellenőrzéssel. A történet megmarad;
+nem teljes szerver- vagy adat-visszaállítás, és a `FOLYTATAS.md` nincs a visszaállított utak között.
+Élesítési és visszaállítási napló: `~/.local/state/project-s/elesites.jsonl`; a beszélgetésbe rendszerüzenet kerül.
+
+### Automatikus főnök-körök
+
+A `scripts/fonok_auto.py` (`project-s-fonok.timer`, 10 percenként) az `auto` jelölésű, éppen nem dolgozó
+szálaknak a `docs/FONOK-BACKLOG.md` következő egy tételét adja. Szálanként napi legfeljebb 30 kör;
+`BACKLOG KÉSZ` válaszra megáll. Három egymást követő, asszisztensválasz nélküli kör elakadásnak számít
+(a válasz tartalmi előrehaladását ez a számláló nem méri). Saját kapcsolója:
+`python3 scripts/fonok_auto.py ki|be|allapot`; az ügygazda kapcsolójától különálló.
+Napló: `~/.local/state/project-s/fonok-auto/naplo.jsonl`.
+
+### Reggeli jelentés
+
+[TESZT, fejlesztési példány, 2026-11-13] `scripts/reggeli_jelentes.py`, bekötés az ügygazda ciklusában;
+6 offline teszt (`scripts/test_reggeli_jelentes.py`). Éles jelenlétét külön kell ellenőrizni.
+
+- Bekapcsolt ügygazda első sikeresen idáig eljutó ciklusa **05:30 UTC-től** készíti el az adott napi
+  jelentést az akkor megelőző 12 óráról. Ha a szerver később indul, az időablak a tényleges futáshoz igazodik.
+- Források: ügygazda `esemenyek.jsonl` és `allapot.json`, psx-feladatonként `spec.json` + `events.jsonl`,
+  `elesites.jsonl`, NEAR `near/naplo.jsonl`, beszélgetések `*/uzenetek.jsonl` – a `~/.local/state/project-s/` alatt.
+- Tartalom: önállóan elfogadott ügygazda-feladatok (az elfogadás a 12 órás ablakban, nincs emberi döntés),
+  élesítések/visszaállítások, új elakadások, pillanatnyi megoldatlan elakadások és döntési sor darabszáma,
+  NEAR-ajánlat/kiosztás/munkakezdés/vevői üzenet/leadás/kifizetés, hibajelzések, befejezett asszisztensválaszok.
+  A kifizetés kifejezett fizetési státusz új észlelése; nem következik az elfogadásból, és nem jelent pénzösszeget.
+  A főnök-körszám a válaszokat számolja, nem a sikeres élesítéseket.
+- Fájl: `~/.local/state/project-s/reggeli/<YYYY-MM-DD>.md`. Fájlzár és a kész napi fájl védi a napi
+  egyszeri futást, újraindítás és párhuzamos hívás esetén is. Hibás/hiányzó forrásnál adathiányt jelez.
+- Mentés után `ertesites.background` küld rövid push-jelzést, a `/ugygazda` oldalra mutatva; a teljes jelentés
+  a fájlban van. A push best effort: a kézbesítés nem garantált, a kész jelentést értesítési hiba miatt nem ismétli.
+  Jelentéshiba `reggeli_jelentes_hiba` eseményt okoz; nem állítja le az ügygazda további működését.
 
 ## Napló, összesítő, kikapcsolás
 - Minden intézkedés: `~/.local/state/project-s/ugygazda/esemenyek.jsonl`, szereplő `ugygazda`.

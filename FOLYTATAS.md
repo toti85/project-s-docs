@@ -2,13 +2,30 @@
 
 # Folytatás – hol tartunk
 
-_Utolsó frissítés: 2026-11-12 10:15 UTC_
+_Utolsó frissítés: 2026-11-13 02:40 UTC_
 
 > **A teljes rendszer leírása: `docs/RENDSZER.md`.** **Új munkamenet:** a `CLAUDE.md` automatikusan betöltődik. Utána: `ugy lista`, majd a kért ügy
 > (`ugy allapot <ügy>`, `ugy folytat <ügy>`). Rendszerellenőrzés: `systemctl status project-s-rc`,
 > `scripts/gpt-kapcsolat.sh status`.
 
-## ⏭️ HOL TARTUNK (2026-11-12) – önálló működés
+## ⏭️ HOL TARTUNK (2026-11-13) – főnök-teendőlista és élesítés
+- **Éjszakai teendőlista** (`docs/FONOK-BACKLOG.md`, szál `b20261113-021213-d77d`):
+  1. szűk záras tesztcsomag javítva (`86c0770`); 2. reggeli jelentés elkészült (`b80d366`, 6 offline teszt);
+  3. OpenRouter-próba **akadályozott** (`6df6164`): kliens-hitelesítés `PermissionError`, a `proba()`
+  összköltség-/tokenplafonja hiányzik. 20 jelölt, valódi modellpróba 0, költség 0 USD; részletek:
+  `docs/OPENROUTER-FONOK-PROBA-2026-11-13.md`. A 4. tétel dokumentációja ebben a fejlesztési körben frissítve; következő az 5. videós tétel.
+- **Élesítési állapot (naplóolvasás, 2026-11-13 02:40 UTC):** az első két kör élesítése elmaradt
+  (`t20261113-021521-cc3b53`, `t20261113-022510-3b8a00`, `auto_vegleges_hiba`), mert a fejlesztési ág
+  közben új commitra lépett. Új, az aktuális ághoz tartozó elfogadott átnézés kell. A reggeli jelentés fájlja
+  ekkor még nincs az éles repóban; a fejlesztési példány zöld tesztje nem bizonyít éles működést.
+- **Főnök-folyamat:** saját fejlesztési klón → zöld teszt → commit → más gyártó átnézése → bekapcsolt
+  ügygazda automatikus élesítési kísérlete. Futó/sorban álló feladatnál vár, más hibát véglegesként naplóz.
+  Pontosan az átnézett ágfej, összefésült változat tesztje és szolgáltatás-ellenőrzés kell; hiba esetén visszalépés.
+  Élesítési napló: `~/.local/state/project-s/elesites.jsonl`; visszaállítás: `scripts/elesites.py visszaallit <elozo-címke>`.
+  Részletek és főnök-automatika kapcsolói: `docs/UGYGAZDA.md`.
+- **Reggeli jelentés (tesztelt fejlesztés, élesítésre vár):** bekapcsolt ügygazda, 05:30 UTC-től az első sikeres
+  ciklusban, naponta egyszer az előző 12 óráról; fájl: `~/.local/state/project-s/reggeli/<nap>.md`, rövid push-jelzés.
+  Hiányos forrás jelölve; kifizetést csak kifejezett fizetési státusz igazol, elfogadásból nem következtet.
 - **Ügygazda él** (toti tartós megbízása, 2026-11-12; `docs/UGYGAZDA.md`, panel `/ugygazda`, `ugygazda allapot|dontesek|napi`):
   10 percenként figyel (szolgáltatások, időzítők, mentés + napi visszaállítási próba, beragadt feladatok), folytatja az önálló
   ügyeket, és legfeljebb 1 saját ügyet kezdeményez a tartós célokból. Kikapcsolás: panel vagy `ugygazda ki`.

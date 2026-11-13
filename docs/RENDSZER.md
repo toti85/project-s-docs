@@ -2,14 +2,14 @@
 
 # Projekt S – a teljes rendszer leírása (AI-olvasónak is)
 
-_Állapot: 2026-11-11. Repó: `github.com/toti85/project-s-workshop` (privát). Ez a dokumentum önmagában érthető; a
+_Dokumentáció frissítése: 2026-11-13. Repó: `github.com/toti85/project-s-workshop` (privát). Ez a dokumentum önmagában érthető; a
 részletek a hivatkozott fájlokban vannak. A mért, napi frissülő állapot: `docs/KEPESSEGEK.md`._
 
 ## 1. Mi ez, és kinek készült
 A Projekt S egy **saját szerveren futó, telefonról irányítható AI-munkarendszer** egy felhasználónak (toti; magyar,
 Kárpátalja; jellemzően telefonról dolgozik). Feladatot lehet adni természetes nyelven; különböző AI-„végrehajtók”
 (Claude, Codex, Copilot, DeepSeek, CodeWhale) elvégzik a szerveren; a rendszer a végrehajtótól **függetlenül ellenőrzi**
-az eredményt; a döntés (elfogadás/elutasítás) mindig az emberé; és minden nyom tartósan megmarad (ügyirat, napló, git).
+az eredményt; a rögzített gépi feltételek szerinti elfogadás automatikus, a mérlegelést igénylő döntés az emberé; és minden nyom tartósan megmarad (ügyirat, napló, git).
 
 Alapelvek:
 1. **Végrehajtva ≠ elfogadva.** A végrehajtó „kész” jelzése nem bizonyíték; előre rögzített gépi szabályok és ember dönt.
@@ -116,7 +116,8 @@ Alapelvek:
   minden végrehajtó és az asszisztens erre hivatkozik, hogy ne írjon elavult állapotot.
 - **Mentés:** napi 03:17 `scripts/mentes.sh` → `~/mentes` (14 nap; titkok nélkül); utána `scripts/mentes-drive.sh`
   titkosítva (rclone crypt, csak `drive.file` jog) a Google Drive `ProjektS-mentes` mappába, 30 nap – bekötés:
-  `drive-belepes` (toti, egyszer). Visszaállítási próba még nem volt.
+  `drive-belepes` (toti, egyszer). Helyi visszaállítási próba: `scripts/visszaallitas_proba.py`;
+  a 2026-11-12-i mérés eredményét a `docs/KEPESSEGEK.md` és a `docs/UGYGAZDA.md` rögzíti.
 - **Videótár (Jellyfin)** (ügy: `ugyek/media-konyvtar/`): Jellyfin 12.4, 1 TB-os médiakötet `/srv/media`
   (`Mesek/`, `Filmek/`, `Sorozatok/`), csak a Tailscale-címen és helyben figyel (`http://<tailnet-ip>:8096`,
   HTTPS `https://<tailnet-gép>:8920`), a helyi LAN felől nem érhető el. Felhasználók: **Otthon** (jelszó
@@ -140,11 +141,29 @@ Alapelvek:
   `~/.config/project-s/near.env` (az mcp-jogkör írásra is jó!) → olvasás csak `near-olvaso`-val (engedélylista, readOnlyHint).
 - **Ügygazda** (`scripts/ugygazda.py`, időzítő 10 percenként, panel `/ugygazda`): üzemeltetés, ügyfolytatás, kezdeményezés,
   döntési sor, napi összesítő, kikapcsolás – részletesen `docs/UGYGAZDA.md`. Visszaállítási próba, ügyszintű eseménynapló is ott.
-- **Főnök a panelen** (Beszélgetések, `executor/beszelgetes.py`): modellválasztó (Codex, Claude, Copilot, OpenRouter eszközképes
-  katalógus saját próbával – `/c/modellek`), közös munkaállapot, automatikus helyettesítés (Claude nélküli mód is), a szál saját
-  FEJLESZTÉSI PÉLDÁNYÁBAN dolgozik (`~/project-s-dev/<szál>`, `fonok/<szál>` ág, szűk zár: az éles repó csak olvasható). Commit után
-  független átnézés MÁS GYÁRTÓ végrehajtóival, éles elfogadási szabályokkal. Élesítés/visszaállítás: `scripts/elesites.py elesit
-  <átnézés>` | `visszaallit <címke>` (csak elfogadott, átnézett commit; futó feladat nélkül; éles teszt; `elo-*`/`elozo-*` címkék).
+- **Főnök a panelen** (Beszélgetések, `executor/beszelgetes.py`): modellválasztó, közös munkaállapot,
+  helyettesítési lánc; OpenRouter-katalógus és eszközhívás-próba: `/c/modellek`. A szál saját
+  `~/project-s-dev/<szál>` klónjában, `fonok/<szál>` ágon dolgozik; az éles repó a szűk zárban csak olvasható.
+  Módosítás → `scripts/tesztek.sh` → commit (a fejlesztő nem pushol) → más gyártó kódátnézése.
+  Az elfogadási szabályokat az éles kód állítja össze; csak dokumentáció módosítása önmagában nem indít kódátnézést.
+- **Automatikus élesítés** (`scripts/elesites.py`, hívója az ügygazda ciklusa): bekapcsolt ügygazda az elfogadott
+  főnök-átnézéseket élesíti. A fejlesztési ág feje az átnézett commit kell legyen; új commit után új átnézés kell.
+  Futó/sorban álló psx-feladatnál később próbálkozik, más hiba véglegesként naplózódik. Az összefésülés külön
+  munkafában készül, teljes tesztcsomaggal; csak zöld eredménnyel változik az éles ág. Szolgáltatás-ellenőrzés,
+  hiba esetén automatikus visszalépés; előtte `elozo-*`, siker után `elo-*` címke, napló: `…/elesites.jsonl`.
+  A felhatalmazási fájl (`ugygazda/szabalyzat.json`) változása toti kifejezett döntése; a többi már felhatalmazott
+  védett kód ellenőrzött élesítésen mehet át. Kézi parancsok az éles repóból:
+  `python3 scripts/elesites.py elesit <átnézés>` és `python3 scripts/elesites.py visszaallit <elozo-címke>`.
+  A visszaállítás új commitban állítja vissza a `KOD_UTAK` tartalmát, tesztelve; nem teljes adat-visszaállítás.
+- **Főnök-automatika** (`scripts/fonok_auto.py`, `project-s-fonok.timer`): az `auto` szálaknak 10 percenként
+  legfeljebb egy új teendőlista-kört indít, szálanként napi 30-as korláttal. `BACKLOG KÉSZ` vagy három egymást
+  követő válasz nélküli kör megállítja; kapcsoló: `python3 scripts/fonok_auto.py ki|be|allapot`.
+- **Reggeli jelentés** (`scripts/reggeli_jelentes.py`, 2026-11-13-i tesztelt fejlesztés; élesítése külön ellenőrizendő):
+  a bekapcsolt ügygazda első, 05:30 UTC utáni ciklusában az előző 12 óra helyi naplóiból összefoglalót készít,
+  naponta egyszer: `~/.local/state/project-s/reggeli/<nap>.md`. Önálló elfogadások, élesítések/visszaállítások,
+  elakadások/döntési sor, NEAR-életút, hibák és asszisztensválaszok darabszáma; adathiány jelölve.
+  Mentés után rövid push a `/ugygazda` oldalra; a kézbesítés best effort, a teljes jelentés a fájlban olvasható.
+  Részletes működés, feltételek és korlátok: [UGYGAZDA.md](UGYGAZDA.md#főnök-fejlesztés-és-ellenőrzött-élesítés).
 - **NEAR-munkás** (`scripts/near_munkas.py`, panel `/near/munkas`, időzítő): toti bekapcsolása után (dollárplafon nélkül; a pontos
   felhatalmazás: `docs/UGYGAZDA.md` végén) önállóan
   keres, besorol (teljes leírás, Claude eszközök nélkül: vallalhato/nem/bizonytalan), ajánl, elkészít, ellenőriz
@@ -172,7 +191,10 @@ Alapelvek:
 - Az önálló fejlődés a cél (toti, 2026-11-12): a rendszer méretét a feladat indokolja, ellenőrizhető lépésekben haladunk.
 
 ## 11. Nyitott pontok
-- Hálózati proxy domain-engedélylistával a saját ciklusnak; ügyenkénti eseménynapló; visszaállítási próba.
+- Hálózati proxy domain-engedélylistával a saját ciklusnak. Ügyenkénti eseménynapló és helyi visszaállítási próba elkészült
+  (`docs/UGYGAZDA.md`).
+- OpenRouter főnök-modellpróba: 20 jelölt előkészítve, a fejlesztési környezet hitelesítési jogosultsága és a
+  próbák költségplafonja akadály; új igazolt modell nincs ebből a körből. `docs/OPENROUTER-FONOK-PROBA-2026-11-13.md`.
 - Telegram-belépés (toti; kétlépcsős jelszó kell), Drive-bekötés (toti), MCP-próba ChatGPT-ből az új végrehajtókkal.
 - Videótár: TV Tailscale-be léptetése (toti), a <helyi-ip> mesék átmásolása (`smb-belepes`), panel Média oldal +
   „Lejátszás a TV-n”, NVIDIA-meghajtó.
