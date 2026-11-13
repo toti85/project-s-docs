@@ -1,6 +1,6 @@
 <!-- Automatikus tükör a privát Projekt S műhelyrepóból (scripts/docs_tukor.py). Személyes és hálózati adatok kitakarva. Ne itt szerkeszd. -->
 
-# Szerver-képességek (generált: 2026-11-13 03:17 UTC, `scripts/kepessegek.py`)
+# Szerver-képességek (generált: 2026-11-13 11:49 UTC, `scripts/kepessegek.py`)
 
 > Mért állapot. Ha ez ellentmond egy régebbi ügyiratnak vagy javaslatlistának, EZ az érvényes.
 
@@ -38,7 +38,7 @@ proba    NEM elérhető  a végpont nem válaszol (http://127.0.0.1:18080/v1): U
 
 - ✅ `bwrap`
 
-- ❌ `gh`
+- ✅ `gh`
 
 - ✅ `git`
 
@@ -54,12 +54,12 @@ proba    NEM elérhető  a végpont nem válaszol (http://127.0.0.1:18080/v1): U
 - Feliratkozások: 1
 
 ## Mentés
-- helyi: `~/mentes` (napi 03:17, 14 nap): 10 mentés
-- Google Drive (titkosított): ❌ még nincs bekötve (`drive-belepes`, toti)
-- visszaállítási próba: ✅ RENDBEN (2026-11-12T09:46:40+00:00, 55/55 napló, `scripts/visszaallitas_proba.py`)
+- helyi: `~/mentes` (napi 03:17, 14 nap): 11 mentés
+- Google Drive (titkosított): ✅ bekötve
+- visszaállítási próba: ❌ HIBA (2026-11-13T09:50:23+00:00, None/None napló, `scripts/visszaallitas_proba.py`)
 
 ## Ügygazda (önálló irányító)
-- állapot: bekapcsolva; saját ügyek: near-kivalasztas-proba, near-leadas-csomagellenor, near-ciklus-elszamolas, allapotexport-frissesseg; döntési sor: 7; elakadás (összes/megoldott): 0/0
+- állapot: bekapcsolva; saját ügyek: dontesi-sor-konzisztencia, mentes-abszolut-link-javitas; döntési sor: 6; elakadás (összes/megoldott): 0/0
 - leírás: `docs/UGYGAZDA.md`; NEAR külső műveletek: `scripts/near_kulso.py`; ügynapló: `ugy naplo ellenoriz`
 
 ## Jog és zár
