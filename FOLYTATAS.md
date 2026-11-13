@@ -15,6 +15,10 @@ _Utolsó frissítés: 2026-11-12 10:15 UTC_
 - Visszaállítási próba (`scripts/visszaallitas_proba.py`), NEAR külső műveletek védőrétege (`scripts/near_kulso.py`),
   ügyszintű eseménynapló (`ugy naplo ellenoriz`) kész. CodeWhale titokelérés: döntés-előkészítés `docs/CODEWHALE-DONTES.md`.
 
+- **Főnök a panelen (2026-11-12 este):** modellválasztó + fejlesztési munkapéldány + gyártófüggetlen átnézés + élesítés
+  (`scripts/elesites.py`). Átvételi próba Claude nélkül lefutott (b20261112-212928-aee3 → élesítve elo-20261112-214159), saját
+  feladat (b20261112-214359-d144 → elo-20261112-214834). Előző működő állapot: címke `elozo-mukodo-20261112`.
+
 ## Korábbi állapot (2026-11-11 este)
 - **Bevétel / ügynökpiac (ügy `ugynok-piac-felmeres`):** döntések: `eredmenyek/2026-11-11-dontesek.md`. Kiesett: Taskmarket,
   MoltJobs, toku, dealwork, általános kutatás; Moltbook parkol; kifizetési út nem akadály. **Következő: NEAR Agent Market**

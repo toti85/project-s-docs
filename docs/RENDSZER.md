@@ -140,6 +140,11 @@ Alapelvek:
   `~/.config/project-s/near.env` (az mcp-jogkör írásra is jó!) → olvasás csak `near-olvaso`-val (engedélylista, readOnlyHint).
 - **Ügygazda** (`scripts/ugygazda.py`, időzítő 10 percenként, panel `/ugygazda`): üzemeltetés, ügyfolytatás, kezdeményezés,
   döntési sor, napi összesítő, kikapcsolás – részletesen `docs/UGYGAZDA.md`. Visszaállítási próba, ügyszintű eseménynapló is ott.
+- **Főnök a panelen** (Beszélgetések, `executor/beszelgetes.py`): modellválasztó (Codex, Claude, Copilot, OpenRouter eszközképes
+  katalógus saját próbával – `/c/modellek`), közös munkaállapot, automatikus helyettesítés (Claude nélküli mód is), a szál saját
+  FEJLESZTÉSI PÉLDÁNYÁBAN dolgozik (`~/project-s-dev/<szál>`, `fonok/<szál>` ág, szűk zár: az éles repó csak olvasható). Commit után
+  független átnézés MÁS GYÁRTÓ végrehajtóival, éles elfogadási szabályokkal. Élesítés/visszaállítás: `scripts/elesites.py elesit
+  <átnézés>` | `visszaallit <címke>` (csak elfogadott, átnézett commit; futó feladat nélkül; éles teszt; `elo-*`/`elozo-*` címkék).
 - **NEAR-munkás** (`scripts/near_munkas.py`, panel `/near/munkas`, időzítő): toti bekapcsolása után (dollárplafon nélkül; a pontos
   felhatalmazás: `docs/UGYGAZDA.md` végén) önállóan
   keres, besorol (teljes leírás, Claude eszközök nélkül: vallalhato/nem/bizonytalan), ajánl, elkészít, ellenőriz
