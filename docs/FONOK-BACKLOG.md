@@ -217,3 +217,9 @@ A fejlesztések élesítése külön feltételekhez kötött; az akadályozott t
    (főnök zár nélkül, `loop`, `tipus`, eszközjegyzék, alügynökök), `docs/HP-DEV-HOZZAFERES.md` (jelenlegi állapot + laptop-eszköz),
    `docs/SZUPER-VEGREHAJTO.md` (Mérés). Apró javítás: a git-figyelmeztetés nem jelenik meg hibaként az összesítőben.
    **11. tétel: KÉSZ (első változat).** Továbbfejlesztési jelöltek a `docs/SZUPER-VEGREHAJTO.md` „Mérés” szakaszában.
+
+13. **S autonóm célvezérlése (toti jóváhagyta, 2026-11-14; terv és szabályok: `docs/AUTONOM-CELVEZERLES.md` – olvasd el teljesen, az a mérvadó).**
+   Építsd meg a mérföldköveket sorrendben (1. lezárási kapu → 2. célfájl/alapító lap/napló + külön költségkönyv → 3. ügygazda-ébresztés → 4. helyzetértékelés/önálló lehetőségkeresés/ötletfeldolgozás →
+   5. tanulás a döntésben → 6. végső, NEM mesterséges elfogadási próba). Egy kör = egy kicsi, működő, tesztelt lépés; kód a fejlesztési példányban, független átnézés, ellenőrzött élesítés, éles próba.
+   Nincs párhuzamos irányítási rendszer: a meglévő ügygazdát/főnököt/ügy-műhelyt/psx-et bővítsd. Az első valós teszteset a docs-tükör elmaradt frissítése: a lezárási kapunak fel kell ismernie és be kell hajtania.
+   Emberhez csak valódi elakadásnál/szükséges döntésnél fordulj (döntési sor); a `BACKLOG KÉSZ` itt csak akkor jelenthető, ha a 6. mérföldkő géppel ellenőrzött bizonyítékokkal teljesült.
