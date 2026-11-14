@@ -2,7 +2,7 @@
 
 # Projekt S – a teljes rendszer leírása (AI-olvasónak is)
 
-_Dokumentáció frissítése: 2026-11-13. Repó: `github.com/toti85/project-s-workshop` (privát). Ez a dokumentum önmagában érthető; a
+_Dokumentáció frissítése: 2026-11-14 (szuper-végrehajtó: hurok, eszközjegyzék, alügynökök, modellválasztás). Repó: `github.com/toti85/project-s-workshop` (privát). Ez a dokumentum önmagában érthető; a
 részletek a hivatkozott fájlokban vannak. A mért, napi frissülő állapot: `docs/KEPESSEGEK.md`._
 
 ## 1. Mi ez, és kinek készült
@@ -38,7 +38,10 @@ Alapelvek:
                                                ▼
                       Ügykezelő `ugy`  (ügyek: tartós állapot, ügyirat, git)
                                                ▼
-                      psx végrehajtó  (feladat → lépések → végrehajtó → ellenőrzés)
+                      Főnök (beszélgető asszisztens, ZÁR NÉLKÜL – docs/SZUPER-VEGREHAJTO.md)
+                       │  eszközjegyzék · alügynök-csoportok · fejlesztési példány → átnézés → élesítés
+                                               ▼
+                      psx végrehajtó  (feladat → lépések (cmd / agent / loop) → végrehajtó → ellenőrzés)
                        │  végrehajtók: or-olcso(DeepSeek) · or-free · claude · codex · copilot · codewhale
                        │  zár: executor/zar.py (Landlock) · root csak `rendszerlepes` + toti jóváhagyás
                        ▼
@@ -57,8 +60,13 @@ Alapelvek:
 - A feladat végén hook frissíti az ügyet (állapot, összefoglaló), commitol és pushol.
 
 ## 5. A psx végrehajtó (`executor/psx.py`, parancs: `psx`; leírás: `docs/VEGREHAJTO.md`)
-- **Feladat (spec):** cím, munkakönyvtár (`dir` / `worktree` / `empty`), lépések (`cmd` vagy `agent`), elfogadási
+- **Feladat (spec):** cím, munkakönyvtár (`dir` / `worktree` / `empty`), lépések (`cmd`, `agent` vagy `loop`), elfogadási
   szabályok, korlátok (idő, költség, kísérletszám).
+- **Ellenőrző hurok (`kind: "loop"`, 2026-11-14):** ügynök → `check` parancs → bukásnál exit-kód + kimenet a következő körbe,
+  legfeljebb `max_rounds` (alap 3) kör; a 3. körtől más gyártó kezd; körönként naplózott (`loop_round`/`loop_check`), folytatható.
+  Beszélgetésből: `ps-chat inditas … --hurok "<parancs>"`.
+- **Modellválasztás (`tipus`):** `kod` → codex, claude, copilot, or-olcso · `kutatas` → claude, codex · `tomeg` → or-olcso,
+  or-free; kifejezett `providers` felülírja. Automatikus `max_cost_usd` csak az `or-olcso`-ra; az előfizetésesek névleges keretet kapnak.
 - **Napló:** feladatonként append-only, hash-láncolt `events.jsonl` (`~/.local/state/project-s/psx/tasks/<id>/`); az
   állapot ebből számolt. Felügyelő: `project-s-executor.service` (max 3 párhuzamos), kísérletenként külön systemd-unit.
 - **Életciklus:** `queued → running → verifying → accepted | needs_acceptance | rejected`; közben `waiting_model`
@@ -76,6 +84,11 @@ Alapelvek:
 - **Saját ciklus eszközei:** fájl listázás/olvasás/keresés/írás/szerkesztés, `run` (shell, csővezeték), `web_search`,
   `web_fetch` (urllib vagy Playwright-böngésző) **pillanatképpel**, szándékrekord + helyreállítás, titokszűrés,
   fordulókeret („kerettel zárás”), kérés-határidő.
+- **Eszközjegyzék (`executor/eszkozjegyzek.py`):** shell, fájl, web, psx, ugy, alugynok, laptop egységes hívással és
+  JSONL-naplóval (`~/.local/state/project-s/eszkozok/naplo.jsonl`, ismert titokértékek és titokminták kitakarva). A saját ciklus
+  teljes jognál ebből kapja a `psx` és `ugy` eszközt; a laptop-hidat és az alügynök-indítást csak a főnök kapja.
+- **Alügynökök (`executor/alugynok.py`):** `indit <feladatok.json>` → párhuzamos psx-feladatok (opcionálisan saját git worktree-ben,
+  `check` esetén hurokkal, `tipus` szerinti modellel), `allapot`, `begyujt` → összesítő `~/.local/state/project-s/alugynokok/<csoport>.md`.
 - **Jog („teljes” az alapértelmezés):** írás/futtatás bárhol a gépen, KIVÉVE `zar.TELJES_KIVETEL` (kulcsok `~/.config`,
   `~/.ssh`, fiókadatok `~/.codex` `~/.claude*` `~/.copilot`, ATA-adat, mentések, psx-napló/bizonyíték); sudo nincs.
 - **Root-lépés:** `rendszerlepes ker "<parancs>" --miert "…"` → panel `/r` (vagy beszélgetésben toti „jóváhagyom”
@@ -191,6 +204,8 @@ Alapelvek:
 - Titok, token, jelszó soha nem kerül repóba/chatbe/AI elé. Külső beküldés, regisztráció, pénzköltés, fiókbelépés: toti.
 - A toti-server kísérleti gép: telepítés és rendszerbeállítás kérdezés nélkül mehet (utólag jelezni).
 - Végrehajtók teljes joggal (titkok és sudo nélkül); CodeWhale zár nélkül; root csak jóváhagyással.
+- A főnök (beszélgető asszisztens) zár nélkül, a szerver titkaival és sudo-val dolgozik (toti, 2026-11-14; visszakapcsolás:
+  `FONOK_ZAR=1`); kódváltozás: teszt + commit + más gyártó átnézése + ellenőrzött élesítés. `docs/SZUPER-VEGREHAJTO.md`.
 - OVH-t nem módosítjuk. A `project-s` tmux-munkamenetet nem töröljük. Git-előzményt nem írunk át.
 - Az önálló fejlődés a cél (toti, 2026-11-12): a rendszer méretét a feladat indokolja, ellenőrizhető lépésekben haladunk.
 

@@ -1,6 +1,6 @@
 <!-- Automatikus tükör a privát Projekt S műhelyrepóból (scripts/docs_tukor.py). Személyes és hálózati adatok kitakarva. Ne itt szerkeszd. -->
 
-# Szerver-képességek (generált: 2026-11-14 03:17 UTC, `scripts/kepessegek.py`)
+# Szerver-képességek (generált: 2026-11-14 19:51 UTC, `scripts/kepessegek.py`)
 
 > Mért állapot. Ha ez ellentmond egy régebbi ügyiratnak vagy javaslatlistának, EZ az érvényes.
 
@@ -8,7 +8,7 @@
 ```
 claude   elérhető  ok
 copilot  elérhető  ok
-codex    elérhető  ok
+codex    NEM elérhető  lehűlés 2026-11-14T20:02:37+00:00-ig
 codewhale elérhető  ok
 or-free  elérhető  ok
 or-olcso elérhető  ok
@@ -54,13 +54,20 @@ proba    NEM elérhető  a végpont nem válaszol (http://127.0.0.1:18080/v1): U
 - Feliratkozások: 1
 
 ## Mentés
-- helyi: `~/mentes` (napi 03:17, 14 nap): 11 mentés
+- helyi: `~/mentes` (napi 03:17, 14 nap): 12 mentés
 - Google Drive (titkosított): ✅ bekötve
-- visszaállítási próba: ❌ HIBA (2026-11-13T21:44:56+00:00, None/None napló, `scripts/visszaallitas_proba.py`)
+- visszaállítási próba: ✅ RENDBEN (2026-11-14T10:00:23+00:00, 206/206 napló, `scripts/visszaallitas_proba.py`)
 
 ## Ügygazda (önálló irányító)
-- állapot: bekapcsolva; saját ügyek: dontesi-sor-konzisztencia, mentes-abszolut-link-javitas, parhuzamos-eredmenyut-utkozes, api-bizonyitek-hivatkozasok, near-ellenorzok-tenyleges-hasznalata, mentes-fajllefedettseg; döntési sor: 10; elakadás (összes/megoldott): 0/0
+- állapot: bekapcsolva; saját ügyek: dontesi-sor-konzisztencia, mentes-abszolut-link-javitas, parhuzamos-eredmenyut-utkozes, api-bizonyitek-hivatkozasok, near-ellenorzok-tenyleges-hasznalata, mentes-fajllefedettseg, helyi-modell-vegpont-diagnozis, visszaallitasi-allapot-egysegesites, near-kovetelmeny-valtozas, near-kiosztas-munkakezdes, akadaly-ismetlodes-csoportosito; döntési sor: 13; elakadás (összes/megoldott): 0/0
 - leírás: `docs/UGYGAZDA.md`; NEAR külső műveletek: `scripts/near_kulso.py`; ügynapló: `ugy naplo ellenoriz`
+
+## Főnök önállóan (szuper-végrehajtó)
+- építőelemek: ✅ ellenőrző hurok (psx `loop`), ✅ eszközjegyzék, ✅ alügynök-csoportok, ✅ modellválasztás (`tipus`)
+- csoport `proba-20261114-1`: 2/2 elfogadva (accepted, accepted)
+- csoport `fonok-onallo-20261114`: 2/2 elfogadva (accepted, accepted)
+- leírás: `docs/SZUPER-VEGREHAJTO.md`; napló: `~/.local/state/project-s/eszkozok/naplo.jsonl`
 
 ## Jog és zár
 - Alapértelmezés: `teljes` jog (írás/futtatás mindenhol) a titkok/fiókadatok és sudo kivételével (`executor/zar.py` TELJES_KIVETEL); root csak `rendszerlepes`-kéréssel. Részletek: `docs/VEGREHAJTO.md` 11–13.
+- A főnök (beszélgető asszisztens) zár nélkül, titkokkal és sudo-val fut (toti, 2026-11-14; `FONOK_ZAR=1` visszakapcsol).

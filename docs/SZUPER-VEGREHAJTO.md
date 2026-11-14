@@ -62,6 +62,15 @@ git worktree, keret ≤ 2 USD/feladat); `allapot N`; `begyujt N` → Markdown ö
 utolsó válasz; `~/.local/state/project-s/alugynokok/N.md`). Párhuzamosság, tartaléklánc és korlátok a psx felügyelőjéé (max 3 egyszerre).
 Nyitott: a worktree-k takarítása (`git worktree prune`), az eredmények visszafésülése a főnök döntése.
 
+## Beolvasztás (5. lépés, első változat – 2026-11-14)
+A végrehajtók erősségei modellválasztási szabályként a psx-ben (`TIPUS_LANC`, `providers_for`): a lépés (vagy alügynök-feladat)
+`tipus` mezője – `kod` → codex, claude, copilot, or-olcso; `kutatas` → claude, codex (DeepSeek nem, toti 2026-11-11);
+`tomeg` → or-olcso, or-free. Kifejezett `providers` felülírja. A `loop` lépés a 3. körtől (2 bukás után) az utoljára használt
+gyártó modelljeit a lánc végére teszi (`gyartovaltas`, esemény `loop_gyartovaltas`; kikapcsolás: `"gyartovaltas": false`).
+Költségkeret: automatikus `max_cost_usd` csak az OpenRouter token alapú fizetős végrehajtójára (`or-olcso`, `FIZETOS_OPENROUTER`);
+az előfizetésesek (claude, codex, copilot) névleges keretet kapnak (`max_elofizetes_usd`, alap 5 / `max_credits`), a CodeWhale
+toti döntése szerint keret nélkül fut. Limitnél a meglévő átadás működik (próba: `t20261114-191218-6e7ee0` – codex limitben → claude, 1. kör, `accepted`).
+
 ## Bevált külső minták, amiket átveszünk
 - *Ügynöki hurok és eszközmodell* (Claude Code, OpenHands, Aider): rövid, ellenőrző visszacsatolású ciklus; fájlszerkesztés célzott cserével; a teszt futtatása a hurok része.
 - *Munkafa-izoláció* (git worktree minden feladatra): olcsó kísérletezés, könnyű visszavonás.
@@ -71,6 +80,12 @@ Nyitott: a worktree-k takarítása (`git worktree prune`), az eredmények vissza
 
 ## Mérés
 Siker = a főnök egyedül, ember nélkül elvégez egy többlépéses feladatot (kód + teszt + élesítés vagy külső rendszer), és a napló mutatja. A `docs/KEPESSEGEK.md` mért képességei mellé kerül egy „főnök önállóan" szakasz.
+**Mérve (2026-11-14 19:50 UTC, éles felügyelő, ember nélkül):** alügynök-csoport `fonok-onallo-20261114` – #1 `tipus: kod`
+(`t20261114-195037-585fd4`: a codex lehűlésben → claude, kód + unittest, ellenőrző hurok 1. kör exit 0, `accepted`), #2 `tipus: tomeg`
+(`t20261114-195037-ce1aac`: or-olcso, 1. kör exit 0, `accepted`, 0,0017 USD). A 11. tétel építőelemei (hurok, eszközjegyzék,
+alügynökök, modellválasztás, önfejlesztés átnézéssel és élesítéssel) mind élesben futnak; a `KEPESSEGEK.md` „Főnök önállóan”
+szakasza ezt naponta méri. Nyitott továbbfejlesztés: ügyhöz kötött hurok (`ugy inditas --hurok`), worktree-takarítás,
+az alügynök-eredmények visszafésülése, böngésző/Gmail az eszközjegyzékben.
 
 ## Nyitott pontok
 - A felhasználói systemd-busz elérhetősége (zárkikerülés, `docs/HP-DEV-HOZZAFERES.md`) teljes hozzáférésnél már nem hiba, de a cgroup-alapú hp-dev azonosítás gyengesége marad (a főnök tokent használ).

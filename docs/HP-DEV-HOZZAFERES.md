@@ -2,6 +2,10 @@
 
 # hp-dev hozzáférés – tényleges állapot
 
+> **2026-11-14 – szuper-végrehajtó:** a főnök azóta zár nélkül fut (`docs/SZUPER-VEGREHAJTO.md`), a lenti „szűk zár”
+> megfogalmazások a korábbi állapotot írják le. A híd a főnök eszközjegyzékében `laptop` néven érhető el
+> (`executor/eszkozjegyzek.py`, naplózva); a végrehajtók saját ciklusa ezt nem kapja meg. Mért állapot: `docs/KEPESSEGEK.md`.
+
 2026-11-14. **Előkészített integráció, nem igazolt működő távoli hozzáférés.**
 A szerverkonzolos korábbi sikert a felhasználó közölte; ez nem plugin/PSX bizonyíték.
 

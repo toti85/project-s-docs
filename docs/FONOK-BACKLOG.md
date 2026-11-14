@@ -201,3 +201,19 @@ A fejlesztések élesítése külön feltételekhez kötött; az akadályozott t
    Az átnézés (`t20261114-184352-90837c`) 2 jogos hibát talált: részleges beküldésnél árva feladatok (a csoportfájl nem íródott
    ki), és a `begyujt` git-időtúllépésnél leállt. Javítva: előzetes érvényesítés (hibás listából semmi nem indul), a csoportfájl
    minden beküldés után íródik, a `_diff` hibája szövegként jelenik meg. +2 regressziós teszt.
+   **5. kör élesítve (2026-11-14 19:03 UTC):** `6a474ea` (átnézés `t20261114-185632-4056a1`), címke `elo-20261114-190341`.
+   **6. kör elkészült (fejlesztési példány, 2026-11-14):** beolvasztás – `tipus` (kod/kutatas/tomeg) szerinti modellánc a psx-ben
+   és az alügynököknél, a `loop` 2 bukás után gyártót vált. Az 5. kör átnézésének 3 megjegyzése javítva (git-hiba látszik az
+   összesítőben, a modellválasz kitakarva, a `run`-leírás teljes jognál ellentmondásmentes). Teszt: +2 `test_loop`, +2
+   `test_alugynok`. Valódi próba: `t20261114-191218-6e7ee0` (`tipus: kod`; codex limitben → claude átvette) `accepted`.
+   Az átnézés (`t20261114-191356-457b57`) elutasította: a `tipus: kutatas` (claude, codex) nem kap automatikus `max_cost_usd`-t.
+   Ez szándékos és a korábbi működéssel azonos: az előfizetéses végrehajtók külön névleges keretet kapnak
+   (`max_elofizetes_usd`, alap 5), a `max_cost_usd` csak az OpenRouter fizetős végrehajtójára vonatkozik. Kódkommentben,
+   `FIZETOS_OPENROUTER` állandóval és regressziós teszttel rögzítve; új átnézés.
+   **6. kör élesítve (2026-11-14 19:45 UTC):** `f958fcb` (átnézés `t20261114-193231-430f80`), címke `elo-20261114-194515`.
+   **7. kör – a 11. tétel LEZÁRÁSA (2026-11-14):** éles, ember nélküli mérés: alügynök-csoport `fonok-onallo-20261114`
+   (`tipus: kod` → codex lehűlésben, claude átvette; `tipus: tomeg` → or-olcso), mindkettő hurokkal 1. körben `accepted`.
+   `KEPESSEGEK.md`: új „Főnök önállóan” szakasz (`scripts/kepessegek.py`). 12. tétel szerint frissítve: `docs/RENDSZER.md`
+   (főnök zár nélkül, `loop`, `tipus`, eszközjegyzék, alügynökök), `docs/HP-DEV-HOZZAFERES.md` (jelenlegi állapot + laptop-eszköz),
+   `docs/SZUPER-VEGREHAJTO.md` (Mérés). Apró javítás: a git-figyelmeztetés nem jelenik meg hibaként az összesítőben.
+   **11. tétel: KÉSZ (első változat).** Továbbfejlesztési jelöltek a `docs/SZUPER-VEGREHAJTO.md` „Mérés” szakaszában.
