@@ -50,7 +50,17 @@ modellválasztási szabály körönként (pl. 2. bukás után másik gyártó).
 `executor/eszkozjegyzek.py`: shell, fajl_olvas, fajl_ir, csere, web_letolt, web_keres, psx, ugy, laptop (hp-dev híd) egy
 jegyzékben; `hiv(nev, args)` sosem dob (ismeretlen eszköz / hibás paraméter / kivétel → `ok: false`), minden hívás egy JSONL-sor
 (`~/.local/state/project-s/eszkozok/naplo.jsonl`, titokszerű részek kitakarva), `openai_eszkozok()` OpenAI tools-formátum.
-CLI: `python3 executor/eszkozjegyzek.py lista|openai|hiv <nev> '<json>'`. Következő: a hurok/főnök ezt a jegyzéket használja.
+CLI: `python3 executor/eszkozjegyzek.py lista|openai|hiv <nev> '<json>'`.
+**Bekötve (4. kör):** a saját ügynöki ciklus (`executor/agent.py` `Ciklus`, `or-olcso`/`or-free`) teljes jognál a jegyzék `psx` és `ugy`
+eszközét is megkapja (`JEGYZEK_ESZKOZOK`); a hívás előtt szándékrekord, megszakadás után nem ismétli vakon. A laptop-híd
+szándékosan nincs a végrehajtók listájában. 
+
+## Alügynökök (4. lépés, első változat – 2026-11-14)
+`executor/alugynok.py` (és az eszközjegyzék `alugynok` eszköze – csak a főnöknek, a végrehajtók ezt nem kapják meg):
+`indit <feladatok.json> [--csoport N]` → feladatonként psx-feladat (`check` esetén `loop` lépés, `forras` esetén saját
+git worktree, keret ≤ 2 USD/feladat); `allapot N`; `begyujt N` → Markdown összesítő (állapot, ellenőrzések, worktree-változások,
+utolsó válasz; `~/.local/state/project-s/alugynokok/N.md`). Párhuzamosság, tartaléklánc és korlátok a psx felügyelőjéé (max 3 egyszerre).
+Nyitott: a worktree-k takarítása (`git worktree prune`), az eredmények visszafésülése a főnök döntése.
 
 ## Bevált külső minták, amiket átveszünk
 - *Ügynöki hurok és eszközmodell* (Claude Code, OpenHands, Aider): rövid, ellenőrző visszacsatolású ciklus; fájlszerkesztés célzott cserével; a teszt futtatása a hurok része.

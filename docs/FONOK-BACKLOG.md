@@ -186,3 +186,18 @@ A fejlesztések élesítése külön feltételekhez kötött; az akadályozott t
    **11. tétel, 3. kör – átnézve:** `t20261114-174325-28604f` elfogadva; az élesítés összefésülési ütközés miatt nem futott
    (a `main` közben a 12. tétellel bővült). Összefésülve, a főnök kontextusa (`beszelgetes.py`) a hurokkal és az
    eszközjegyzékkel frissítve (12. tétel szerint) → új átnézés, utána élesítés.
+   **3. kör élesítve (2026-11-14 18:11 UTC):** `d4762d0` (átnézés `t20261114-180622-21f54a`), címke `elo-20261114-181144`;
+   éles próba: `eszkozjegyzek.py lista` 9 eszköz, `hiv ugy lista` ok, naplózva.
+   **4. kör elkészült (fejlesztési példány, 2026-11-14):** a saját ügynöki ciklus teljes jognál a jegyzék `psx`/`ugy`
+   eszközét használja (egységes napló, szándékrekord, megszakadás után nem ismétel; laptop kimarad). Teszt:
+   `executor/tests/test_agent_jegyzek.py` (4). Valódi próba: `t20261114-182144-51c740` (or-olcso, `loop` lépés, teljes jog) –
+   az `ugy lista` eszközhívásból írt fájl az 1. körben átment, `accepted`, 0,014 USD. Dokumentáció: `docs/SZUPER-VEGREHAJTO.md`.
+   **4. kör élesítve (2026-11-14 18:36 UTC):** `ab275c5` (átnézés `t20261114-182544-19a0c3`), címke `elo-20261114-183611`.
+   **5. kör elkészült (fejlesztési példány, 2026-11-14):** alügynök-csoportok `executor/alugynok.py` (indit/allapot/begyujt,
+   worktree-izoláció, `loop` ellenőrzéssel) + `alugynok` eszköz a jegyzékben (csak a főnöknek); a saját ciklus rendszerpromptja
+   teljes jognál helyesen írja le a `run`-t (az előző átnézés megjegyzése). Teszt: `executor/tests/test_alugynok.py` (3).
+   Valódi próba az éles felügyelőn: csoport `proba-20261114-1` – `t20261114-184148-b9a545`, `t20261114-184148-ab0f0f`
+   párhuzamosan, mindkettő `accepted`, összesen 0,0017 USD. Főnök-kontextus és `docs/SZUPER-VEGREHAJTO.md` frissítve.
+   Az átnézés (`t20261114-184352-90837c`) 2 jogos hibát talált: részleges beküldésnél árva feladatok (a csoportfájl nem íródott
+   ki), és a `begyujt` git-időtúllépésnél leállt. Javítva: előzetes érvényesítés (hibás listából semmi nem indul), a csoportfájl
+   minden beküldés után íródik, a `_diff` hibája szövegként jelenik meg. +2 regressziós teszt.
