@@ -179,7 +179,8 @@ ideiglenes Git-repó; éles push-kézbesítést ez a fejlesztési teszt nem igaz
 A ciklus bekapcsolt állapotban meghívja a `scripts/ebresztes.py`-t: modell nélkül gyűjt jelölteket, és csak küszöb fölötti pontnál
 ébreszti a főnököt (egyszerre egy főnök, jelöltenként ≤3 próba, utána `ebresztes-elakadt:` döntési tétel). A döntésre váró
 kezdeményezések (`kezdemenyezes:<id>`) is a döntési sorba kerülnek. Minden saját kezdeményezés alapító lapot kap
-(`scripts/kezdemenyezes.py`); lezáráskor mért kimenet és költség, amely a következő tervezés bemenete (`korabbi_kezdemenyezesek`). Részletek: `docs/AUTONOM-CELVEZERLES.md` 3. mérföldkő.
+(`scripts/kezdemenyezes.py`); lezáráskor mért kimenet és költség, amely a következő tervezés bemenete (`korabbi_kezdemenyezesek`).
+Az elakadt saját ügy nem foglalja a kezdeményezési helyet; `sajat-elakadt:<ügy>` döntési tételt kap. Részletek: `docs/AUTONOM-CELVEZERLES.md` 3. mérföldkő.
 
 ## A NEAR-felhatalmazás pontos terjedelme
 A munkás önállóan: nyitott feladatok olvasása és besorolása; **ajánlattétel** (bármilyen pénznemben – toti, 2026-11-12; USD-hez a NEAR Stripe-bekötést kér, addig a munkás naponta újrapróbál; kutatási típusú, „vállalható”

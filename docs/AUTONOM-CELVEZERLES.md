@@ -93,6 +93,12 @@ A lezárás **géppel ellenőrzött bizonyítékokon** alapul: a főnök a váll
    bevételi ügyek eddig belső eszközök, nem tényleges bevétel). A 6. mérföldkő mérése a lap mérőszámát kell igazolja.
 6. **Végső elfogadási próba (nem mesterséges):** a rendszer MAGA talál egy korábban nem kijelölt, hasznos kezdeményezést, indokolja a választást (jelöltek, rangsor, korábbi tanulságok),
    végrehajtja az engedélyezett kereteken belül, és méri az eredményt; független ellenőrzés + élesben igazolva. A főnök a mérföldköveket önállóan viszi végig, független ellenőrzéssel és éles próbákkal.
+   **Gépi próba (2026-11-14):** `scripts/celvezerles_proba.py` (exit 0 = teljesült). Feltételek: saját (ügygazda) kezdeményezés a
+   tanulás élesítése (2026-11-14 23:20 UTC) után, nem pótolt lap; valódi mérlegelt jelöltek + az indoklás hivatkozik egy korábbi
+   lezárt kezdeményezésre; `siker` kimenet a pénzkereten belül; az ügy psx-feladata `accepted`, minden ellenőrzés sikeres, és van
+   modelltől független gépi szabály. A `BACKLOG_KESZ` záró állapot bizonyítéka ez a parancs.
+   **Feloldott akadály:** az elakadt saját ügy (`akadaly-ismetlodes-csoportosito`) 16 órán át foglalta az egyetlen kezdeményezési
+   helyet; most az elakadt saját ügy nem foglal helyet, `sajat-elakadt:<ügy>` döntési tételt kap (toti: lezárás vagy folytatás).
 
 ## Működési elv a megvalósításhoz
 Ne építs új párhuzamos rendszert: a `scripts/ugygazda.py` (védett; ellenőrzött élesítés, toti tartós felhatalmazásával), `scripts/fonok_auto.py`, `executor/beszelgetes.py`, `executor/psx.py`, az `ugy` bővítése.

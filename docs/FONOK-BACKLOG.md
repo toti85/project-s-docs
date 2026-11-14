@@ -241,3 +241,6 @@ A fejlesztések élesítése külön feltételekhez kötött; az akadályozott t
    **4. mérföldkő 2. kör élesítve, élesben igazolva (2026-11-14 23:11 UTC):** `7fe2ef9`, `elo-20261114-231040`; az éles ciklus 28 saját ügy kezdeményezését zárta méréssel.
    **5. mérföldkő, 1. kör kész (fejlesztési példány):** korábbi eredményekkel korrigált pontozás + hivatkozás a promptban.
    Következő: 6. mérföldkő (végső, nem mesterséges elfogadási próba).
+   **5. mérföldkő élesítve (2026-11-14 23:20 UTC):** `895d799`, `elo-20261114-232036`.
+   **6. mérföldkő előkészítve (fejlesztési példány):** gépi próba `scripts/celvezerles_proba.py`; az elakadt saját ügy többé nem
+   blokkolja az önálló kezdeményezést. Ezután a rendszernek MAGÁNAK kell kezdeményeznie – a próba addig `nem teljesült`.
