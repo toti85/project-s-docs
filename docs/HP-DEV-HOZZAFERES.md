@@ -56,7 +56,7 @@ ezért a kifejezett push-tilalom miatt nem hívtam meg, és nem kerültem meg.
 Független, más gyártójú PSX-átnézés és az eredeti `scripts/elesites.py` kapu kell.
 A telepítő kizárólag az éles `/home/sagent/project-s-workshop` példányból fut;
 megköveteli a változást tartalmazó, naplózott ellenőrzött élesítést.
-Root-lépés (a git-objektumból, nem a munkafáról): `GIT_NO_REPLACE_OBJECTS=1 git -C /home/sagent/project-s-workshop show <commit>:scripts/hp_dev_install.sh | sudo GIT_NO_REPLACE_OBJECTS=1 bash -s -- <commit>`.
+Root-lépés (a git-objektumból, nem a munkafáról; a `.git/objects` a zárolt végrehajtónak írható, ezért minden olvasás a root-tulajdonú, hash-ellenőrző `/usr/local/lib/project-s/gitverify.py`-on megy át – commit → fa → blob SHA-1 újraszámolva): `sudo /usr/bin/python3 -I /usr/local/lib/project-s/gitverify.py /home/sagent/project-s-workshop <TELJES-commit> scripts/hp_dev_install.sh | sudo bash -s -- <TELJES-commit>`. Első telepítésnél (az ellenőrző még nincs) a `gitverify.py`-t a sagent-munkamenet kézzel másolja a helyére.
 Ez hostkulcsot ellenőriz, root tulajdonú kódot/unitot telepít, szolgáltatást indít;
 sem SSH-kulcsot, sem laptopadatot nem módosít.
 A pontos rendszerlépés-kérés az alábbi folytatási bejegyzésben szerepel.
@@ -66,6 +66,32 @@ miatt nem indítható így. Nem módosítottam megkerülésként az élesítőt.
 Jóváhagyott telepítés után ismét a pluginból indítandó a három próba.
 Elvárt kimenet sorrendben: `kriszti35`, `kriszti35-HP-ZBook-17-G5`, `root`.
 Csak ennek PSX-bizonyítékával nevezhető működőnek. Driver/játék/reboot/adatmódosítás nincs.
+
+## Általános parancsfuttatás és teljes sudo (toti felhatalmazása, 2026-11-14)
+
+toti engedélyezte a főnöknek a rögzített HP-laptop általános parancsfuttatását és teljes sudo-adminisztrációját (ez volt az eredeti cél).
+
+**Használat** (a főnök környezetéből): `python3 /usr/local/lib/project-s/hp_dev.py hp-dev run [--timeout MP] [--egyeztetve "kivel, mikor"] -- <parancs>` (kriszti35-ként),
+`… hp-dev sudo …` (root-ként, `sudo -n`), hosszú szkript: `… hp-dev run -` (stdin). Válasz JSON: `ok`, `exit`, `output`, `error`. A diagnosztikai három művelet (`whoami`, `hostname`, `sudo -n whoami`) token nélkül, bárkinek megmaradt.
+
+**Két jogosult útvonal (2026-11-14, a pluginból indított PSX-feladatok miatt):** (1) a főnök tokenje; (2) *pluginból (MCP) indított PSX-feladat toti nevében*: a zárolt végrehajtó nem olvashatja a tokent (és nem is kell neki), ezért a híd a kérő folyamat kernel-adataiból dönt: SO_PEERCRED pid → `/proc/<pid>/cgroup` → a `psx-<feladat>-a<n>.service` egység → a feladat `spec.json`-ja (a zárolt folyamatnak nem írható) szerint `bekuldo.via == "mcp"` és `bekuldo.login` = `toti85` (`HP_ADMIN_LOGINS`). Más beküldő (beszélgetés, panel, ügygazda, ismeretlen), rossz token vagy nem-PSX folyamat nem jogosult. Token nem kerül ki, a zár nem lazul. A kapu, az időkorlát, a napló (`via` mező: `token` vagy `psx:<feladat>`) ugyanúgy érvényes. Következmény: toti minden pluginból indított feladata (nem csak a laptoppal kapcsolatos) elérheti a laptopot – ez toti beküldői fiókjához kötött tudatos döntés.
+
+**Ismert, a híd előtti gyengeség (2026-11-14 mérve):** a `--teljes` zárból a felhasználói systemd-busz (`/run/user/1001/bus`) elérhető (a Landlock ezen a kernelen nem korlátozza az AF_UNIX connect-et), így egy zárolt végrehajtó `systemd-run --user` átmeneti egységgel zár nélküli, sagent-jogú folyamatot indíthat (és bármilyen egységnevet választhat). A zár titokvédelme így nem teljes, és a fenti cgroup-azonosítás sem erősebb a zárnál. Javítás külön munka (pl. végrehajtók külön mount-névtérben / bwrap, a busz elzárásával); a híd ezt nem oldja meg.
+
+**Határok**
+- *Csak a HP-laptop:* a cél kódban rögzített (`kriszti35@<tailnet-ip>`, rögzített hostkulcs és hostujjlenyomat), a szolgáltatás hálózatilag is csak erre a címre mehet (`IPAddressAllow`). A kérésben nincs cél-mező.
+- *Csak a főnök:* az általános műveletekhez token kell (`~/.local/state/project-s/hp-dev/token`, 0600). A főnök szűk zárja olvashatja; a `--teljes` módú végrehajtók (codex, claude, copilot, or-olcso…) **nem** (igazolva: `Permission denied`). A szerver SSH-kulcsa/titkai a zárolt folyamatoknak továbbra is elzártak; a kulcsot csak a híd szolgáltatás használja, a főnök nem látja.
+- *Időkorlát:* alap 60 mp, legfeljebb 300 mp; a távoli oldalon is `timeout -k 5 N`, a kimenet legfeljebb 64 KiB, a szkript legfeljebb 64 KiB, legfeljebb 8 egyidejű kapcsolat (a többlet azonnal elutasítva), a teljes kérést 10 mp-en belül kell beküldeni; a kimenet folyamatosan korlátozva (túllépéskor a folyamat leállítva), a unit MemoryMax=256M, TasksMax=64.
+- *Napló:* minden kérés a journaldba és az `audit.jsonl`-be kerül: időpont, művelet, a szkript SHA-256-rövidítése és első 2000 karaktere, időkorlát, kilépési kód, időtartam, kimenet-bájtszám, `egyeztetve`. A kimenet tartalma nem naplózódik.
+- *Egyeztetési kapu (Krisztián is használja a gépet):* leállítás/újraindítás/felfüggesztés (`reboot`, `poweroff`, `shutdown`, `halt`, `systemctl reboot|poweroff|suspend…`), a grafikus munkamenet megszakítása (`gdm`/`display-manager` leállítása, `loginctl terminate-*`, `gnome-session-quit`, `pkill`/`killall`) a híd szintjén elutasított, amíg a kérésben nincs `--egyeztetve "kivel, mikor"` jelző (ez is naplózódik). Ez legjobb szándékú mintaillesztés, **nem** biztonsági határ (a sudo-s főnök megkerülhetné) – a szabály a főnök kötelessége: ezek előtt toti/Krisztián egyeztetése kell. A működő NVIDIA- és Sober-beállításhoz nem nyúlunk.
+
+**Széles hozzáférés – kifejezetten dokumentálva.** A főnök a laptop *minden* adatát eléri: a felhasználói fájlokat (Krisztián profilja, böngészőadatok, mentett jelszavak/munkamenetek, Roblox/Sober adatok, dokumentumok), és root-ként a teljes rendszert módosíthatja (csomagok, szolgáltatások, felhasználók, tűzfal, SSH-kulcsok). Ez toti tudatos döntése. Elvárás: csak a feladathoz szükségeset olvasni, személyes/hitelesítő tartalmat nem másolni a szerverre, a változtatásokat naplózottan és visszafordíthatóan végezni.
+
+**Igazolás a főnök tényleges környezetéből (2026-11-14, szál `b20261114-125457-17ef`, Codex-agy, szűk Landlock-zár):** tesztfájl létrehozása, visszaolvasása (`fonok-proba-OK`), sudo (`id -un` = `root`, hozzáírás rootként), törlés, majd a fájl hiánya (`ls` exit 2) – a híd naplója (`audit.jsonl`) a 8 hívást (a két hibás kísérlettel: idézőjelezés, `tee` jogosultság) független bizonyítékként tartalmazza, és a laptopon `~/bin/hp`-vel a fájl valóban nincs meg; a laptop üzemideje (2 óra) és az NVIDIA (`Quadro P2000, 580.178.04`) változatlan. A kapu is igazolt: `sudo reboot` → „egyeztetés kell”.
+
+**Végleges állapot:** commit `28103a7` telepítve; az 5. kör független átnézése (`kozos/kimeno/atnezes-hp-dev-5-20261114.md`, psx `t20261114-131518-8481d1`) ELFOGADVA, a korábbi körök eredményei (…, -2-, -3-, -4-) megmaradtak. A főnöki próba a végleges telepítésen megismételve (szál `b20261114-131913-7aea`, audit: run/run/sudo/sudo/run).
+
+**Telepítés:** a híd egyetlen forrása `scripts/hp_dev.py`; a telepítő (`scripts/hp_dev_install.sh`) hash-ellenőrzött git-olvasással (`scripts/gitverify.py`) telepít – lásd fent.
 
 ## Folytatási bejegyzés
 
@@ -79,7 +105,7 @@ Csak ennek PSX-bizonyítékával nevezhető működőnek. Driver/játék/reboot/
   rendszerlépés, majd a telepített klienssel valódi plugin–PSX újrapróba szükséges.
 
 ## Frissítés 2026-11-14 (átnézés utáni javítás, toti: a laptop teljes sudo-adminisztrálása engedélyezve)
-- A telepítő (`scripts/hp_dev_install.sh <commit>`) root-ként csak a commitolt, origin/main-ben lévő tartalomból telepít (`git show`); a sagent által
+- A telepítő (`scripts/hp_dev_install.sh <commit>`) root-ként csak a commitolt, origin/main-ben lévő tartalomból telepít (hash-ellenőrzött olvasás, `gitverify.py`); a sagent által
   írható munkafát és az `elesites.jsonl`-t nem olvassa (az átnézés 1–2. kifogása). A hostkulcs a szerveren ellenőrzött `~/.ssh/known_hosts_hp_dev`.
 - Az egységre `CapabilityBoundingSet=` és `ProtectKernel*/ProtectControlGroups` került.
 - Az adminisztrációt (illesztőprogram, energiabeállítás, alkalmazások) a Claude Code-munkamenet közvetlenül végzi a `~/bin/hp` segéddel
