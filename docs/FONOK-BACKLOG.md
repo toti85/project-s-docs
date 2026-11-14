@@ -227,3 +227,6 @@ A fejlesztések élesítése külön feltételekhez kötött; az akadályozott t
    (gépi záró állapot, `FUGGO_VALLALAS`, függő lista a következő körbe). Docs-tükör valós eset felismerve és behajtva. Következő kör: panel.
    **2. kör kész (fejlesztési példány, 2026-11-14):** panel-doboz a szál oldalán; a szövegközi kész-idézet téves lezárása javítva
    (csak az utolsó sor számít). Következő: 2. mérföldkő (`docs/CELOK.md`, alapító lap, kezdeményezés-napló, két költségkönyv).
+   **2. mérföldkő, 1. kör kész (fejlesztési példány, 2026-11-14):** `docs/CELOK.md`, `scripts/kezdemenyezes.py` (alapító lap, napló, két
+   külön költségkönyv, 2 USD küszöb); első valós lap lezárva (`k20261114-215204-348e`). A panel a nem futtatott parancs-bizonyítékot
+   nem számolja függőnek. Következő: 3. mérföldkő (ügygazda-ébresztés, egy-főnök-zár, döntési sor bekötése).

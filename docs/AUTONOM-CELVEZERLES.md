@@ -58,6 +58,11 @@ A lezárás **géppel ellenőrzött bizonyítékokon** alapul: a főnök a váll
    bizonyítékkal; függőnél nyitva). A panel `parancs:` bizonyítékot nem futtat. Valós hiba javítva: a régi szöveges jelzés
    egy szövegközi idézetre is lezárt; most csak az utolsó nem üres sor számít (`regi_kesz_jelzes`). Teszt: 9.
 2. **Célfájl, alapító lap, kezdeményezés-napló** (`docs/CELOK.md`, nyilvántartás), két külön költségkönyv.
+   **1. kör kész (2026-11-14, fejlesztési példány):** `docs/CELOK.md` (géppel olvasható json-blokk, 5 cél mérőszámokkal),
+   `scripts/kezdemenyezes.py` (`uj <lap.json>` / `koltseg <id> penz|elofizetes …` / `lezar <id> <kimenet> "<mérés>" "<tanulság>"` / `lista`).
+   Állapot: `~/.local/state/project-s/kezdemenyezes/` (lapok/, naplo.jsonl, koltseg-penz.jsonl, koltseg-elofizetes.jsonl).
+   2 USD fölötti pénzkeret vagy keret-túllépés → `dontesre_var` (az ügygazda döntési sorába kötése a 3. mérföldkő része).
+   Első valós bejegyzés: `k20261114-215204-348e` (docs-tükör eset, `siker`, 0 USD). Teszt: `scripts/test_kezdemenyezes.py` (4).
 3. **Ügygazda-ébresztés:** olcsó eseményfigyelés, egy-főnök-zár, korlátos újrapróbálás, tartalék időzítő.
 4. **Helyzetértékelés és önálló lehetőségkeresés**, aktív ötletfeldolgozás (értékbecslés, N napon belüli döntés).
 5. **Tanulás a döntésben** (korábbi eredmények a rangsorolásban, hivatkozva).
