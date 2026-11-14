@@ -84,6 +84,13 @@ A lezárás **géppel ellenőrzött bizonyítékokon** alapul: a főnök a váll
    (`kezdemenyezes.py ugygazda-potlas`, „utólag pótolt” jelöléssel). Javított hiba: a tesztek a valódi nyilvántartásba írtak
    (8 lap, kivéve: `…/kezdemenyezes/teszt-szivargas-20261114/`); most a `tesztek.sh` minden célvezérlési állapotot ideiglenes mappába tesz.
 5. **Tanulás a döntésben** (korábbi eredmények a rangsorolásban, hivatkozva).
+   **1. kör kész (2026-11-14, fejlesztési példány):** `kezdemenyezes.korrekcio(cél)`: az azonos célú lezárt kezdeményezések
+   simított sikeraránya → érték-szorzó (2 × (siker + 0,5·részleges + 1)/(n + 2); adat nélkül 1,0), az átlagos pénzköltség a
+   költséghez adódik. Az ébresztés pontja ezzel korrigált (`ertek_korr`), a főnök promptja a sikerarányt és 3 hivatkozást kap,
+   utasítással, hogy az indoklásban hivatkozzon rájuk; a tervező (`kezdemenyez`) a `korabbi_kezdemenyezesek` listát kapja.
+   Teszt: a korábbi eredmények megfordítják a nyers rangsort. Éles adat (23:15 UTC): megőrzés 13/16, bevétel 12/14 siker.
+   **Ismert korlát:** a „siker” most = az ügy lezárult és van elfogadott feladata (nem a lap mérőszámának teljesülése; a
+   bevételi ügyek eddig belső eszközök, nem tényleges bevétel). A 6. mérföldkő mérése a lap mérőszámát kell igazolja.
 6. **Végső elfogadási próba (nem mesterséges):** a rendszer MAGA talál egy korábban nem kijelölt, hasznos kezdeményezést, indokolja a választást (jelöltek, rangsor, korábbi tanulságok),
    végrehajtja az engedélyezett kereteken belül, és méri az eredményt; független ellenőrzés + élesben igazolva. A főnök a mérföldköveket önállóan viszi végig, független ellenőrzéssel és éles próbákkal.
 

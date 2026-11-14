@@ -238,3 +238,6 @@ A fejlesztések élesítése külön feltételekhez kötött; az akadályozott t
    Következő: az ügygazda saját kezdeményezéseinek alapító lapra kötése, helyzetértékelés a kezdeményezés-naplóval.
    **4. mérföldkő, 2. kör kész (fejlesztési példány, 2026-11-14):** ügygazda-kezdeményezés → alapító lap, lezárás méréssel, tanulságok
    a tervező bemenetében; 39 régi lap pótolva; tesztszivárgás javítva. Első ötlet feldolgozva (`o20261114-223422-8ac0` → `k20261114-225545-1aba`).
+   **4. mérföldkő 2. kör élesítve, élesben igazolva (2026-11-14 23:11 UTC):** `7fe2ef9`, `elo-20261114-231040`; az éles ciklus 28 saját ügy kezdeményezését zárta méréssel.
+   **5. mérföldkő, 1. kör kész (fejlesztési példány):** korábbi eredményekkel korrigált pontozás + hivatkozás a promptban.
+   Következő: 6. mérföldkő (végső, nem mesterséges elfogadási próba).
