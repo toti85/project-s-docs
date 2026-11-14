@@ -77,6 +77,12 @@ A lezárás **géppel ellenőrzött bizonyítékokon** alapul: a főnök a váll
    értékelés: érték/költség/kockázat 1–5 + indoklás). Az ébresztés a lejáró/lejárt döntésű ötletet jelöltként a főnökhöz viszi.
    Megállapítás: az ügygazda `kezdemenyez()` már végez modelles helyzetértékelést és saját ügyeket indít, de alapító lap nélkül –
    a 2. kör ezt köti a nyilvántartásba (nem párhuzamos rendszer). Teszt: +1 kezdeményezés, +1 ébresztés.
+   **2. kör kész (2026-11-14):** az ügygazda `kezdemenyez()` minden új saját ügyhöz alapító lapot ír (`kezdemenyezes.ugygazda_lap`,
+   cél-leképezés `megbizhatosag→megorzes`, a tervező `jeloltek` mezőt is ad); a ciklus a lezárt/leállított/elakadt saját ügy
+   kezdeményezését méréssel zárja, a psx-költség a két könyvbe kerül; a tervező bemenete `korabbi_kezdemenyezesek` (`tanulsagok()`),
+   utasítással, hogy a nem bevált típusokat ne ismételje (az 5. mérföldkő alapja). A 39 régi saját ügy lapja pótolva
+   (`kezdemenyezes.py ugygazda-potlas`, „utólag pótolt” jelöléssel). Javított hiba: a tesztek a valódi nyilvántartásba írtak
+   (8 lap, kivéve: `…/kezdemenyezes/teszt-szivargas-20261114/`); most a `tesztek.sh` minden célvezérlési állapotot ideiglenes mappába tesz.
 5. **Tanulás a döntésben** (korábbi eredmények a rangsorolásban, hivatkozva).
 6. **Végső elfogadási próba (nem mesterséges):** a rendszer MAGA talál egy korábban nem kijelölt, hasznos kezdeményezést, indokolja a választást (jelöltek, rangsor, korábbi tanulságok),
    végrehajtja az engedélyezett kereteken belül, és méri az eredményt; független ellenőrzés + élesben igazolva. A főnök a mérföldköveket önállóan viszi végig, független ellenőrzéssel és éles próbákkal.

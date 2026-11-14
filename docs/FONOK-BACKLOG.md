@@ -236,3 +236,5 @@ A fejlesztések élesítése külön feltételekhez kötött; az akadályozott t
    **3. mérföldkő élesítve és élesben igazolva (2026-11-14 22:31 UTC):** `6734abc`, címke `elo-20261114-223038`; az éles ügygazda-ciklus szívverést írt.
    **4. mérföldkő, 1. kör kész (fejlesztési példány):** ötlettár 3 napos döntési határidővel, ébresztés-forrásként.
    Következő: az ügygazda saját kezdeményezéseinek alapító lapra kötése, helyzetértékelés a kezdeményezés-naplóval.
+   **4. mérföldkő, 2. kör kész (fejlesztési példány, 2026-11-14):** ügygazda-kezdeményezés → alapító lap, lezárás méréssel, tanulságok
+   a tervező bemenetében; 39 régi lap pótolva; tesztszivárgás javítva. Első ötlet feldolgozva (`o20261114-223422-8ac0` → `k20261114-225545-1aba`).
