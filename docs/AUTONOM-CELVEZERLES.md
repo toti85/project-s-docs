@@ -72,6 +72,11 @@ A lezárás **géppel ellenőrzött bizonyítékokon** alapul: a főnök a váll
    Döntésre váró kezdeményezés → `kezdemenyezes:<id>` döntési tétel (embernek). Szívverés óránként: `~/.local/state/project-s/ebresztes/naplo.jsonl`.
    Kézi nézet: `scripts/ebresztes.py jeloltek`. Teszt: `scripts/test_ebresztes.py` (4). További forrás (befejezett feladat, ötlet, levél): 4. mérföldkő.
 4. **Helyzetértékelés és önálló lehetőségkeresés**, aktív ötletfeldolgozás (értékbecslés, N napon belüli döntés).
+   **1. kör kész (2026-11-14, fejlesztési példány): ötlettár.** `scripts/kezdemenyezes.py otlet uj|ertekel|dont|lista`;
+   minden ötletről 3 napon belül döntés kell (`megvalosit` csak alapító lapos kezdeményezéssel, `elvet`, `parkol`; döntés előtt
+   értékelés: érték/költség/kockázat 1–5 + indoklás). Az ébresztés a lejáró/lejárt döntésű ötletet jelöltként a főnökhöz viszi.
+   Megállapítás: az ügygazda `kezdemenyez()` már végez modelles helyzetértékelést és saját ügyeket indít, de alapító lap nélkül –
+   a 2. kör ezt köti a nyilvántartásba (nem párhuzamos rendszer). Teszt: +1 kezdeményezés, +1 ébresztés.
 5. **Tanulás a döntésben** (korábbi eredmények a rangsorolásban, hivatkozva).
 6. **Végső elfogadási próba (nem mesterséges):** a rendszer MAGA talál egy korábban nem kijelölt, hasznos kezdeményezést, indokolja a választást (jelöltek, rangsor, korábbi tanulságok),
    végrehajtja az engedélyezett kereteken belül, és méri az eredményt; független ellenőrzés + élesben igazolva. A főnök a mérföldköveket önállóan viszi végig, független ellenőrzéssel és éles próbákkal.
