@@ -230,3 +230,6 @@ A fejlesztések élesítése külön feltételekhez kötött; az akadályozott t
    **2. mérföldkő, 1. kör kész (fejlesztési példány, 2026-11-14):** `docs/CELOK.md`, `scripts/kezdemenyezes.py` (alapító lap, napló, két
    külön költségkönyv, 2 USD küszöb); első valós lap lezárva (`k20261114-215204-348e`). A panel a nem futtatott parancs-bizonyítékot
    nem számolja függőnek. Következő: 3. mérföldkő (ügygazda-ébresztés, egy-főnök-zár, döntési sor bekötése).
+   **3. mérföldkő, 1. kör kész (fejlesztési példány, 2026-11-14):** `scripts/ebresztes.py` az ügygazda ciklusában (pontozás, küszöb,
+   egy-főnök-zár, ≤3 próba → ELAKADT döntési tétel, döntésre váró kezdeményezés a döntési sorban, óránkénti szívverés).
+   Következő: éles próba, majd a 4. mérföldkő (helyzetértékelés, önálló lehetőségkeresés, ötletek).

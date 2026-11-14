@@ -64,6 +64,13 @@ A lezárás **géppel ellenőrzött bizonyítékokon** alapul: a főnök a váll
    2 USD fölötti pénzkeret vagy keret-túllépés → `dontesre_var` (az ügygazda döntési sorába kötése a 3. mérföldkő része).
    Első valós bejegyzés: `k20261114-215204-348e` (docs-tükör eset, `siker`, 0 USD). Teszt: `scripts/test_kezdemenyezes.py` (4).
 3. **Ügygazda-ébresztés:** olcsó eseményfigyelés, egy-főnök-zár, korlátos újrapróbálás, tartalék időzítő.
+   **1. kör kész (2026-11-14, fejlesztési példány):** `scripts/ebresztes.py`, az ügygazda ciklusa hívja (bekapcsolt ügygazdánál).
+   Modell nélküli jelöltforrások: lejárt határidejű, folyamatban lévő kezdeményezés (mérés + lezárás); nem automatikus szál függő vállalása.
+   Pont = fontosság (CELOK.md) × érték ÷ (költség + kockázat), küszöb 5; csak a legjobb jelölt ébreszt, a meglévő `fonok_auto.indit` úton
+   (szál nélkül a dedikált „Ügygazda-ébresztés” szálba; a prompt tartalmazza a pontot és a többi jelöltet). Egy-főnök-zár: fájlzár +
+   ha bármely főnök-szál dolgozik, nem indít. Ugyanarra a jelöltre ≤3 ébresztés, 30 perc szünettel, utána `ebresztes-elakadt:` döntési tétel.
+   Döntésre váró kezdeményezés → `kezdemenyezes:<id>` döntési tétel (embernek). Szívverés óránként: `~/.local/state/project-s/ebresztes/naplo.jsonl`.
+   Kézi nézet: `scripts/ebresztes.py jeloltek`. Teszt: `scripts/test_ebresztes.py` (4). További forrás (befejezett feladat, ötlet, levél): 4. mérföldkő.
 4. **Helyzetértékelés és önálló lehetőségkeresés**, aktív ötletfeldolgozás (értékbecslés, N napon belüli döntés).
 5. **Tanulás a döntésben** (korábbi eredmények a rangsorolásban, hivatkozva).
 6. **Végső elfogadási próba (nem mesterséges):** a rendszer MAGA talál egy korábban nem kijelölt, hasznos kezdeményezést, indokolja a választást (jelöltek, rangsor, korábbi tanulságok),

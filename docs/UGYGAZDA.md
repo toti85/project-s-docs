@@ -175,6 +175,11 @@ ideiglenes Git-repó; éles push-kézbesítést ez a fejlesztési teszt nem igaz
   `ugy naplo ellenoriz` → sorszám, egyediség, visszajátszás = allapot.json. Saját hash-lánc nincs; a git a commitolt
   történetet védi, ez nem teljes körű átírásvédelem. [TESZT] 5 teszt; [MÉRT 2026-11-12] 11/11 ügy rendben.
 
+## Főnök-ébresztés (2026-11-14)
+A ciklus bekapcsolt állapotban meghívja a `scripts/ebresztes.py`-t: modell nélkül gyűjt jelölteket, és csak küszöb fölötti pontnál
+ébreszti a főnököt (egyszerre egy főnök, jelöltenként ≤3 próba, utána `ebresztes-elakadt:` döntési tétel). A döntésre váró
+kezdeményezések (`kezdemenyezes:<id>`) is a döntési sorba kerülnek. Részletek: `docs/AUTONOM-CELVEZERLES.md` 3. mérföldkő.
+
 ## A NEAR-felhatalmazás pontos terjedelme
 A munkás önállóan: nyitott feladatok olvasása és besorolása; **ajánlattétel** (bármilyen pénznemben – toti, 2026-11-12; USD-hez a NEAR Stripe-bekötést kér, addig a munkás naponta újrapróbál; kutatási típusú, „vállalható”
 feladatra, Claude-írta + Codex-ellenőrzött szöveggel, a feladat kiírt díjával); ajánlathoz kiegészítő üzenet; elnyert munka
