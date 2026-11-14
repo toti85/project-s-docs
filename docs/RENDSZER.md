@@ -174,6 +174,8 @@ Alapelvek:
 - **Nyilvános dokumentációs tükör:** github.com/toti85/project-s-docs (`scripts/docs_tukor.py`): a `docs/`, `FOLYTATAS.md`,
   README és az újjáépítés ügyirata, e-mail/IP/tailnet-címek kitakarva, titokellenőrzéssel – a GPT- és a Claude-projekt ezt olvassa.
   Frissítés: `python3 scripts/docs_tukor.py` (időzítő: `install/systemd-user/project-s-docs-tukor.timer`).
+- **HP laptop (hp-dev):** távoli gép a szerverről (`~/bin/hp`, kulcs a szerveren); a végrehajtók/plugin/főnök három műveletet kérhetnek a root-tulajdonú hídon át
+  (`/usr/local/lib/project-s/hp_dev.py`); részletek, beállítások, mérések: `docs/HP-DEV-HOZZAFERES.md`.
 - **Tesztcsomag:** `scripts/tesztek.sh` (végrehajtó + ATA tesztek + szintaxis); a beszélgetésben készült kódnál automatikusan fut.
 - **SMB-hozzáférés:** `smb-belepes [IP]` – Windows-megosztás belépési adatai a repón kívülre (pl. a <helyi-ip> mesemappája).
 - **Titokvédelem:** `scripts/titok_ellenor.py` pre-commit hook; titkok: `~/.config/project-s/` (600), soha nem repóba.
