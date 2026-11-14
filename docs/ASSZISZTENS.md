@@ -41,6 +41,7 @@ Független ellenőr: egy másik gyártó modellje cáfolni próbálja az eredmé
 ```
 ps-chat inditas --vegrehajto <név> --cel "<feladat>" [--ugy <ügy>] [--elvart "<elvárt eredmény>"]
                 [--szabaly "<elfogadási szabály>" …] [--ellenor] [--keret 0.30]
+                [--hurok "<ellenőrző parancs>" [--korok 3]]   # ügy nélkül: munka → ellenőrzés → javító kör
 ps-chat leallit <feladat-id>
 ps-chat root-ker "<parancs>" --miert "<indoklás>"
 ps-chat root-jovahagy <kérés-id>

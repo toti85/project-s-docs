@@ -148,3 +148,21 @@ A fejlesztések élesítése külön feltételekhez kötött; az akadályozott t
    Az `ugygazda` push-azonosítót a feldolgozó most elfogadja; a jelzés a `/ugygazda` oldalra mutat.
    Regresszió: 15 perces határ, egyszeri/tartós értesítési állapot, fájllistaváltás, tisztulás/új epizód,
    mérési hiba melletti továbbműködés, valódi Gitben staged/unstaged/törlés/átnevezés és különleges fájlnevek.
+
+11. **Szuper-végrehajtó (toti, 2026-11-14; terv: `docs/SZUPER-VEGREHAJTO.md`).** A főnök TELJES hozzáféréssel dolgozik (zár nélkül, titkok és sudo elérhetők), nincs hívásplafon; haladj, ne ellenőrizz túl.
+   Építési sorrend a tervben (2. közös ügynöki hurok → 3. eszközök közvetlenül → 4. alügynökök → 5. beolvasztás → 6. önfejlesztés). Egy kör = egy kicsi, működő, tesztelt lépés
+   (kód a fejlesztési példányban, `scripts/tesztek.sh` zöld, commit; az élesítés ellenőrzött). Első lépés: mérd fel a meglévő adaptereket (`executor/agent.py`, `modell.py`, `beszelgetes.py`
+   agy_*), írd le a közös hurok minimális kialakítását `docs/SZUPER-VEGREHAJTO.md` „Hurok-terv" szakaszába, majd valósítsd meg a legkisebb használható változatot a psx-ben (egy új, opcionális
+   `kind: "loop"` lépés), és igazold egy valódi többlépéses feladattal. Maradó szabályok: titok nem kerül a repóba, pénz/regisztráció/külső beküldés/OVH/tűzfal toti döntése, laptop leállítása előtt egyeztetés.
+
+   **1. kör elkészült (fejlesztési példány, 2026-11-14; ellenőrzött élesítésre vár):** felmérés és „Hurok-terv” a
+   `docs/SZUPER-VEGREHAJTO.md`-ben; a psx új, opcionális `kind: "loop"` lépése (`goal`, `check`, `max_rounds`): ügynök
+   (meglévő tartaléklánc) → ellenőrző parancs → bukásnál exit-kód + kimenet vissza a következő körbe; körök naplózva
+   (`loop_round`/`loop_check`), naplóból folytatható. Teszt: `executor/tests/test_loop.py` (4, hamis ügynökkel).
+   Valódi próba (or-olcso, külön PSX_HOME): `t20261114-165551-0ed2aa` 1 körben, `t20261114-165615-3433a0`
+   átnézői visszajelzés után a 2. körben javított → mindkettő `accepted`, összesen ~0,0024 USD.
+   Következő kör: eszközjegyzék a hurok alá (3. lépés) / `ps-chat inditas` hurokkal.
+   **2. kör elkészült (fejlesztési példány, 2026-11-14):** `ps-chat inditas … --hurok "<ellenőrző parancs>" [--korok 3]`
+   ügy nélküli indításnál psx `loop` lépést küld (legfeljebb 10 kör); ügyhöz kötve egyelőre egyértelmű hibát ad.
+   Leírás: `docs/ASSZISZTENS.md`; teszt: `executor/tests/test_beszelgetes.py` (+2). Az élesítés feltétele a psx `loop`
+   lépés élesítése is (az éles psx enélkül elutasítja). Következő kör: eszközjegyzék a hurok alá (terv 3. lépés).
