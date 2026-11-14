@@ -46,6 +46,12 @@ az adapter „kész”-e után az eredményt csak a végső elfogadás nézi, ja
 **Következő lépések:** eszközjegyzék a hurok alá (3.), a `beszelgetes.py` főnöke hurokként indít (`ps-chat inditas --hurok`),
 modellválasztási szabály körönként (pl. 2. bukás után másik gyártó).
 
+## Eszközjegyzék (3. lépés, első változat – 2026-11-14)
+`executor/eszkozjegyzek.py`: shell, fajl_olvas, fajl_ir, csere, web_letolt, web_keres, psx, ugy, laptop (hp-dev híd) egy
+jegyzékben; `hiv(nev, args)` sosem dob (ismeretlen eszköz / hibás paraméter / kivétel → `ok: false`), minden hívás egy JSONL-sor
+(`~/.local/state/project-s/eszkozok/naplo.jsonl`, titokszerű részek kitakarva), `openai_eszkozok()` OpenAI tools-formátum.
+CLI: `python3 executor/eszkozjegyzek.py lista|openai|hiv <nev> '<json>'`. Következő: a hurok/főnök ezt a jegyzéket használja.
+
 ## Bevált külső minták, amiket átveszünk
 - *Ügynöki hurok és eszközmodell* (Claude Code, OpenHands, Aider): rövid, ellenőrző visszacsatolású ciklus; fájlszerkesztés célzott cserével; a teszt futtatása a hurok része.
 - *Munkafa-izoláció* (git worktree minden feladatra): olcsó kísérletezés, könnyű visszavonás.

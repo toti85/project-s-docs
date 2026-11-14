@@ -166,3 +166,23 @@ A fejlesztések élesítése külön feltételekhez kötött; az akadályozott t
    ügy nélküli indításnál psx `loop` lépést küld (legfeljebb 10 kör); ügyhöz kötve egyelőre egyértelmű hibát ad.
    Leírás: `docs/ASSZISZTENS.md`; teszt: `executor/tests/test_beszelgetes.py` (+2). Az élesítés feltétele a psx `loop`
    lépés élesítése is (az éles psx enélkül elutasítja). Következő kör: eszközjegyzék a hurok alá (terv 3. lépés).
+   **Élesítve (2026-11-14 17:10 UTC):** `f0059b6` (átnézés `t20261114-170140-171730` elfogadva), címke
+   `elo-20261114-171059`, visszaállítás: `scripts/elesites.py visszaallit elozo-20261114-171059`. Éles próba az éles
+   felügyelőn: `t20261114-171158-7dd44b` (or-olcso) – 1. kör exit 5 (átnézői kérés), 2. kör exit 0 → `accepted`.
+   **3. kör elkészült (fejlesztési példány, 2026-11-14):** eszközjegyzék `executor/eszkozjegyzek.py` (9 eszköz, egységes
+   hívás és JSONL-napló titokkitakarással, OpenAI tools-export, CLI). Teszt: `executor/tests/test_eszkozjegyzek.py` (5).
+   Valódi próba: shell, `ugy lista`, laptop-híd (hostname/uptime) ok; webes keresés ekkor kapcsolat-visszautasítást kapott
+   (helyesen `ok: false`). Következő kör: a főnök (`beszelgetes.py`) / hurok ezen a jegyzéken keresztül hív eszközt.
+   Az 1. átnézés (`t20261114-172244-7694a3`) elutasította: a szóközzel / JSON-ban megadott titok (`password foobar`,
+   `"password": "x"`) nem volt kitakarva. Javítva + regressziós teszt; a `sys.path`-duplikálás és a sémaépítő mellékhatása is.
+   A 2. átnézés (`t20261114-173256-71a9bf`) a kulcsszó nélküli, puszta titkot kifogásolta: a napló most a szerver ismert
+   titkainak pontos értékét is kitakarja (`~/.config/project-s/**/*.env`, titoknevű környezeti változók; csak memóriában).
+   Naplóépítési hiba sem dob; a `fajl_olvas` csak a kért sorokig olvas. A „halott teszt” kifogás téves (az érték szerepel a bemenetben).
+
+12. **Dokumentáció naprakészen tartása (toti, 2026-11-14).** A 11. tétel MINDEN körénél, ha viselkedés/felület változik, ugyanabban a commitban frissítsd az érintett leírást
+   (`docs/SZUPER-VEGREHAJTO.md`, a főnök kontextusa a `beszelgetes.py`-ban). A 11. tétel lezárásakor (vagy ha a `docs/RENDSZER.md` 7 napnál régebbi, és a kód közben változott): frissítsd a
+   `docs/RENDSZER.md`-t (zár nélküli főnök, `loop` lépés, eszközjegyzék, alügynökök, ami készült), a `docs/HP-DEV-HOZZAFERES.md` és a `docs/KEPESSEGEK.md` hivatkozásait; futtasd a `scripts/docs_tukor.py`-t
+   (nyilvános tükör, titokellenőrzéssel), és a válaszban sorold fel, mi frissült. Az elavult leírás hiba, nem kozmetika.
+   **11. tétel, 3. kör – átnézve:** `t20261114-174325-28604f` elfogadva; az élesítés összefésülési ütközés miatt nem futott
+   (a `main` közben a 12. tétellel bővült). Összefésülve, a főnök kontextusa (`beszelgetes.py`) a hurokkal és az
+   eszközjegyzékkel frissítve (12. tétel szerint) → új átnézés, utána élesítés.
