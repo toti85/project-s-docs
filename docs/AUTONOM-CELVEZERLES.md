@@ -49,6 +49,12 @@ A lezárás **géppel ellenőrzött bizonyítékokon** alapul: a főnök a váll
 
 ## Mérföldkövek
 1. **Lezárási kapu** (első, szűk): vállalás-nyilvántartás, bizonyíték-ellenőrzők, a négy állapot a `fonok_auto.py`-ban és a panelen; a docs-tükör eset a valós teszt.
+   **1. kör kész (2026-11-14, fejlesztési példány):** `scripts/lezarasi_kapu.py` (`vallal` / `zar` / `allapot`; szálanként
+   `~/.local/state/project-s/fonok-auto/kapu/<szál>.json`), bizonyítékok: `commit:`, `cimke:`, `fajl:[:sha256]`, `tukor`, `parancs:`.
+   A `fonok_auto.py` a gépi záró állapotot használja; a régi „BACKLOG KÉSZ” szöveg csak kérésként számít, a kapun át.
+   Függő vállalásnál `FUGGO_VALLALAS`, a következő kör promptja a függő listát kapja (ELAKADT függő mellett is jelenthető).
+   Valós eset: a `tukor` vállalás „elavult (20:40 < 20:55)” → `docs_tukor.py` lefuttatva → teljesült. Teszt: `scripts/test_lezarasi_kapu.py` (7).
+   Hátra: panel-megjelenítés (2. kör).
 2. **Célfájl, alapító lap, kezdeményezés-napló** (`docs/CELOK.md`, nyilvántartás), két külön költségkönyv.
 3. **Ügygazda-ébresztés:** olcsó eseményfigyelés, egy-főnök-zár, korlátos újrapróbálás, tartalék időzítő.
 4. **Helyzetértékelés és önálló lehetőségkeresés**, aktív ötletfeldolgozás (értékbecslés, N napon belüli döntés).

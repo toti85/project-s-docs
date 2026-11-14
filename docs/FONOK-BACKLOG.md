@@ -223,3 +223,5 @@ A fejlesztések élesítése külön feltételekhez kötött; az akadályozott t
    5. tanulás a döntésben → 6. végső, NEM mesterséges elfogadási próba). Egy kör = egy kicsi, működő, tesztelt lépés; kód a fejlesztési példányban, független átnézés, ellenőrzött élesítés, éles próba.
    Nincs párhuzamos irányítási rendszer: a meglévő ügygazdát/főnököt/ügy-műhelyt/psx-et bővítsd. Az első valós teszteset a docs-tükör elmaradt frissítése: a lezárási kapunak fel kell ismernie és be kell hajtania.
    Emberhez csak valódi elakadásnál/szükséges döntésnél fordulj (döntési sor); a `BACKLOG KÉSZ` itt csak akkor jelenthető, ha a 6. mérföldkő géppel ellenőrzött bizonyítékokkal teljesült.
+   **1. mérföldkő, 1. kör kész (fejlesztési példány, 2026-11-14):** lezárási kapu `scripts/lezarasi_kapu.py` + `fonok_auto.py` bekötés
+   (gépi záró állapot, `FUGGO_VALLALAS`, függő lista a következő körbe). Docs-tükör valós eset felismerve és behajtva. Következő kör: panel.
