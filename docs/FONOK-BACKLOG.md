@@ -225,3 +225,5 @@ A fejlesztések élesítése külön feltételekhez kötött; az akadályozott t
    Emberhez csak valódi elakadásnál/szükséges döntésnél fordulj (döntési sor); a `BACKLOG KÉSZ` itt csak akkor jelenthető, ha a 6. mérföldkő géppel ellenőrzött bizonyítékokkal teljesült.
    **1. mérföldkő, 1. kör kész (fejlesztési példány, 2026-11-14):** lezárási kapu `scripts/lezarasi_kapu.py` + `fonok_auto.py` bekötés
    (gépi záró állapot, `FUGGO_VALLALAS`, függő lista a következő körbe). Docs-tükör valós eset felismerve és behajtva. Következő kör: panel.
+   **2. kör kész (fejlesztési példány, 2026-11-14):** panel-doboz a szál oldalán; a szövegközi kész-idézet téves lezárása javítva
+   (csak az utolsó sor számít). Következő: 2. mérföldkő (`docs/CELOK.md`, alapító lap, kezdeményezés-napló, két költségkönyv).
