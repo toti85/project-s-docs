@@ -299,4 +299,9 @@ A fejlesztések élesítése külön feltételekhez kötött; az akadályozott t
    **14/3. záró próba (2026-11-15):** `scripts/tapasztalat.py proba` exit 0 – a rendszer magától kerülte el egy elakadt ügy megismétlését
    (`psx-dontes-ok-feltaras` → `ellenorzok-regresszio-futtato`), becsült megtakarítás 3 feladat / ~1,05 USD előfizetéses érték / ~185 perc.
    Végrehajtói hivatkozás a kapott tapasztalatra: 0/8 (gyenge pont, továbbfejlesztési jelölt). Régi archívum: feltöltésre vár (toti/GPT).
+   **14/3. régi archívum karanténban (2026-11-15, `t20261115-173321-d99bc2`):** a feltöltött ZIP (sha256 `1851f91b…`, 4 fájl: 2 md, 1 json, 1 docx)
+   a `~/.local/state/project-s/archivum-karanten`-ben (0700/0600), a közös mappából törölve, gitben sosem volt. Helyi szűrés (`titok_ellenor.kitakar`):
+   12 IPv4 kitakarva, maradt gyanú 0, utóellenőrzés 0 → szűrés bizonyított. Szűrt jelöltek: `szurt/jeloltek.jsonl` (4 tétel, `tapasztalat.py`
+   tételformátum, `tortenet-ellenorizetlen`, `regi-windows`) – a tárba még NEM kerültek. Következő: `tapasztalat.py kinyer` bővítése a jelöltek
+   beolvasására (alacsonyabb rang, frissebb tétel elsőbbsége, ellentmondás-jelölés) fejlesztési példányban; feldolgozó: `kozos/archivum_karanten.py`.
 
