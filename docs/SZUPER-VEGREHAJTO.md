@@ -128,3 +128,21 @@ lehűlés vége, 7 napos használat/limit/kész/költség, és a `waiting_model`
   a sikertelen megközelítés jelölve: „ne ismételd vakon”). Kikapcsolás: `UGY_TAPASZTALAT=0`.
 - **Mérés:** `tapasztalat.py meres` (hány promptba került, hány tétel); a megtakarítás (kihagyott ismételt munka, hívás, idő, két
   költségkönyv) mérése a következő kör. Még nincs: ellentmondás-jelölés, régi (Windows-) archívum, ügygazda-kezdeményezés bekötése.
+- **3. kör – „ez már volt” a tervezésben (ügygazda):** az önálló kezdeményezés tervét az ügygazda a tapasztalati memóriával
+  összeveti (`tapasztalat.ismetles_gyanu`, ≥14 pont = erősen rokon; mért küszöb 54 ügyön). Találatnál a tervező EGYSZER visszakapja
+  („ismétlés-gyanú – ez már volt: forrás [típus]: …”), és mást választ, vagy a forrásra hivatkozva indokolja az eltérést.
+  Mérés: `~/.local/state/project-s/tapasztalat/megtakaritas.jsonl` (`ismetles_gyanu`, `elkerult_ismetles`, `elteres_indoklassal`),
+  összesítés: `tapasztalat.py meres` → `tervezesi_jelzesek`.
+- **4. kör – ellentmondás-jelölés (követelmény d):** a `kinyer` az ugyanarról szóló (a nem-sablon kulcsszavak Jaccard ≥ 0,5),
+  ellentétes kimenetű tételeket (bevált/tanulság ↔ sikertelen) kölcsönösen jelöli (`ellentmond`), a régebbi `ellentmondasos`
+  állapotot kap; egyik sem íródik felül. A prompt „⚠ ELLENTMONDÁS ezzel: …” jelzéssel adja át. Mért (257 tétel): 77 pár, 34
+  ellentmondásos tétel, mind ügyön belüli (korábbi sikertelen próba ↔ későbbi elfogadott) – a sablonszűrő nélkül 581 hamis pár lett volna.
+- **5. kör – felhasználás mérése és záró próba:** `tapasztalat.py proba` (exit 0 = teljesült) azt nézi, hogy egy VALÓDI psx-feladat,
+  amely tapasztalatot kapott, a végső válaszában (`attempts/*/agent-*.txt`) hivatkozik-e a kapott forrás feladatára/ügyére
+  (≥6 karakteres azonosító, szóhatárral), vagy kifejezetten a korábbi tapasztalatra. A `meres` `felhasznalta` mezője ugyanezt
+  számolja. Állapot 2026-11-15 10:10 UTC: 1 valódi feladat kapott tapasztalatot, hivatkozás nincs → a próba `nem teljesült`.
+- **Helyi modell minőségmérés (2026-11-15, 5 rutinfeladat, gépi elfogadás, 0 USD):** f3 (ERROR-sorok számlálása) és f4 (hibás függvény
+  javítása) elfogadva 1. kísérletre; f1/f2/f5 nem dőlt el: (1) a párhuzamos kérések az egyhelyes szervert túlterhelték → `-np 3 -c 49152`;
+  (2) a 60 s-os olvasási időkorlát CPU-n időtúllépést adott, amit a ciklus „overloaded”-nek vett és 10 percre letiltotta a `local`-t →
+  szolgáltatónkénti `keres_timeout_s`/`olvasasi_timeout_s` (`modellek.json`, ollama: 600 s); (3) minőség: a 4B modell 12 fordulón át
+  ugyanazt a hibás egysoros `python -c "…; with …"` parancsot ismételte. A `tomeg` láncba csak az élesített időkorlát utáni újramérés után kerülhet.

@@ -275,13 +275,22 @@ A fejlesztések élesítése külön feltételekhez kötött; az akadályozott t
    ~12 tok/s; éles psx-próba accepted 0 USD; díjmentes szolgáltató pénzkeret-hibája javítva. Következő: a `local` bevonása a `tomeg`
    tartalékláncba mért minőség után, és a tudásbázis előkészítése (14/3).
    **14/2. élesítve (2026-11-15 06:42 UTC):** `be0dcda`, `elo-20261115-064221`; éles próba 0 USD kerettel accepted (`t20261115-064317-a81521`).
-   Átfedés: a `b20261114-205523-9a10` szál `scripts/kapacitasgazda.py`-t épít (mért siker/elutasítás, ajánlás) – egyesítendő a
-   `executor/kapacitas.py`-val (egy tábla, a psx-tartaléklánc a mért sikerarányt használja).
+   Átfedés (megszűnt): a `b20261114-205523-9a10` szál `scripts/kapacitasgazda.py`-ja visszavonva (`fa04a20`, `21aeba8`); a mért sikerarány-ötlet a
+   `executor/kapacitas.py` későbbi bővítése lehet (a psx-tartaléklánc a mért sikerarányt használja).
    **14/3. tapasztalati memória, 1. kör kész (fejlesztési példány):** `scripts/tapasztalat.py` (253 tétel a meglévő ügyekből és
    kezdeményezésekből, helyi titokszűrés, keresés, `ugy uj`/feladatprompt bekötve, használatmérés). Következő: ellentmondás-jelölés,
    megtakarítás-mérés, ügygazda-kezdeményezés bekötése; végső próba: valódi új ügy maga használja a tapasztalatot.
    **14/3. 1. kör élesítve (2026-11-15 07:05 UTC):** `6a9c531`, `elo-20261115-070524`; éles tár 257 tétel, 0 titok miatt kihagyva, könyvtár 0700.
    Éles próbán a relevancia gyenge volt (általános szavak) → 2. kör: gyakori szavak kizárása + küszöb; a 4B modell álneve javítva
    (`qwen3-4b-instruct`). A `helyi-modell-vegpont-diagnozis` saját ügy oka (nem futó helyi végpont) ezzel megszűnt.
+   **14/3. 2. kör élesítve (2026-11-15 07:24 UTC):** `7e9a839`, `elo-20261115-072440`; llama-unit frissítve, éles próba `t20261115-072550-6620a7` accepted.
+   **14/3. 3. kör kész (fejlesztési példány):** ügygazda-tervezés ismétlés-gyanúval + megtakarítás-napló. Következő: élesítés, majd
+   ellentmondás-jelölés és a végső próba (valódi új ügy maga használja a tapasztalatot, mért megtakarítással).
+
    **Tanulság (2026-11-15, szál b20261114-205523-9a10):** a lezárt 13.-as szál a tükör-vállalás újranyílása miatt felvette a 14. tételt, holott annak
    saját szála van (b20261115-060236-7705, `c1091b3` élesben) – a duplikátum visszavonva, a kapu javítva (bizonyított vállalás nem nyílik újra).
+   **14/3. 3. kör élesítve (2026-11-15 09:46 UTC):** `e6b199b`, `elo-20261115-094601`. **4. kör kész (fejlesztési példány):** ellentmondás-jelölés
+   (77 pár, mind ügyön belüli; sablonszűrővel). Hátra: záró próba valódi új ügyön mért megtakarítással; `local` a `tomeg` láncba mérés után.
+   **14/3. 4. kör élesítve (2026-11-15 10:02 UTC):** `b8e3b67`, `elo-20261115-100239`. **5. kör kész (fejlesztési példány):** gépi záró próba
+   `scripts/tapasztalat.py proba` – a végső próba akkor teljesül, ha egy valódi új ügy maga használja a tapasztalatot (most: nem teljesült).
+
