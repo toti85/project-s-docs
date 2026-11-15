@@ -90,3 +90,14 @@ az alügynök-eredmények visszafésülése, böngésző/Gmail az eszközjegyzé
 ## Nyitott pontok
 - A felhasználói systemd-busz elérhetősége (zárkikerülés, `docs/HP-DEV-HOZZAFERES.md`) teljes hozzáférésnél már nem hiba, de a cgroup-alapú hp-dev azonosítás gyengesége marad (a főnök tokent használ).
 - Költségkeret: nincs hívásplafon; az OpenRouter/előfizetéses limitek természetes korlátok (a tartaléklánc kezeli).
+
+## Kapacitásgazda (FONOK-BACKLOG 14., 1. kör, 2026-11-15)
+`executor/kapacitas.py` – központi szolgáltató-nyilvántartás a meglévő adatokból (psx adapterek, `providers.json`, feladatnaplók):
+gyártó, költségtípus (`penz` / `elofizetes` / `ingyenes` – külön, mint a két költségkönyv), erősség (`TIPUS_LANC`), elérhetőség,
+lehűlés vége, 7 napos használat/limit/kész/költség, és a `waiting_model` miatti várakozási óra.
+- `python3 executor/kapacitas.py tabla [--nap 7] [--json]`, `… valaszt <kod|kutatas|tomeg|-> [--kizar GYARTO,…]`
+- **Tartaléklánc a psx-ben** (`psx.lanc`): ha a lépés minden saját szolgáltatója limites/lehűlésben van, a típus lánca
+  (ismeretlen típusnál `claude`, `codex`) következik várakozás helyett. Kifejezett `providers` esetén csak `"tartalek": true`-val;
+  `"tartalek": false` tiltja. A feladat más lépéseit elvégző gyártó kimarad (a független ellenőr nem kapja a szerző gyártóját).
+  Az `ugy inditas` munkalépése kifejezett végrehajtó nélkül tartalékkal fut; toti által választott végrehajtónál nincs csere.
+- Fizetős OpenRouter (pénz) tartalékként nem kerül be automatikusan. Mérőszám: várakozási óra/nap (indulás: 12,66 óra/7 nap).

@@ -267,3 +267,6 @@ A fejlesztések élesítése külön feltételekhez kötött; az akadályozott t
    ellenőrzés után adható tovább. Az archívum fájljai még nincsenek a szerveren (toti/GPT tölti fel); addig a már meglévő forrásokból (ugyek/*/eredmenyek, lezárt kezdeményezések, forrasok/) építsd a memóriát.
    Ne építs feleslegesen új alrendszert: az ügygazdát, a kezdeményezés-nyilvántartást és az állításkezelést bővítsd. Kód: fejlesztési példány, független átnézés, ellenőrzött élesítés, éles próba (a végső próba: egy valódi új ügynél a
    rendszer MAGA találja meg és használja a korábbi tapasztalatot, és a megtakarítás mérhető).
+   **14/1. kapacitásgazda, 1. kör kész (fejlesztési példány, 2026-11-15):** `executor/kapacitas.py` (tábla + választás) és psx-tartaléklánc
+   (`psx.lanc`, független ellenőr gyártója védve); kiinduló mérés: 12,66 óra modellvárakozás/7 nap. Következő: élesítés után a
+   várakozási óra összevetése, majd 2. helyi intelligencia (CPU-s llama.cpp mérés), párhuzamosan a tudásbázis előkészítése.
