@@ -101,3 +101,17 @@ lehűlés vége, 7 napos használat/limit/kész/költség, és a `waiting_model`
   `"tartalek": false` tiltja. A feladat más lépéseit elvégző gyártó kimarad (a független ellenőr nem kapja a szerző gyártóját).
   Az `ugy inditas` munkalépése kifejezett végrehajtó nélkül tartalékkal fut; toti által választott végrehajtónál nincs csere.
 - Fizetős OpenRouter (pénz) tartalékként nem kerül be automatikusan. Mérőszám: várakozási óra/nap (indulás: 12,66 óra/7 nap).
+
+## Helyi intelligencia (FONOK-BACKLOG 14., 2. rész, 1. kör, 2026-11-15)
+- Felhasználói szintű llama.cpp (CPU, b12398 kiadás, `~/.local/opt/llamacpp/`), modellek `~/.local/share/project-s/modellek/`;
+  szolgáltatás: `project-s-llama.service` (user, `install/systemd-user/`), csak `127.0.0.1:11434` – ez a psx `local` végpontja
+  (a `modellek.json` `local` profilja, név: `qwen3:8b` álnév). Sudo, GPU-meghajtó, hálózati változás nem kellett.
+- Mérés (Xeon E5-2699 v3, 72 szál, `llama-bench`, pp512/tg64):
+  | modell | szál | előfeldolgozás tok/s | generálás tok/s |
+  |---|---|---|---|
+  | Qwen3-4B-Instruct-2507 Q4_K_M (2,3 GiB) | 16 | 99 | 13,1 |
+  | Qwen3-4B-Instruct-2507 Q4_K_M | 36 | 163 | 12,4 |
+  | Qwen3-8B Q4_K_M (4,7 GiB) | 36 | 101 | 6,9 |
+  Eszközhívás (`--jinja`) működik. Éles psx-próba: `t20261115-063442-5544ee` accepted, 1 kísérlet, 0 USD (egyszerű fájlművelet).
+- A díjmentes szolgáltatókat (`kapacitas.KOLTSEG == "ingyenes"`: local, or-free) a pénzkeret nem tiltja és nem állítja le.
+- Korlát: CPU-n lassú (kb. 12 tok/s) – rövid rutinlépésre, tartaléknak való; webkutatásra/nehéz kódra nem mértük.

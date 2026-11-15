@@ -270,3 +270,8 @@ A fejlesztések élesítése külön feltételekhez kötött; az akadályozott t
    **14/1. kapacitásgazda, 1. kör kész (fejlesztési példány, 2026-11-15):** `executor/kapacitas.py` (tábla + választás) és psx-tartaléklánc
    (`psx.lanc`, független ellenőr gyártója védve); kiinduló mérés: 12,66 óra modellvárakozás/7 nap. Következő: élesítés után a
    várakozási óra összevetése, majd 2. helyi intelligencia (CPU-s llama.cpp mérés), párhuzamosan a tudásbázis előkészítése.
+   **14/1. élesítve (2026-11-15 06:31 UTC):** `c1091b3`, `elo-20261115-063111`.
+   **14/2. helyi intelligencia, 1. kör kész (2026-11-15):** llama.cpp CPU + Qwen3-4B Q4_K_M a `local` végponton (`project-s-llama.service`),
+   ~12 tok/s; éles psx-próba accepted 0 USD; díjmentes szolgáltató pénzkeret-hibája javítva. Következő: a `local` bevonása a `tomeg`
+   tartalékláncba mért minőség után, és a tudásbázis előkészítése (14/3).
+
