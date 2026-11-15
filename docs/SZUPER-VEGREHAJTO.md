@@ -146,3 +146,11 @@ lehűlés vége, 7 napos használat/limit/kész/költség, és a `waiting_model`
   (2) a 60 s-os olvasási időkorlát CPU-n időtúllépést adott, amit a ciklus „overloaded”-nek vett és 10 percre letiltotta a `local`-t →
   szolgáltatónkénti `keres_timeout_s`/`olvasasi_timeout_s` (`modellek.json`, ollama: 600 s); (3) minőség: a 4B modell 12 fordulón át
   ugyanazt a hibás egysoros `python -c "…; with …"` parancsot ismételte. A `tomeg` láncba csak az élesített időkorlát utáni újramérés után kerülhet.
+- **Újramérés az élesített javítások után (2026-11-15 10:31 UTC, `elo-20261115-103039`):** 3/5 elfogadva 1. kísérletre (f3, f4, f5),
+  túlterhelés/letiltás nem volt. f2: hamis sikerjelentés (a modell kész munkát írt, a fájl nem jött létre – a gépi elfogadás kiszűrte);
+  f1: 600 s alatt csak 4 modellkérés fért bele (CPU, 3 párhuzamos feladat, ~3,5k tokenes prompt) → időtúllépés.
+  **Döntés:** a `local` NEM kerül automatikusan a `tomeg` tartalékláncba (60%, hamis sikerjelentés); kifejezett `providers: ["local"]`-lal,
+  gépi elfogadási szabállyal, rövid rutinlépésre használható. Előrelépés: GPU (meglévő jóváhagyási úton) vagy erősebb modell mérése.
+- **Független ellenőr tartaléklánca (2026-11-15):** az `ugy` ellenőr-lépése `tartalek_lanc: [codex, copilot, claude]`-ot kap (a lépésre
+  szabott lánc felülírja a típusláncot; a szerző gyártója a `psx.lanc`-ban kimarad; DeepSeek nem). Ok: a Codex 2026-11-18-ig limites volt,
+  az `ugy-cel-duplikacio-ellenor` ellenőrzése 3 napig várt volna, és ez az ügygazda (max. 1 saját ügy) minden új kezdeményezését is megállította.

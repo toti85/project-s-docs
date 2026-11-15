@@ -293,4 +293,7 @@ A fejlesztések élesítése külön feltételekhez kötött; az akadályozott t
    (77 pár, mind ügyön belüli; sablonszűrővel). Hátra: záró próba valódi új ügyön mért megtakarítással; `local` a `tomeg` láncba mérés után.
    **14/3. 4. kör élesítve (2026-11-15 10:02 UTC):** `b8e3b67`, `elo-20261115-100239`. **5. kör kész (fejlesztési példány):** gépi záró próba
    `scripts/tapasztalat.py proba` – a végső próba akkor teljesül, ha egy valódi új ügy maga használja a tapasztalatot (most: nem teljesült).
+   **14/2. helyi modell, 2. kör (2026-11-15 10:31 UTC, `elo-20261115-103039`):** 3 párhuzamos hely + szolgáltatónkénti időkorlát élesítve;
+   újramérés 3/5 (hamis sikerjelentés 1, időtúllépés 1) → a `local` nem kerül automatikusan a `tomeg` láncba. 14/3 záró próba
+   (`scripts/tapasztalat.py proba`) valódi ügyre vár; régi archívum: a fájlok feltöltésére vár (toti/GPT).
 
