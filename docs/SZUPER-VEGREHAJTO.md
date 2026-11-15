@@ -154,3 +154,9 @@ lehűlés vége, 7 napos használat/limit/kész/költség, és a `waiting_model`
 - **Független ellenőr tartaléklánca (2026-11-15):** az `ugy` ellenőr-lépése `tartalek_lanc: [codex, copilot, claude]`-ot kap (a lépésre
   szabott lánc felülírja a típusláncot; a szerző gyártója a `psx.lanc`-ban kimarad; DeepSeek nem). Ok: a Codex 2026-11-18-ig limites volt,
   az `ugy-cel-duplikacio-ellenor` ellenőrzése 3 napig várt volna, és ez az ügygazda (max. 1 saját ügy) minden új kezdeményezését is megállította.
+- **6. kör – tervezési szintű felhasználás a záró próbában (2026-11-15):** a `proba` az elkerült ismétlést is számolja, ha a tapasztalat
+  miatt valódi, önálló (`onallo`) új ügy indult; a megtakarítás az elkerült rokon ügy tényleges ráfordítása a psx-naplókból (feladatszám,
+  pénz és előfizetéses érték külön, perc). **Élesben, magától (11:31 UTC):** az ügygazda `psx-dontes-ok-feltaras` terve 28,8 ponttal az
+  elakadt `akadaly-ismetlodes-csoportosito`-ra hasonlított → a tervező másikat választott (`ellenorzok-regresszio-futtato`). Becsült
+  megtakarítás: 3 feladat, 0 USD pénz, ~1,05 USD előfizetéses érték, ~185 perc (becslés: az ismétlés ugyanannyiba került volna).
+  A végrehajtói szintű felhasználás (válaszban hivatkozás) 8 tapasztalatos promptból 0 – ez külön mérőszám marad.

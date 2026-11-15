@@ -296,4 +296,7 @@ A fejlesztések élesítése külön feltételekhez kötött; az akadályozott t
    **14/2. helyi modell, 2. kör (2026-11-15 10:31 UTC, `elo-20261115-103039`):** 3 párhuzamos hely + szolgáltatónkénti időkorlát élesítve;
    újramérés 3/5 (hamis sikerjelentés 1, időtúllépés 1) → a `local` nem kerül automatikusan a `tomeg` láncba. 14/3 záró próba
    (`scripts/tapasztalat.py proba`) valódi ügyre vár; régi archívum: a fájlok feltöltésére vár (toti/GPT).
+   **14/3. záró próba (2026-11-15):** `scripts/tapasztalat.py proba` exit 0 – a rendszer magától kerülte el egy elakadt ügy megismétlését
+   (`psx-dontes-ok-feltaras` → `ellenorzok-regresszio-futtato`), becsült megtakarítás 3 feladat / ~1,05 USD előfizetéses érték / ~185 perc.
+   Végrehajtói hivatkozás a kapott tapasztalatra: 0/8 (gyenge pont, továbbfejlesztési jelölt). Régi archívum: feltöltésre vár (toti/GPT).
 
