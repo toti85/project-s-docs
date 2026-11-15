@@ -109,3 +109,8 @@ A lezárás **géppel ellenőrzött bizonyítékokon** alapul: a főnök a váll
 ## Működési elv a megvalósításhoz
 Ne építs új párhuzamos rendszert: a `scripts/ugygazda.py` (védett; ellenőrzött élesítés, toti tartós felhatalmazásával), `scripts/fonok_auto.py`, `executor/beszelgetes.py`, `executor/psx.py`, az `ugy` bővítése.
 A cél nem a folyamatos munka. A rendszernek mindig tudnia kell indokolni, MIÉRT ez a következő lépés, és utólag mérni, hogy megérte-e.
+
+## Jóváhagyott irányok (toti és GPT, 2026-11-15)
+- **Fejlesztési prioritás:** 1. kapacitásgazda (ötlet o20261115-054035-4d98), 2. helyi intelligencia (o20261115-054035-3040); a **történeti tudásbázis** előkészítése (o20261115-054642-385d) ezekkel PÁRHUZAMOSAN. A prioritás NEM módosítja a célokat: a `docs/CELOK.md` súlyozása változatlan.
+- **Tudásbázis = aktív tapasztalati memória**, nem passzív dokumentumtár (követelmények a `docs/FONOK-BACKLOG.md` 14. tételében). Meglévő komponensek bővítésével épül (ügygazda, `scripts/kezdemenyezes.py` tanulsága/korrekciója, `ugy`, `executor/allitasok.py`); új alrendszer csak érdemi hiányra.
+- **A nyers archívum elkülönítve marad** (`~/.local/state/project-s/archivum-karanten`, 0700, repón kívül). A titokszűrés helyben, modellhívás nélkül történik (`scripts/titok_ellenor.py` mintái + bővítés), és csak sikeres ellenőrzés után adható tovább a tartalom (repó, tükör, modell, végrehajtó).

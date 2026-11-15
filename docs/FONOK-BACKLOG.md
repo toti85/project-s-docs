@@ -253,3 +253,17 @@ A fejlesztések élesítése külön feltételekhez kötött; az akadályozott t
    példánnyal ment át (azonos fájl) – épp ezt a gyökérokot javítja a `parancs_ut_hiba` tervérvényesítés.
    **13. tétel: mind a 6 mérföldkő kész.** A szál záró állapota a lezárási kapuban: `BACKLOG_KESZ` (a függő vállalások bizonyítása után).
    Toti döntésére vár: `sajat-elakadt:akadaly-ismetlodes-csoportosito` (lezárás vagy folytatás); a `docs/CELOK.md` célsorrendjének jóváhagyása.
+
+14. **Kapacitásgazda → helyi intelligencia; a történeti tudásbázis előkészítése párhuzamosan (toti+GPT jóváhagyta, 2026-11-15; irány: `docs/AUTONOM-CELVEZERLES.md` „Jóváhagyott irányok").**
+   A főnök a meglévő célvezérlés szerint mérlegel (alapító lap, indoklás, korábbi tanulságok), nem kell mindent egyszerre. A `docs/CELOK.md`-t NE módosítsd. Prioritás: (1) **kapacitásgazda** (ötlet o20261115-054035-4d98,
+   az o20261115-053120-e2a2 tartaléklánc-ötlettel együtt: központi szolgáltató/limit/reset/költség/erősség nyilvántartás, feladattípus szerinti választás, gyors váltás; tényleges pénz és előfizetéses érték külön),
+   (2) **helyi intelligencia** (o20261115-054035-3040; első próba: felhasználói szintű CPU-s llama.cpp + kis/közepes modell mérés, a helyi végpont; a távoli hozzáférést ne szakítsd meg; GPU-meghajtó/sudo csak a meglévő jóváhagyási úton),
+   (3) a **történeti tudásbázis** (o20261115-054642-385d) előkészítése és az alábbi követelmények szerinti megvalósítása – párhuzamosan, kis lépésekben.
+   **Tudásbázis = aktív tapasztalati memória** (nem dokumentumtár). Követelmények: (a) új ügy indításakor (`ugy uj`/ügygazda kezdeményezés) automatikus keresés a releváns korábbi tapasztalatok között; (b) ismerje fel a már megoldott
+   problémákat és a korábban sikertelen megközelítéseket (és mondja meg a végrehajtónak: „ez már volt, így járt"); (c) lezárt ügyből/kezdeményezésből automatikus tapasztalat-kinyerés (állítás: forrás, dátum, típus, környezet, állapot);
+   (d) régi és új információ ellentmondását jelölje (nem írja felül csendben); (e) a végrehajtónak CSAK az adott feladathoz szükséges, szűrt tudás menjen át (méretkorlát, relevancia, nincs titok); (f) mérje a megtakarítást:
+   kihagyott ismételt munka, modellhívás, idő, költség (két külön költségkönyv szerint), és a mérés kerüljön vissza a tanulásba. A régi dokumentumok TÖRTÉNETI források: a régi Windows-környezet megoldásait Linuxon újra kell ellenőrizni, mielőtt döntés épül rájuk.
+   **Biztonság:** a nyers archívum elkülönítve marad a karanténban (`~/.local/state/project-s/archivum-karanten`, 0700, repón kívül); a titokszűrés helyben, MODELLHÍVÁS NÉLKÜL fut (`scripts/titok_ellenor.py` mintái + a belépési adat/token/jelszó/e-mail/IP minták bővítése), a találatokat kitakarja, és a tartalom csak sikeres
+   ellenőrzés után adható tovább. Az archívum fájljai még nincsenek a szerveren (toti/GPT tölti fel); addig a már meglévő forrásokból (ugyek/*/eredmenyek, lezárt kezdeményezések, forrasok/) építsd a memóriát.
+   Ne építs feleslegesen új alrendszert: az ügygazdát, a kezdeményezés-nyilvántartást és az állításkezelést bővítsd. Kód: fejlesztési példány, független átnézés, ellenőrzött élesítés, éles próba (a végső próba: egy valódi új ügynél a
+   rendszer MAGA találja meg és használja a korábbi tapasztalatot, és a megtakarítás mérhető).
