@@ -244,3 +244,12 @@ A fejlesztések élesítése külön feltételekhez kötött; az akadályozott t
    **5. mérföldkő élesítve (2026-11-14 23:20 UTC):** `895d799`, `elo-20261114-232036`.
    **6. mérföldkő előkészítve (fejlesztési példány):** gépi próba `scripts/celvezerles_proba.py`; az elakadt saját ügy többé nem
    blokkolja az önálló kezdeményezést. Ezután a rendszernek MAGÁNAK kell kezdeményeznie – a próba addig `nem teljesült`.
+   **6. mérföldkő élesben folyamatban (2026-11-14 23:50 UTC):** a rendszer magától kezdeményezett (`elfogadasi-parancs-relativ-utak`), próba 3/4;
+   az ügy által feltárt `parancs:`-útvonal gyökérok javítva (fejlesztési példány, tervérvényesítés + prompt).
+   **6. mérföldkő TELJESÜLT (2026-11-14 23:50 UTC, élesben, géppel ellenőrizve):** `scripts/celvezerles_proba.py` exit 0.
+   A rendszer magától kezdeményezte az `elfogadasi-parancs-relativ-utak` ügyet (lap `k20261114-233150-dd4c`; 4 mérlegelt jelölt,
+   3 korábbi kezdeményezés-hivatkozás), végrehajtotta (1. feladat elutasítva, célzott javítás `t20261114-234023-e777de` accepted,
+   6 gépi ellenőrzés), maga zárta le, a mérés `siker`, 0 USD pénzkiadás / 1 USD keret. Megszorítás: az elfogadás a `munka/`-alá másolt
+   példánnyal ment át (azonos fájl) – épp ezt a gyökérokot javítja a `parancs_ut_hiba` tervérvényesítés.
+   **13. tétel: mind a 6 mérföldkő kész.** A szál záró állapota a lezárási kapuban: `BACKLOG_KESZ` (a függő vállalások bizonyítása után).
+   Toti döntésére vár: `sajat-elakadt:akadaly-ismetlodes-csoportosito` (lezárás vagy folytatás); a `docs/CELOK.md` célsorrendjének jóváhagyása.

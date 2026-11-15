@@ -99,6 +99,12 @@ A lezárás **géppel ellenőrzött bizonyítékokon** alapul: a főnök a váll
    modelltől független gépi szabály. A `BACKLOG_KESZ` záró állapot bizonyítéka ez a parancs.
    **Feloldott akadály:** az elakadt saját ügy (`akadaly-ismetlodes-csoportosito`) 16 órán át foglalta az egyetlen kezdeményezési
    helyet; most az elakadt saját ügy nem foglal helyet, `sajat-elakadt:<ügy>` döntési tételt kap (toti: lezárás vagy folytatás).
+   **Első éles önálló kezdeményezés (2026-11-14 23:31 UTC):** `elfogadasi-parancs-relativ-utak` (lap `k20261114-233150-dd4c`), 4 jelölt,
+   3 korábbi hivatkozás. 1. feladat elutasítva, a célzott javítás elfogadva (`t20261114-234023-e777de`); 23:50 UTC: az ügygazda lezárta, mérés `siker` → **a próba teljesült (exit 0).**
+   **Az ügy által feltárt gyökérok, javítva:** a `parancs:` az ügy `munka/` mappájából fut (`ugy.py` `acceptance_cwd`), a tervező viszont
+   „az ügy mappájához képest” írt utat. 54 ilyen ellenőrzés bukott el; a 45 átment csak úgy, hogy a végrehajtó másolatot tett a `munka/` alá
+   (a `letezik:` és a `parancs:` két különböző fájlt nézett). Most a tervező promptja kimondja a `../` szabályt, és a tervérvényesítés
+   (`parancs_ut_hiba`) visszadobja a hibás alakot az egyszeri újrakérdezéssel. A rögzített munkakönyvtár nem változott (régi elfogadások).
 
 ## Működési elv a megvalósításhoz
 Ne építs új párhuzamos rendszert: a `scripts/ugygazda.py` (védett; ellenőrzött élesítés, toti tartós felhatalmazásával), `scripts/fonok_auto.py`, `executor/beszelgetes.py`, `executor/psx.py`, az `ugy` bővítése.
