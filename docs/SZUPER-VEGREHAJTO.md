@@ -105,7 +105,7 @@ lehűlés vége, 7 napos használat/limit/kész/költség, és a `waiting_model`
 ## Helyi intelligencia (FONOK-BACKLOG 14., 2. rész, 1. kör, 2026-11-15)
 - Felhasználói szintű llama.cpp (CPU, b12398 kiadás, `~/.local/opt/llamacpp/`), modellek `~/.local/share/project-s/modellek/`;
   szolgáltatás: `project-s-llama.service` (user, `install/systemd-user/`), csak `127.0.0.1:11434` – ez a psx `local` végpontja
-  (a `modellek.json` `local` profilja, név: `qwen3:8b` álnév). Sudo, GPU-meghajtó, hálózati változás nem kellett.
+  (a `modellek.json` `local` profilja, név: `qwen3-4b-instruct`). Sudo, GPU-meghajtó, hálózati változás nem kellett.
 - Mérés (Xeon E5-2699 v3, 72 szál, `llama-bench`, pp512/tg64):
   | modell | szál | előfeldolgozás tok/s | generálás tok/s |
   |---|---|---|---|
@@ -115,3 +115,16 @@ lehűlés vége, 7 napos használat/limit/kész/költség, és a `waiting_model`
   Eszközhívás (`--jinja`) működik. Éles psx-próba: `t20261115-063442-5544ee` accepted, 1 kísérlet, 0 USD (egyszerű fájlművelet).
 - A díjmentes szolgáltatókat (`kapacitas.KOLTSEG == "ingyenes"`: local, or-free) a pénzkeret nem tiltja és nem állítja le.
 - Korlát: CPU-n lassú (kb. 12 tok/s) – rövid rutinlépésre, tartaléknak való; webkutatásra/nehéz kódra nem mértük.
+
+## Tapasztalati memória (FONOK-BACKLOG 14/3, 1. kör, 2026-11-15)
+`scripts/tapasztalat.py` – aktív memória a meglévő forrásokból (új alrendszer helyett az `ugy` és a kezdeményezés-nyilvántartás bővítése):
+- **Kinyerés** (`kinyer`, 6 óránál régebbi tárnál automatikus): `ugyek/*/allapot.json` lezárt kimenetű feladatai (elfogadva → `bevalt`,
+  elutasítva/hiányos/sikertelen → `sikertelen`) és a lezárt kezdeményezések tanulsága (`tanulsag`). Tétel: forrás, dátum, típus,
+  környezet (`linux-toti-server`), állapot (`ervenyes`). Tár: `~/.local/state/project-s/tapasztalat/` (0700, repón kívül).
+- **Titokszűrés helyben, modell nélkül:** `scripts/titok_ellenor.kitakar` (API-kulcs-minták + Bearer/JWT, `jelszó=` / `token=`,
+  e-mail, IPv4, hosszú hex); ha kitakarás után bármi gyanús marad, a tétel nem kerül be.
+- **Használat:** `ugy uj` a nyitáskor kiírja és `tapasztalat_nyitaskor` mezőbe menti; minden `ugy inditas|folytat` prompt
+  „KORÁBBI TAPASZTALAT” szakaszt kap (más ügyekből, ≤6 tétel, ≤1800 karakter, idf-súlyos szóegyezés; a tételek >12%-ában előforduló általános szavak nem számítanak, ≥2 közös szó és ≥6 pont kell;
+  a sikertelen megközelítés jelölve: „ne ismételd vakon”). Kikapcsolás: `UGY_TAPASZTALAT=0`.
+- **Mérés:** `tapasztalat.py meres` (hány promptba került, hány tétel); a megtakarítás (kihagyott ismételt munka, hívás, idő, két
+  költségkönyv) mérése a következő kör. Még nincs: ellentmondás-jelölés, régi (Windows-) archívum, ügygazda-kezdeményezés bekötése.

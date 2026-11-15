@@ -274,4 +274,14 @@ A fejlesztések élesítése külön feltételekhez kötött; az akadályozott t
    **14/2. helyi intelligencia, 1. kör kész (2026-11-15):** llama.cpp CPU + Qwen3-4B Q4_K_M a `local` végponton (`project-s-llama.service`),
    ~12 tok/s; éles psx-próba accepted 0 USD; díjmentes szolgáltató pénzkeret-hibája javítva. Következő: a `local` bevonása a `tomeg`
    tartalékláncba mért minőség után, és a tudásbázis előkészítése (14/3).
-
+   **14/2. élesítve (2026-11-15 06:42 UTC):** `be0dcda`, `elo-20261115-064221`; éles próba 0 USD kerettel accepted (`t20261115-064317-a81521`).
+   Átfedés: a `b20261114-205523-9a10` szál `scripts/kapacitasgazda.py`-t épít (mért siker/elutasítás, ajánlás) – egyesítendő a
+   `executor/kapacitas.py`-val (egy tábla, a psx-tartaléklánc a mért sikerarányt használja).
+   **14/3. tapasztalati memória, 1. kör kész (fejlesztési példány):** `scripts/tapasztalat.py` (253 tétel a meglévő ügyekből és
+   kezdeményezésekből, helyi titokszűrés, keresés, `ugy uj`/feladatprompt bekötve, használatmérés). Következő: ellentmondás-jelölés,
+   megtakarítás-mérés, ügygazda-kezdeményezés bekötése; végső próba: valódi új ügy maga használja a tapasztalatot.
+   **14/3. 1. kör élesítve (2026-11-15 07:05 UTC):** `6a9c531`, `elo-20261115-070524`; éles tár 257 tétel, 0 titok miatt kihagyva, könyvtár 0700.
+   Éles próbán a relevancia gyenge volt (általános szavak) → 2. kör: gyakori szavak kizárása + küszöb; a 4B modell álneve javítva
+   (`qwen3-4b-instruct`). A `helyi-modell-vegpont-diagnozis` saját ügy oka (nem futó helyi végpont) ezzel megszűnt.
+   **Tanulság (2026-11-15, szál b20261114-205523-9a10):** a lezárt 13.-as szál a tükör-vállalás újranyílása miatt felvette a 14. tételt, holott annak
+   saját szála van (b20261115-060236-7705, `c1091b3` élesben) – a duplikátum visszavonva, a kapu javítva (bizonyított vállalás nem nyílik újra).

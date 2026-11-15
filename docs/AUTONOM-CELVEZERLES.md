@@ -54,6 +54,9 @@ A lezárás **géppel ellenőrzött bizonyítékokon** alapul: a főnök a váll
    A `fonok_auto.py` a gépi záró állapotot használja; a régi „BACKLOG KÉSZ” szöveg csak kérésként számít, a kapun át.
    Függő vállalásnál `FUGGO_VALLALAS`, a következő kör promptja a függő listát kapja (ELAKADT függő mellett is jelenthető).
    Valós eset: a `tukor` vállalás „elavult (20:40 < 20:55)” → `docs_tukor.py` lefuttatva → teljesült. Teszt: `scripts/test_lezarasi_kapu.py` (7).
+   **Javítás (2026-11-15):** egyszer bizonyított vállalás bizonyított marad (`bizonyitva` idővel, részlettel). Korábban a `tukor` minden
+   új docs-commit után újra elavult, a lezárt szál újranyílt, és a `fonok_auto` újraindított köre a következő nyitott tételt (14.) vette fel,
+   amelynek már saját szála volt – párhuzamos, duplikált kapacitásgazda keletkezett (`2ebfb76`/`3b04409`, visszavonva, nem élesítve).
    **2. kör kész (2026-11-14):** panel – a beszélgetés oldalán „Lezárási kapu” doboz (záró állapot, kért ↔ tényleges, vállalások
    bizonyítékkal; függőnél nyitva). A panel `parancs:` bizonyítékot nem futtat. Valós hiba javítva: a régi szöveges jelzés
    egy szövegközi idézetre is lezárt; most csak az utolsó nem üres sor számít (`regi_kesz_jelzes`). Teszt: 9.
