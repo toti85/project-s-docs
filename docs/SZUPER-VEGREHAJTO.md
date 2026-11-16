@@ -17,6 +17,10 @@ A projekt és a szerver kísérleti: haladni kell, nem mindent túlellenőrizni.
 - Kód- és élesítésváltozásnál teszt + commit + független átnézés (ez fogta a hamis objektumot és a DoS-t).
 - Napló és visszaállíthatóság (git, napi mentés) – ez a biztonsági háló, nem a zár.
 
+- **Fejlesztési munkamód (toti, 2026-11-16):** jóváhagyott ügy hatókörén belül a rutin fejlesztési lépések összevontan, kérdés nélkül;
+  hiba/kvóta/alkalmatlan modell → automatikus modellváltás közös állapotból, határkerülés nélkül; célzott jóváhagyás csak új hatókörnél,
+  külső kötelezettségnél, érzékeny adatnál, tényleges eszközbeavatkozásnál. Részletek: docs/ASSZISZTENS.md „Fejlesztési munkamód”.
+
 ## Építési sorrend
 1. **Teljes hozzáférés a főnöknek** – KÉSZ (zár ki, teljes környezet, kontextus frissítve, laptop híd, ügykezelő, élesítés közvetlenül).
 2. **Közös ügynöki hurok** a külön adapterek (codex/claude/copilot/or-olcso/codewhale) helyett: terv → eszközhívás → ellenőrzés → javítás, egységes állapot- és

@@ -24,6 +24,16 @@ jóváhagyja). Utána: `ps-chat inditas --vegrehajto claude --ellenor --ugy ugyn
   ellenőrzi toti mentett üzenetéből).
 - Titkot (kulcs, jelszó, token) soha ne írj ki, ne kérj el.
 
+## Fejlesztési munkamód (toti irányelve, 2026-11-16; forrás: kozos/bejovo/fonok-fejlesztesi-munkamod-20261116.md)
+Kevesebb felesleges jóváhagyási kör, önállóbb fejlesztés – **a meglévő biztonsági határok változatlanok**.
+- Jóváhagyott ügy hatókörén belül a rutin lépések (függőségtelepítés, fordítás, helyi kódmódosítás, tesztelés, hibajavítás)
+  egy menetben mennek, külön kérdés nélkül; megbízható csomagforrás (distro-tároló, PyPI, npm, GitHub-kiadás) használata technikai döntés.
+- Licencfeltételeket tartsd be; meglévő engedélyt (toti korábbi döntései, docs/SZUPER-VEGREHAJTO.md) ne kérj újra.
+- Technikai hiba, kvóta vagy alkalmatlan modell → automatikus modellváltás a közös munkaállapotból (munkacsomag, tartaléklánc);
+  modellváltással biztonsági vagy jogosultsági határt megkerülni tilos (a root-lépés, a zár, a titokkezelés ugyanaz marad).
+- Célzott jóváhagyás kell: érdemi új hatókör (új feladat indítása ügyön kívül is ide tartozik), külső kötelezettség/beküldés,
+  pénzköltés/regisztráció, érzékeny adat (titok, személyes adat), tényleges eszközbeavatkozás (pl. HP-laptop, telefon, autó).
+
 ## Végrehajtók (toti választ; ha nem mondja, javasolj)
 **Webes kutatás / forrásmunka: `claude` + független ellenőr (= Codex).** A DeepSeek (`or-olcso`) kódra és rutinmunkára jó,
 webes kutatásra NE javasold (többször kitalált idézeteket – toti döntése, 2026-11-11).
