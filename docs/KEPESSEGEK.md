@@ -1,6 +1,6 @@
 <!-- Automatikus tükör a privát Projekt S műhelyrepóból (scripts/docs_tukor.py). Személyes és hálózati adatok kitakarva. Ne itt szerkeszd. -->
 
-# Szerver-képességek (generált: 2026-11-15 03:17 UTC, `scripts/kepessegek.py`)
+# Szerver-képességek (generált: 2026-11-16 03:17 UTC, `scripts/kepessegek.py`)
 
 > Mért állapot. Ha ez ellentmond egy régebbi ügyiratnak vagy javaslatlistának, EZ az érvényes.
 
@@ -8,11 +8,11 @@
 ```
 claude   elérhető  ok
 copilot  elérhető  ok
-codex    NEM elérhető  lehűlés 2026-11-15T03:42:50+00:00-ig
+codex    NEM elérhető  lehűlés 2026-11-18T10:43:00+00:00-ig
 codewhale elérhető  ok
 or-free  elérhető  ok
 or-olcso elérhető  ok
-local    NEM elérhető  a végpont nem válaszol (http://127.0.0.1:11434/v1): URLError
+local    elérhető  ok
 proba    NEM elérhető  a végpont nem válaszol (http://127.0.0.1:18080/v1): URLError
 ```
 
@@ -54,12 +54,12 @@ proba    NEM elérhető  a végpont nem válaszol (http://127.0.0.1:18080/v1): U
 - Feliratkozások: 1
 
 ## Mentés
-- helyi: `~/mentes` (napi 03:17, 14 nap): 12 mentés
+- helyi: `~/mentes` (napi 03:17, 14 nap): 13 mentés
 - Google Drive (titkosított): ✅ bekötve
-- visszaállítási próba: ✅ RENDBEN (2026-11-14T10:00:23+00:00, 206/206 napló, `scripts/visszaallitas_proba.py`)
+- visszaállítási próba: ✅ RENDBEN (2026-11-15T10:10:23+00:00, 315/315 napló, `scripts/visszaallitas_proba.py`)
 
 ## Ügygazda (önálló irányító)
-- állapot: bekapcsolva; saját ügyek: dontesi-sor-konzisztencia, mentes-abszolut-link-javitas, parhuzamos-eredmenyut-utkozes, api-bizonyitek-hivatkozasok, near-ellenorzok-tenyleges-hasznalata, mentes-fajllefedettseg, helyi-modell-vegpont-diagnozis, visszaallitasi-allapot-egysegesites, near-kovetelmeny-valtozas, near-kiosztas-munkakezdes, akadaly-ismetlodes-csoportosito, node-hordozhato-telepites; döntési sor: 15; elakadás (összes/megoldott): 0/0
+- állapot: bekapcsolva; saját ügyek: dontesi-sor-konzisztencia, near-ellenorzok-tenyleges-hasznalata, mentes-fajllefedettseg, helyi-modell-vegpont-diagnozis, visszaallitasi-allapot-egysegesites, near-kovetelmeny-valtozas, near-kiosztas-munkakezdes, akadaly-ismetlodes-csoportosito, node-hordozhato-telepites, ellenorzok-regresszio-futtato; döntési sor: 18; elakadás (összes/megoldott): 1/1
 - leírás: `docs/UGYGAZDA.md`; NEAR külső műveletek: `scripts/near_kulso.py`; ügynapló: `ugy naplo ellenoriz`
 
 ## Főnök önállóan (szuper-végrehajtó)
