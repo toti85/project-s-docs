@@ -13,15 +13,18 @@ _Utolsó frissítés: 2026-11-17 01:45 UTC_
 - ÉLESÍTVE (mind független átnézéssel): ügy.py tartalék (898dc9f); hosszú modellkorlát nem foglal saját-ügy helyet (33dd114);
   élesítés a feladatindítás előtt – a kiéheztetés megszűnt, azóta minden átnézett változás magától élesül (df61c63);
   Drive-mentés lassítás + újrapróba (49a68d8); napi helyzetértékelés-ébresztés (22cc596); ELAKADT szál újranyitása (9bbb582).
-- **ÚJ (2026-11-17 07:18Z, Codewhale):** Modellváltási lánc javítva:
-  - `beszelgetes.py`: `_elerheto_gyorsan()` eloellenorzes — hosszu (>1 ora) lehulesen levo modellek kihagyasa azonnal
-  - `TARTALEK` bovitve `codewhale`-lel a lanc 4. helyen (codex/claude/copilot -> codewhale -> or:deepseek)
-  - `codewhale` fonoki agykent regisztralva (`AGYAK`, `AGY_FUGGVENY`, `agy_codewhale()` fuggveny)
-  - `lezarasi_kapu.py`: `_cache_ellenorzes()` + MIN_ELLENORZES_S=120 — a `kapu()` es `ujranyit_ha_feloldva()` hivasok
-    nem futtatnak uj ellenorzest 2 percen belul ugyanarra a szalra (10 percenkenti felesleges git/subprocess hivasok csokkentese)
-  - A javitasok ELESITESRE VARNANK (atnezes szukseges mas gyartoval)
-- Hatra: 03:17 utani Drive-mentes igazolasa (`journalctl`); 8 lepeses, ember nelkuli bizonyitas valos naplobol;
-  a fenti javitasok elesitese (fuggetlen atnezes + `elesites.py elesit <feladat>`).
+- **ÚJ (2026-11-17 07:18Z, Codewhale + 16:10Z t20261117-160822):** Modellváltási lánc javítva (jelentés: `kozos/kimeno/fonok-rendszerlepes-atadas.md`):
+  - `beszelgetes.py`: `_elerheto_gyorsan()` eloellenorzes, TARTALEK bővítés codewhale-lel, `agy_codewhale()` függvény (6/6 PASS)
+  - `lezarasi_kapu.py`: Codewhale-féle `_kapu_cache` eltávolítva (a hash-alapú cache külső változást nem érzékelt); `_cache_ellenorzes()` megtartva az `ujranyit_ha_feloldva()`-ban
+  - Javított verzió: `kozos/scripts_lezarasi_kapu_patch.py` (12/12 PASS) — a javított verzió már a `scripts/lezarasi_kapu.py`-ban van
+  - **KÉSZ (t20261117-161623-b8ecfd, codewhale-fix-lezarasi-kapu-cache ág, szál b20261116-234648-bacb):**
+    1. `bc686ce` — beszelgetes.py Codewhale modell (7/7 PASS, +1 fallback teszt)
+    2. `10f9932` — lezarasi_kapu.py cache javítás (12/12 PASS)
+    3. `17b0b16` — fallback teszt
+  - Független átnézés kérése: `kozos/kimeno/fuggetlen-atnezes-ker-20261117-1610.md` (ajánlott: Codex)
+  - Integrációs jelentés: `kozos/kimeno/fonok-integracio-1610.md`
+  - **Várakozás:** független átnézés elfogadására → utána élesítés (rendszerlépés + `elesites.py elesit`)
+- Hatra: 03:17 utáni Drive-mentés igazolása (`journalctl`); 8 lépéses bizonyítás.
 
 ## Korábbi állapot (2026-11-13) – főnök-teendőlista és élesítés
 - **Éjszakai teendőlista** (`docs/FONOK-BACKLOG.md`, szál `b20261113-021213-d77d`):
