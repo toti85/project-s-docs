@@ -305,3 +305,5 @@ A fejlesztések élesítése külön feltételekhez kötött; az akadályozott t
    tételformátum, `tortenet-ellenorizetlen`, `regi-windows`) – a tárba még NEM kerültek. Következő: `tapasztalat.py kinyer` bővítése a jelöltek
    beolvasására (alacsonyabb rang, frissebb tétel elsőbbsége, ellentmondás-jelölés) fejlesztési példányban; feldolgozó: `kozos/archivum_karanten.py`.
 
+
+15. **SÜRGŐS – a főnök önálló működésének helyreállítása (toti, 2026-11-17).** Olvasd: `kozos/munka/rendszer-helyreallitas/{ALLAPOT,NAPLO,BIZONYITEKOK,VALTOZASOK,FOLYTATAS}.md` – a gyökérokok (A: Codexre kötött ügyfeladat + max_sajat_ugy kapu; A2: ugy.py tartalek False; B: piszkos éles munkafa blokkolja az élesítést; C: Drive-mentés rateLimit) és a már kész javítások (898dc9f) ott vannak. Ne építs új rendszert, minimális javítás, a munkát folyamatosan vezesd ugyanazokban a fájlokban (más végrehajtó is folytathatja). Teendők a FOLYTATAS.md 1–7. pontja szerint; a végén a 8 lépéses, ember nélküli bizonyítás valós naplóból.
