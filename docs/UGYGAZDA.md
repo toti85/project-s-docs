@@ -180,7 +180,7 @@ A ciklus bekapcsolt állapotban meghívja a `scripts/ebresztes.py`-t: modell né
 ébreszti a főnököt (egyszerre egy főnök, jelöltenként ≤3 próba, utána `ebresztes-elakadt:` döntési tétel). A döntésre váró
 kezdeményezések (`kezdemenyezes:<id>`) is a döntési sorba kerülnek. Minden saját kezdeményezés alapító lapot kap
 (`scripts/kezdemenyezes.py`); lezáráskor mért kimenet és költség, amely a következő tervezés bemenete (`korabbi_kezdemenyezesek`).
-Az elakadt saját ügy nem foglalja a kezdeményezési helyet; `sajat-elakadt:<ügy>` döntési tételt kap. Részletek: `docs/AUTONOM-CELVEZERLES.md` 3. mérföldkő.
+Az elakadt saját ügy nem foglalja a kezdeményezési helyet; `sajat-elakadt:<ügy>` döntési tételt kap. Részletek: `docs/AUTONOM-CELVEZERLES.md` 3. mérföldkő. Ugyanígy nem foglal helyet az a saját ügy, amelynek feladata 1 óránál hosszabb modellkorlátra vár (`waiting_model`; várakozási ok: „hosszú modellkorlát …”) – a feladat magától folytatódik, közben új kezdeményezés indulhat (2026-11-16: egy 2,5 napos Codex-limit blokkolta).
 
 ## A NEAR-felhatalmazás pontos terjedelme
 A munkás önállóan: nyitott feladatok olvasása és besorolása; **ajánlattétel** (bármilyen pénznemben – toti, 2026-11-12; USD-hez a NEAR Stripe-bekötést kér, addig a munkás naponta újrapróbál; kutatási típusú, „vállalható”
