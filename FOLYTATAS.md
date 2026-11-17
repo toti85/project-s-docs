@@ -8,12 +8,20 @@ _Utolsó frissítés: 2026-11-17 01:45 UTC_
 > (`ugy allapot <ügy>`, `ugy folytat <ügy>`). Rendszerellenőrzés: `systemctl status project-s-rc`,
 > `scripts/gpt-kapcsolat.sh status`.
 
-## ⏭️ HOL TARTUNK (2026-11-17) – rendszer-helyreállítás (teendőlista 15.)
+## ⏭️ HOL TARTUNK (2026-11-17 07:20 UTC) – rendszer-helyreállítás (teendőlista 15.)
 - Munkanapló: `kozos/munka/rendszer-helyreallitas/{ALLAPOT,FOLYTATAS,NAPLO}.md` (más végrehajtó is ebből folytatja).
-- Élesítve (mind független átnézéssel): ügy.py tartalék (898dc9f); hosszú modellkorlát nem foglal saját-ügy helyet (33dd114);
+- ÉLESÍTVE (mind független átnézéssel): ügy.py tartalék (898dc9f); hosszú modellkorlát nem foglal saját-ügy helyet (33dd114);
   élesítés a feladatindítás előtt – a kiéheztetés megszűnt, azóta minden átnézett változás magától élesül (df61c63);
   Drive-mentés lassítás + újrapróba (49a68d8); napi helyzetértékelés-ébresztés (22cc596); ELAKADT szál újranyitása (9bbb582).
-- Hátra: 03:17 utáni Drive-mentés igazolása; 8 lépéses, ember nélküli bizonyítás valós naplóból.
+- **ÚJ (2026-11-17 07:18Z, Codewhale):** Modellváltási lánc javítva:
+  - `beszelgetes.py`: `_elerheto_gyorsan()` eloellenorzes — hosszu (>1 ora) lehulesen levo modellek kihagyasa azonnal
+  - `TARTALEK` bovitve `codewhale`-lel a lanc 4. helyen (codex/claude/copilot -> codewhale -> or:deepseek)
+  - `codewhale` fonoki agykent regisztralva (`AGYAK`, `AGY_FUGGVENY`, `agy_codewhale()` fuggveny)
+  - `lezarasi_kapu.py`: `_cache_ellenorzes()` + MIN_ELLENORZES_S=120 — a `kapu()` es `ujranyit_ha_feloldva()` hivasok
+    nem futtatnak uj ellenorzest 2 percen belul ugyanarra a szalra (10 percenkenti felesleges git/subprocess hivasok csokkentese)
+  - A javitasok ELESITESRE VARNANK (atnezes szukseges mas gyartoval)
+- Hatra: 03:17 utani Drive-mentes igazolasa (`journalctl`); 8 lepeses, ember nelkuli bizonyitas valos naplobol;
+  a fenti javitasok elesitese (fuggetlen atnezes + `elesites.py elesit <feladat>`).
 
 ## Korábbi állapot (2026-11-13) – főnök-teendőlista és élesítés
 - **Éjszakai teendőlista** (`docs/FONOK-BACKLOG.md`, szál `b20261113-021213-d77d`):
