@@ -41,7 +41,7 @@ A kezdeményezés-napló eredményei, költségei, hibái és tanulságai a köv
 A főnök-szál záró állapota külön, géppel kezelt érték (nem szöveg-egyezés):
 - `BACKLOG_KESZ` – a kijelölt teendőlista minden tétele lezárva;
 - `ELKESZULT` – a kezdeményezés célja teljesült, a mérés kész;
-- `ELAKADT` – korlátos kísérletek után sem halad (ok és szükséges döntés megnevezve);
+- `ELAKADT` – korlátos kísérletek után sem halad (ok és szükséges döntés megnevezve); ha az ok gépileg ellenőrizhető, a zárás feloldási feltételt kap (`zar … ELAKADT "<ok>" --feloldas parancs:…|fajl:…|commit:…`); teljesülésekor a `fonok_auto` a szálat magától újranyitja és folytatja (napló: `ujranyitva`).
 - `NINCS_ERTELMES_TEENDO` – helyzetértékelés után nincs a küszöböt meghaladó jelölt (a felügyelet alszik, eseményre ébred). Naponta egyszer (`HELYZET_IDOKOZ`) akkor is ébred egy `helyzet:napi` jelöltre (pont 6 = fontosság 4 × érték 3 ÷ 2), ha az eseményforrások üresek: nyitott ügyek, döntési sor, ötlettár, mért hibák áttekintése (2026-11-16: 22 óra tétlenség után bevezetve).
 A lezárás **géppel ellenőrzött bizonyítékokon** alapul: a főnök a vállalásait (pl. „élesítés után lefuttatom a docs-tükröt") gépi listába írja; minden vállaláshoz bizonyíték-ellenőrzés tartozik
 (commit/élesítési címke, fájl/hash, a tükör-repó új commitja, tesztkimenet). Amíg van bizonyíték nélküli vállalás, a szál nem zárulhat (állapota: `FUGGO_VALLALAS`, és a felügyelet visszaadja).
