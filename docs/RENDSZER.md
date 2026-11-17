@@ -127,7 +127,7 @@ Alapelvek:
   a Telegram „Content Licensing and AI Scraping” feltétele miatt csak az érintettek rögzített hozzájárulásával.
 - **Képességleltár** (`scripts/kepessegek.py` → `docs/KEPESSEGEK.md`): mért állapot (végrehajtók, eszközök, mentés);
   minden végrehajtó és az asszisztens erre hivatkozik, hogy ne írjon elavult állapotot.
-- **Mentés:** napi 03:17 `scripts/mentes.sh` → `~/mentes` (14 nap; titkok nélkül); utána `scripts/mentes-drive.sh`
+- **Mentés:** napi 03:17 `scripts/mentes.sh` → `~/mentes` (14 nap; titkok nélkül); utána `scripts/mentes-drive.sh` (Drive-korlátnál lassítva, legfeljebb 4 próba 20 perc szünettel; `DRIVE_PROBA`, `DRIVE_SZUNET`)
   titkosítva (rclone crypt, csak `drive.file` jog) a Google Drive `ProjektS-mentes` mappába, 30 nap – bekötés:
   `drive-belepes` (toti, egyszer). Helyi visszaállítási próba: `scripts/visszaallitas_proba.py`;
   a 2026-11-12-i mérés eredményét a `docs/KEPESSEGEK.md` és a `docs/UGYGAZDA.md` rögzíti.
