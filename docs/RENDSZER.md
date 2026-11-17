@@ -154,6 +154,9 @@ Alapelvek:
   `~/.config/project-s/near.env` (az mcp-jogkör írásra is jó!) → olvasás csak `near-olvaso`-val (engedélylista, readOnlyHint).
 - **Ügygazda** (`scripts/ugygazda.py`, időzítő 10 percenként, panel `/ugygazda`): üzemeltetés, ügyfolytatás, kezdeményezés,
   döntési sor, napi összesítő, kikapcsolás – részletesen `docs/UGYGAZDA.md`. Visszaállítási próba, ügyszintű eseménynapló is ott.
+  Körsorrend (2026-11-17): figyel → élesítés → folytat → kezdeményez → ébresztés. Az 1 óránál hosszabb modellkorláton álló
+  saját ügy nem foglal kezdeményezési helyet. Ébresztés (`scripts/ebresztes.py`): eseményjelöltek + naponta egy `helyzet:napi`
+  helyzetértékelés. ELAKADT főnök-szál feloldási feltétellel (`lezarasi_kapu.py zar … --feloldas`) magától újranyílik.
 - **Főnök a panelen** (Beszélgetések, `executor/beszelgetes.py`): modellválasztó, közös munkaállapot,
   helyettesítési lánc; OpenRouter-katalógus és eszközhívás-próba: `/c/modellek`. A szál saját
   `~/project-s-dev/<szál>` klónjában, `fonok/<szál>` ágon dolgozik; az éles repó a szűk zárban csak olvasható.

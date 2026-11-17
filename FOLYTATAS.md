@@ -2,13 +2,20 @@
 
 # Folytatás – hol tartunk
 
-_Utolsó frissítés: 2026-11-13 02:40 UTC_
+_Utolsó frissítés: 2026-11-17 01:45 UTC_
 
 > **A teljes rendszer leírása: `docs/RENDSZER.md`.** **Új munkamenet:** a `CLAUDE.md` automatikusan betöltődik. Utána: `ugy lista`, majd a kért ügy
 > (`ugy allapot <ügy>`, `ugy folytat <ügy>`). Rendszerellenőrzés: `systemctl status project-s-rc`,
 > `scripts/gpt-kapcsolat.sh status`.
 
-## ⏭️ HOL TARTUNK (2026-11-13) – főnök-teendőlista és élesítés
+## ⏭️ HOL TARTUNK (2026-11-17) – rendszer-helyreállítás (teendőlista 15.)
+- Munkanapló: `kozos/munka/rendszer-helyreallitas/{ALLAPOT,FOLYTATAS,NAPLO}.md` (más végrehajtó is ebből folytatja).
+- Élesítve (mind független átnézéssel): ügy.py tartalék (898dc9f); hosszú modellkorlát nem foglal saját-ügy helyet (33dd114);
+  élesítés a feladatindítás előtt – a kiéheztetés megszűnt, azóta minden átnézett változás magától élesül (df61c63);
+  Drive-mentés lassítás + újrapróba (49a68d8); napi helyzetértékelés-ébresztés (22cc596); ELAKADT szál újranyitása (9bbb582).
+- Hátra: 03:17 utáni Drive-mentés igazolása; 8 lépéses, ember nélküli bizonyítás valós naplóból.
+
+## Korábbi állapot (2026-11-13) – főnök-teendőlista és élesítés
 - **Éjszakai teendőlista** (`docs/FONOK-BACKLOG.md`, szál `b20261113-021213-d77d`):
   1. szűk záras tesztcsomag javítva (`86c0770`); 2. reggeli jelentés elkészült (`b80d366`, 6 offline teszt);
   3. OpenRouter-próba **akadályozott** (`6df6164`): kliens-hitelesítés `PermissionError`, a `proba()`
