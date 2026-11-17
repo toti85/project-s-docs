@@ -42,7 +42,7 @@ A főnök-szál záró állapota külön, géppel kezelt érték (nem szöveg-eg
 - `BACKLOG_KESZ` – a kijelölt teendőlista minden tétele lezárva;
 - `ELKESZULT` – a kezdeményezés célja teljesült, a mérés kész;
 - `ELAKADT` – korlátos kísérletek után sem halad (ok és szükséges döntés megnevezve);
-- `NINCS_ERTELMES_TEENDO` – helyzetértékelés után nincs a küszöböt meghaladó jelölt (a felügyelet alszik, eseményre ébred).
+- `NINCS_ERTELMES_TEENDO` – helyzetértékelés után nincs a küszöböt meghaladó jelölt (a felügyelet alszik, eseményre ébred). Naponta egyszer (`HELYZET_IDOKOZ`) akkor is ébred egy `helyzet:napi` jelöltre (pont 6 = fontosság 4 × érték 3 ÷ 2), ha az eseményforrások üresek: nyitott ügyek, döntési sor, ötlettár, mért hibák áttekintése (2026-11-16: 22 óra tétlenség után bevezetve).
 A lezárás **géppel ellenőrzött bizonyítékokon** alapul: a főnök a vállalásait (pl. „élesítés után lefuttatom a docs-tükröt") gépi listába írja; minden vállaláshoz bizonyíték-ellenőrzés tartozik
 (commit/élesítési címke, fájl/hash, a tükör-repó új commitja, tesztkimenet). Amíg van bizonyíték nélküli vállalás, a szál nem zárulhat (állapota: `FUGGO_VALLALAS`, és a felügyelet visszaadja).
 **Első valós teszteset:** a nyilvános dokumentáció-tükör (`scripts/docs_tukor.py`) elmaradt frissítése (2026-11-14: a főnök vállalta, a szál közben leállt).
