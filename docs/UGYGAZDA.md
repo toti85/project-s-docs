@@ -76,7 +76,7 @@ Az ügygazda saját ciklushibáját is jelzi (döntési tétel + push), a követ
    teljes tesztcsomag, átnézési jelentés, nincs `HIBA` tétel, nincs követett munkafamódosítás.
    A jelentés `kozos/kimeno/atnezes-*.md`; a feladat specifikációja rögzíti a szerzőt és az átnézett commitot.
    Tisztán dokumentációs változás önmagában nem vált ki új kódátnézést.
-3. Bekapcsolt ügygazda minden ciklusában meghívja az `elesites.auto()` függvényt. Az elfogadott,
+3. Bekapcsolt ügygazda minden ciklusában meghívja az `elesites.auto()` függvényt – a feladatok folytatása/indítása ELŐTT, hogy az ugyanabban a körben induló feladat ne halassza el minden próbát (2026-11-16: 4 kör kiéheztetés). Az elfogadott,
    még nem élesített főnök-átnézéseket próbálja élesíteni. Futó/sorban álló psx-feladatnál vár a következő
    ciklusra. Nem commitolt kódnál vagy ütköző helyi elemnél is újrapróbál; a generált képességleltárt kihagyja
    a tisztaságvizsgálatból. Azonos akadálytípus 6 óra után egyszeri jelzést kap. Egyéb, végleges hibát
