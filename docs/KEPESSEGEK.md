@@ -1,12 +1,12 @@
 <!-- Automatikus tükör a privát Projekt S műhelyrepóból (scripts/docs_tukor.py). Személyes és hálózati adatok kitakarva. Ne itt szerkeszd. -->
 
-# Szerver-képességek (generált: 2026-11-16 03:17 UTC, `scripts/kepessegek.py`)
+# Szerver-képességek (generált: 2026-11-18 03:17 UTC, `scripts/kepessegek.py`)
 
 > Mért állapot. Ha ez ellentmond egy régebbi ügyiratnak vagy javaslatlistának, EZ az érvényes.
 
 ## Végrehajtók (`psx providers`)
 ```
-claude   elérhető  ok
+claude   NEM elérhető  lehűlés 2026-11-18T05:01:00+00:00-ig
 copilot  elérhető  ok
 codex    NEM elérhető  lehűlés 2026-11-18T10:43:00+00:00-ig
 codewhale elérhető  ok
@@ -54,12 +54,12 @@ proba    NEM elérhető  a végpont nem válaszol (http://127.0.0.1:18080/v1): U
 - Feliratkozások: 1
 
 ## Mentés
-- helyi: `~/mentes` (napi 03:17, 14 nap): 13 mentés
+- helyi: `~/mentes` (napi 03:17, 14 nap): 15 mentés
 - Google Drive (titkosított): ✅ bekötve
-- visszaállítási próba: ✅ RENDBEN (2026-11-15T10:10:23+00:00, 315/315 napló, `scripts/visszaallitas_proba.py`)
+- visszaállítási próba: ✅ RENDBEN (2026-11-17T10:30:23+00:00, 413/413 napló, `scripts/visszaallitas_proba.py`)
 
 ## Ügygazda (önálló irányító)
-- állapot: bekapcsolva; saját ügyek: dontesi-sor-konzisztencia, near-ellenorzok-tenyleges-hasznalata, mentes-fajllefedettseg, helyi-modell-vegpont-diagnozis, visszaallitasi-allapot-egysegesites, near-kovetelmeny-valtozas, near-kiosztas-munkakezdes, akadaly-ismetlodes-csoportosito, node-hordozhato-telepites, ellenorzok-regresszio-futtato; döntési sor: 18; elakadás (összes/megoldott): 1/1
+- állapot: bekapcsolva; saját ügyek: dontesi-sor-konzisztencia, near-ellenorzok-tenyleges-hasznalata, mentes-fajllefedettseg, helyi-modell-vegpont-diagnozis, visszaallitasi-allapot-egysegesites, near-kovetelmeny-valtozas, near-kiosztas-munkakezdes, akadaly-ismetlodes-csoportosito, node-hordozhato-telepites, mentes-drive-kvotahiba; döntési sor: 25; elakadás (összes/megoldott): 1/1
 - leírás: `docs/UGYGAZDA.md`; NEAR külső műveletek: `scripts/near_kulso.py`; ügynapló: `ugy naplo ellenoriz`
 
 ## Főnök önállóan (szuper-végrehajtó)
