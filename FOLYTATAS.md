@@ -2,7 +2,7 @@
 
 # Folytatás – hol tartunk
 
-_Utolsó frissítés: 2026-11-18 00:05 UTC_
+_Utolsó frissítés: 2026-11-17 01:45 UTC_
 
 > **A teljes rendszer leírása: `docs/RENDSZER.md`.** **Új munkamenet:** a `CLAUDE.md` automatikusan betöltődik. Utána: `ugy lista`, majd a kért ügy
 > (`ugy allapot <ügy>`, `ugy folytat <ügy>`). Rendszerellenőrzés: `systemctl status project-s-rc`,
@@ -24,11 +24,7 @@ _Utolsó frissítés: 2026-11-18 00:05 UTC_
   - Független átnézés kérése: `kozos/kimeno/fuggetlen-atnezes-ker-20261117-1610.md` (ajánlott: Codex)
   - Integrációs jelentés: `kozos/kimeno/fonok-integracio-1610.md`
   - **Várakozás:** független átnézés elfogadására → utána élesítés (rendszerlépés + `elesites.py elesit`)
-- **Drive-mentés igazolva (2026-11-18):** `journalctl` EXIT 0 (2026-11-17 05:08).
-- **8 lépéses bizonyítás:** kész (`BIZONYITEKOK.md`).
-- **Lezárási kapu:** mind a 10 vállalás bizonyított.
-- **Dev ág:** Codewhale commitok beolvasztva (6597ac2), tesztcsomag ZÖLD.
-- **Függő:** a Codewhale javítások független átnézése → élesítés (normál folyamat).
+- Hatra: 03:17 utáni Drive-mentés igazolása (`journalctl`); 8 lépéses bizonyítás.
 
 ## Korábbi állapot (2026-11-13) – főnök-teendőlista és élesítés
 - **Éjszakai teendőlista** (`docs/FONOK-BACKLOG.md`, szál `b20261113-021213-d77d`):
