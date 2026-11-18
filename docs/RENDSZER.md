@@ -212,6 +212,12 @@ Alapelvek:
 - OVH-t nem módosítjuk. A `project-s` tmux-munkamenetet nem töröljük. Git-előzményt nem írunk át.
 - Az önálló fejlődés a cél (toti, 2026-11-12): a rendszer méretét a feladat indokolja, ellenőrizhető lépésekben haladunk.
 
+## 10b. Helyreállítás és tanulságok (2026-11-16…18)
+Az önálló működés megszakadt, mert (1) egy ügyfeladat csak a lehűlt Codexre volt kötve (`tartalek: False`), és az ügygazda egyszerre egy aktív saját ügyet enged; (2) az éles repó egy végrehajtó-feladat miatt egy
+fejlesztési ágon állt, a `main` nem mozdult; (3) egy halott körű, nem auto szál `folyamatban` jelzője az egy-főnök-zárat (ébresztés) letiltotta; (4) az ügygazda Copilot-hívása a tokenszűrés miatt nem tudott hitelesíteni.
+Javítások: `ugy.py` tartalek (None → a psx hosszú-limit tartaléka érvényesül), `ebresztes.fonok_dolgozik` (halott jelző törlése), `ebresztes.forras_repo_ag` (nem-main ág → sürgős jelölt), `llm_json._copilot` (GH_TOKEN csak a CLI-nek).
+Szabály: végrehajtó-feladat nem vált ágat és nem commitol az éles repóba; kódot a főnök fejlesztési példánya + ellenőrzött élesítés visz be. Részletek: `kozos/munka/rendszer-helyreallitas/`.
+
 ## 11. Nyitott pontok
 - Hálózati proxy domain-engedélylistával a saját ciklusnak. Ügyenkénti eseménynapló és helyi visszaállítási próba elkészült
   (`docs/UGYGAZDA.md`).
