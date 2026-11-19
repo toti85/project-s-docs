@@ -251,3 +251,10 @@ Szabály: végrehajtó-feladat nem vált ágat és nem commitol az éles repóba
 ### Jóváhagyott célok és állapotok (2026-11-19, általános célvezérlés-javítás)
 A lezárási kapu (`scripts/lezarasi_kapu.py`) kiegészült: `cel-uj` (jóváhagyóval és géppel ellenőrzött lépésekkel), `cel-lepes`, `cel`. Állapotok: `RESZLEPES_KESZ` (részlépés kész, a cél nem – a szál nyitott), `VARAKOZIK` (feltételre vár, legfeljebb 1 órát, utána magától folytatódik), `ELKESZULT` (a teljes cél kész), `ELAKADT` (valódi akadály, döntési sorba). Részfeladat kész ≠ cél lezárása.
 A `fonok_auto` minden kör promptjába beteszi a hátralévő lépéseket; az ébresztés (`forras_cel_folytatas`) modellhívás nélkül kötelezően folytatja a jóváhagyott, befejezetlen célt (független az ötletek határidejétől, a küszöbtől és az óránkénti kezdeményezési korláttól; a próbaszámláló a haladáshoz kötött). Regressziós teszt: `test_fonok.KilencOrasUresjarat`.
+
+### Szerepek (ChatGPT + toti megállapodása, 2026-11-19)
+- **ChatGPT:** tervezés, fejlesztés irányítása, szervervezérlés a szuperpluginon át (`fonok_send` / `fonok_poll`: közvetlen utasításküldés a főnöknek és eredménylekérdezés).
+- **Főnök:** folyamatos, önálló végrehajtás, feladatkiosztás, állapotkövetés (ügygazda, ébresztés, élesítés a meglévő mechanizmusokkal).
+- **Claude Code:** a fejlesztés egyik felügyelője (kódátnézés, hibakeresés, tesztelés) – NEM a rendszer nélkülözhetetlen központja; a rendszernek Claude nélkül is teljes értékűen kell működnie, ha elérhető, kihasználjuk az erősségeit.
+- **Codex / DeepSeek / CodeWhale / OpenRouter / helyi modell:** párhuzamos fejlesztés és (olcsó, független) ellenőrzés a kapacitásgazda szerepkör-táblája szerint.
+- Szabály változatlan: kódváltozás = teszt + független átnézés (más gyártó) + ellenőrzött élesítés; a független átnézés `| HIBA |` találata megállítja az élesítést (a főnök javítja, új átnézés).
