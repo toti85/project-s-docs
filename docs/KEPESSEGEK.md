@@ -1,14 +1,14 @@
 <!-- Automatikus tükör a privát Projekt S műhelyrepóból (scripts/docs_tukor.py). Személyes és hálózati adatok kitakarva. Ne itt szerkeszd. -->
 
-# Szerver-képességek (generált: 2026-11-18 03:17 UTC, `scripts/kepessegek.py`)
+# Szerver-képességek (generált: 2026-11-19 03:17 UTC, `scripts/kepessegek.py`)
 
 > Mért állapot. Ha ez ellentmond egy régebbi ügyiratnak vagy javaslatlistának, EZ az érvényes.
 
 ## Végrehajtók (`psx providers`)
 ```
-claude   NEM elérhető  lehűlés 2026-11-18T05:01:00+00:00-ig
+claude   elérhető  ok
 copilot  elérhető  ok
-codex    NEM elérhető  lehűlés 2026-11-18T10:43:00+00:00-ig
+codex    elérhető  ok
 codewhale elérhető  ok
 or-free  elérhető  ok
 or-olcso elérhető  ok
@@ -54,12 +54,12 @@ proba    NEM elérhető  a végpont nem válaszol (http://127.0.0.1:18080/v1): U
 - Feliratkozások: 1
 
 ## Mentés
-- helyi: `~/mentes` (napi 03:17, 14 nap): 15 mentés
+- helyi: `~/mentes` (napi 03:17, 14 nap): 16 mentés
 - Google Drive (titkosított): ✅ bekötve
-- visszaállítási próba: ✅ RENDBEN (2026-11-17T10:30:23+00:00, 413/413 napló, `scripts/visszaallitas_proba.py`)
+- visszaállítási próba: ✅ RENDBEN (2026-11-18T10:40:03+00:00, 427/427 napló, `scripts/visszaallitas_proba.py`)
 
 ## Ügygazda (önálló irányító)
-- állapot: bekapcsolva; saját ügyek: dontesi-sor-konzisztencia, near-ellenorzok-tenyleges-hasznalata, mentes-fajllefedettseg, helyi-modell-vegpont-diagnozis, visszaallitasi-allapot-egysegesites, near-kovetelmeny-valtozas, near-kiosztas-munkakezdes, akadaly-ismetlodes-csoportosito, node-hordozhato-telepites, mentes-drive-kvotahiba; döntési sor: 25; elakadás (összes/megoldott): 1/1
+- állapot: bekapcsolva; saját ügyek: dontesi-sor-konzisztencia, akadaly-ismetlodes-csoportosito, node-hordozhato-telepites, mentes-drive-kvotahiba, nyitott-dontesek-kor-kimutatas, proba-vegpont-18080-diagnozis, akadaly-dontes-lezaras-javaslat, near-export-mezohiany-kimutatas; döntési sor: 24; elakadás (összes/megoldott): 1/1
 - leírás: `docs/UGYGAZDA.md`; NEAR külső műveletek: `scripts/near_kulso.py`; ügynapló: `ugy naplo ellenoriz`
 
 ## Főnök önállóan (szuper-végrehajtó)
