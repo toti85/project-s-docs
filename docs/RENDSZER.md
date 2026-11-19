@@ -247,7 +247,3 @@ Szabály: végrehajtó-feladat nem vált ágat és nem commitol az éles repóba
 | `~/.config/project-s/` | titkok (nem repó) |
 
 - Külső jelentések idézet- és linkellenőrzése: `ellenoriz-jelentes <fájl>`, panel: `/ellenorzes`; bizonyítékcsomaggal, háttérben (részletek: [VEGREHAJTO.md](VEGREHAJTO.md#külső-jelentés-ellenőrzése)).
-
-### Jóváhagyott célok és állapotok (2026-11-19, általános célvezérlés-javítás)
-A lezárási kapu (`scripts/lezarasi_kapu.py`) kiegészült: `cel-uj` (jóváhagyóval és géppel ellenőrzött lépésekkel), `cel-lepes`, `cel`. Állapotok: `RESZLEPES_KESZ` (részlépés kész, a cél nem – a szál nyitott), `VARAKOZIK` (feltételre vár, legfeljebb 1 órát, utána magától folytatódik), `ELKESZULT` (a teljes cél kész), `ELAKADT` (valódi akadály, döntési sorba). Részfeladat kész ≠ cél lezárása.
-A `fonok_auto` minden kör promptjába beteszi a hátralévő lépéseket; az ébresztés (`forras_cel_folytatas`) modellhívás nélkül kötelezően folytatja a jóváhagyott, befejezetlen célt (független az ötletek határidejétől, a küszöbtől és az óránkénti kezdeményezési korláttól; a próbaszámláló a haladáshoz kötött). Regressziós teszt: `test_fonok.KilencOrasUresjarat`.
