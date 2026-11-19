@@ -1,6 +1,6 @@
 <!-- Automatikus tükör a privát Projekt S műhelyrepóból (scripts/docs_tukor.py). Személyes és hálózati adatok kitakarva. Ne itt szerkeszd. -->
 
-# Szerver-képességek (generált: 2026-11-19 03:17 UTC, `scripts/kepessegek.py`)
+# Szerver-képességek (generált: 2026-11-19 19:40 UTC, `scripts/kepessegek.py`)
 
 > Mért állapot. Ha ez ellentmond egy régebbi ügyiratnak vagy javaslatlistának, EZ az érvényes.
 
@@ -10,8 +10,8 @@ claude   elérhető  ok
 copilot  elérhető  ok
 codex    elérhető  ok
 codewhale elérhető  ok
-or-free  elérhető  ok
-or-olcso elérhető  ok
+or-free  NEM elérhető  profilhiba: [Errno 13] Permission denied: '/home/sagent/.config/project-s/openrouter.env'
+or-olcso NEM elérhető  profilhiba: [Errno 13] Permission denied: '/home/sagent/.config/project-s/openrouter.env'
 local    elérhető  ok
 proba    NEM elérhető  a végpont nem válaszol (http://127.0.0.1:18080/v1): URLError
 ```
@@ -38,7 +38,7 @@ proba    NEM elérhető  a végpont nem válaszol (http://127.0.0.1:18080/v1): U
 
 - ✅ `bwrap`
 
-- ❌ `gh`
+- ✅ `gh`
 
 - ✅ `git`
 
@@ -46,26 +46,23 @@ proba    NEM elérhető  a végpont nem válaszol (http://127.0.0.1:18080/v1): U
 
 - ✅ `pdftotext`
 
-- ❌ `node`
+- ✅ `node`
 
 ## Telefonos értesítések
 - Web Push: `~/bin/ertesites allapot`, próba: `ertesites proba`
 - VAPID-kulcs létezik: ✅ (csak létezésvizsgálat)
-- Feliratkozások: 1
+- Feliratkozások: 0
 
 ## Mentés
-- helyi: `~/mentes` (napi 03:17, 14 nap): 16 mentés
-- Google Drive (titkosított): ✅ bekötve
-- visszaállítási próba: ✅ RENDBEN (2026-11-18T10:40:03+00:00, 427/427 napló, `scripts/visszaallitas_proba.py`)
+- helyi: `~/mentes` (napi 03:17, 14 nap): 0 mentés
+- Google Drive (titkosított): ❌ még nincs bekötve (`drive-belepes`, toti)
+- visszaállítási próba: ❌ még nem volt
 
 ## Ügygazda (önálló irányító)
-- állapot: bekapcsolva; saját ügyek: dontesi-sor-konzisztencia, akadaly-ismetlodes-csoportosito, node-hordozhato-telepites, mentes-drive-kvotahiba, nyitott-dontesek-kor-kimutatas, proba-vegpont-18080-diagnozis, akadaly-dontes-lezaras-javaslat, near-export-mezohiany-kimutatas; döntési sor: 24; elakadás (összes/megoldott): 1/1
-- leírás: `docs/UGYGAZDA.md`; NEAR külső műveletek: `scripts/near_kulso.py`; ügynapló: `ugy naplo ellenoriz`
+- állapot: nem mérhető (az állapotfájl nem olvasható)
 
 ## Főnök önállóan (szuper-végrehajtó)
 - építőelemek: ✅ ellenőrző hurok (psx `loop`), ✅ eszközjegyzék, ✅ alügynök-csoportok, ✅ modellválasztás (`tipus`)
-- csoport `proba-20261114-1`: 2/2 elfogadva (accepted, accepted)
-- csoport `fonok-onallo-20261114`: 2/2 elfogadva (accepted, accepted)
 - leírás: `docs/SZUPER-VEGREHAJTO.md`; napló: `~/.local/state/project-s/eszkozok/naplo.jsonl`
 
 ## Jog és zár
