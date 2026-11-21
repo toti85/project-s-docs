@@ -1,6 +1,6 @@
 <!-- Automatikus tükör a privát Projekt S műhelyrepóból (scripts/docs_tukor.py). Személyes és hálózati adatok kitakarva. Ne itt szerkeszd. -->
 
-# Szerver-képességek (generált: 2026-11-20 03:17 UTC, `scripts/kepessegek.py`)
+# Szerver-képességek (generált: 2026-11-21 03:17 UTC, `scripts/kepessegek.py`)
 
 > Mért állapot. Ha ez ellentmond egy régebbi ügyiratnak vagy javaslatlistának, EZ az érvényes.
 
@@ -56,10 +56,10 @@ proba    NEM elérhető  a végpont nem válaszol (http://127.0.0.1:18080/v1): U
 ## Mentés
 - helyi: `~/mentes` (napi 03:17, 14 nap): 15 mentés
 - Google Drive (titkosított): ✅ bekötve
-- visszaállítási próba: ✅ RENDBEN (2026-11-19T10:50:03+00:00, 489/489 napló, `scripts/visszaallitas_proba.py`)
+- visszaállítási próba: ✅ RENDBEN (2026-11-20T11:00:04+00:00, 567/567 napló, `scripts/visszaallitas_proba.py`)
 
 ## Ügygazda (önálló irányító)
-- állapot: bekapcsolva; saját ügyek: dontesi-sor-konzisztencia, akadaly-ismetlodes-csoportosito, node-hordozhato-telepites, mentes-drive-kvotahiba, nyitott-dontesek-kor-kimutatas, proba-vegpont-18080-diagnozis, akadaly-dontes-lezaras-javaslat, near-export-mezohiany-kimutatas, allapotexport-psx-ugyhivatkozas-hiany, ugygazda-allapotfajl-olvashatosag; döntési sor: 26; elakadás (összes/megoldott): 1/1
+- állapot: bekapcsolva; saját ügyek: dontesi-sor-konzisztencia, akadaly-ismetlodes-csoportosito, node-hordozhato-telepites, mentes-drive-kvotahiba, nyitott-dontesek-kor-kimutatas, proba-vegpont-18080-diagnozis, akadaly-dontes-lezaras-javaslat, near-export-mezohiany-kimutatas, allapotexport-psx-ugyhivatkozas-hiany, ugygazda-allapotfajl-olvashatosag, szolgaltatas-path-gh-node-lefedettseg, szolgaltatas-path-diff-alkalmazhatosag-proba; döntési sor: 28; elakadás (összes/megoldott): 1/1
 - leírás: `docs/UGYGAZDA.md`; NEAR külső műveletek: `scripts/near_kulso.py`; ügynapló: `ugy naplo ellenoriz`
 
 ## Főnök önállóan (szuper-végrehajtó)
