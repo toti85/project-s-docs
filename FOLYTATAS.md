@@ -2,7 +2,7 @@
 
 # Folytatás – hol tartunk
 
-_Utolsó frissítés: 2026-11-18 08:45 UTC_
+_Utolsó frissítés: 2026-11-21 (bevételi irányelv)_
 
 > **A teljes rendszer leírása: `docs/RENDSZER.md`.** **Új munkamenet:** a `CLAUDE.md` automatikusan betöltődik. Utána: `ugy lista`, majd a kért ügy
 > (`ugy allapot <ügy>`, `ugy folytat <ügy>`). Rendszerellenőrzés: `systemctl status project-s-rc`,
@@ -14,6 +14,11 @@ _Utolsó frissítés: 2026-11-18 08:45 UTC_
 - **Ellenőrzendő/nyitott:** a Codewhale 11-17-i commitok (bc686ce, 10f9932, 17b0b16) független átnézése folyik (t20261118-082414-b44d9a, -b1f1f0); a Codex limitje 11-18 10:43Z-kor jár le; Drive-mentés rateLimit (ügy: mentes-drive-kvotahiba).
 - **Elv:** nincs új rendszer; kicsi, tesztelt javítás; kód: teszt + commit + független átnézés (más gyártó); végrehajtó-feladat NE váltson ágat/ne commitoljon az éles repóba – kódot a főnök (fejlesztési példány) vagy az ellenőrzött élesítés visz be.
 - **Az OpenRouter-független ellenőrzés a meglévő láncon megy** (`psx` `or-olcso`/`codewhale` + `beszelgetes.py` OpenRouter-választó); nem készült párhuzamos rendszer.
+
+### Bevételi folytatás (2026-11-21)
+
+- A meglévő bevételi ügyekben külön értékeljük az üzleti alkalmasságot, a kifizetés fogadhatóságát és toti pontos fiókteendőjét. A hiányzó bekötés önmagában nem kizáró ok. A NEAR USD/Stripe korlát kapcsolódó fiókteendő. A konkrét lehetőségnél a platformot, fizetési módot, díjakat, ország- és azonosítási feltételeket, valamint a felhasználói lépést és határidejét rögzítjük.
+- Új külső vállalás előtt a meglévő felhatalmazást és a teljesíthető fizetési feltételeket ellenőrizzük. Igazolt bevétel a munkához egyeztetett tényleges jóváírás. Az ígéret és az ajánlati összeg külön állapot. [Kifizetési irányelv](ugyek/bevetel-kutatas/eredmenyek/2026-11-11-dontes-kifizetes.md)
 
 ## (korábbi) HOL TARTUNK (2026-11-17 07:20 UTC) – rendszer-helyreállítás (teendőlista 15.)
 - Munkanapló: `kozos/munka/rendszer-helyreallitas/{ALLAPOT,FOLYTATAS,NAPLO}.md` (más végrehajtó is ebből folytatja).
