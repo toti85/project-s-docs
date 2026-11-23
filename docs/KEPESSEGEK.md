@@ -1,12 +1,12 @@
 <!-- Automatikus tükör a privát Projekt S műhelyrepóból (scripts/docs_tukor.py). Személyes és hálózati adatok kitakarva. Ne itt szerkeszd. -->
 
-# Szerver-képességek (generált: 2026-11-22 03:17 UTC, `scripts/kepessegek.py`)
+# Szerver-képességek (generált: 2026-11-23 03:17 UTC, `scripts/kepessegek.py`)
 
 > Mért állapot. Ha ez ellentmond egy régebbi ügyiratnak vagy javaslatlistának, EZ az érvényes.
 
 ## Végrehajtók (`psx providers`)
 ```
-claude   elérhető  ok
+claude   NEM elérhető  lehűlés 2026-11-23T03:31:12+00:00-ig
 copilot  elérhető  ok
 codex    NEM elérhető  lehűlés 2026-11-25T10:44:00+00:00-ig
 codewhale elérhető  ok
@@ -56,10 +56,10 @@ proba    NEM elérhető  a végpont nem válaszol (http://127.0.0.1:18080/v1): U
 ## Mentés
 - helyi: `~/mentes` (napi 03:17, 14 nap): 15 mentés
 - Google Drive (titkosított): ✅ bekötve
-- visszaállítási próba: ✅ RENDBEN (2026-11-21T11:10:50+00:00, 591/591 napló, `scripts/visszaallitas_proba.py`)
+- visszaállítási próba: ✅ RENDBEN (2026-11-22T11:20:50+00:00, 656/656 napló, `scripts/visszaallitas_proba.py`)
 
 ## Ügygazda (önálló irányító)
-- állapot: bekapcsolva; saját ügyek: dontesi-sor-konzisztencia, akadaly-ismetlodes-csoportosito, node-hordozhato-telepites, mentes-drive-kvotahiba, nyitott-dontesek-kor-kimutatas, proba-vegpont-18080-diagnozis, akadaly-dontes-lezaras-javaslat, near-export-mezohiany-kimutatas, ugygazda-allapotfajl-olvashatosag, szolgaltatas-path-gh-node-lefedettseg, szolgaltatas-path-alkalmazas-csomag, path-javito-diff-alkalmazasi-kerelem-tervezet, psx-koltseg-vegrehajtonkent; döntési sor: 34; elakadás (összes/megoldott): 1/1
+- állapot: bekapcsolva; saját ügyek: dontesi-sor-konzisztencia, akadaly-ismetlodes-csoportosito, node-hordozhato-telepites, mentes-drive-kvotahiba, nyitott-dontesek-kor-kimutatas, proba-vegpont-18080-diagnozis, akadaly-dontes-lezaras-javaslat, near-export-mezohiany-kimutatas, ugygazda-allapotfajl-olvashatosag, szolgaltatas-path-gh-node-lefedettseg, szolgaltatas-path-alkalmazas-csomag, path-javito-diff-alkalmazasi-kerelem-tervezet, psx-hibaosztaly-ismetlodes-rangsor, mentes-drive-rclone-korlat-alkalmazas, psx-hibaosztaly-ismetlodes-rangsor-ellenor, szolgaltatas-port-elo-proba, mentes-drive-rclone-korlat-javaslat-ellenor; döntési sor: 45; elakadás (összes/megoldott): 1/1
 - leírás: `docs/UGYGAZDA.md`; NEAR külső műveletek: `scripts/near_kulso.py`; ügynapló: `ugy naplo ellenoriz`
 
 ## Főnök önállóan (szuper-végrehajtó)
