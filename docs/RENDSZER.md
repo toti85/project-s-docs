@@ -91,6 +91,9 @@ Alapelvek:
   `check` esetén hurokkal, `tipus` szerinti modellel), `allapot`, `begyujt` → összesítő `~/.local/state/project-s/alugynokok/<csoport>.md`.
 - **Jog („teljes” az alapértelmezés):** írás/futtatás bárhol a gépen, KIVÉVE `zar.TELJES_KIVETEL` (kulcsok `~/.config`,
   `~/.ssh`, fiókadatok `~/.codex` `~/.claude*` `~/.copilot`, ATA-adat, mentések, psx-napló/bizonyíték); sudo nincs.
+  A zárolt végrehajtó a PSX-állapotot nem látja: a `psx` ilyenkor **77-es kóddal, „NEM OLVASHATÓ”** üzenettel áll le – ez nem
+  azt jelenti, hogy a feladat nem létezik; a `vedett-ellenor` ugyanígy 77 (a szabályt a kapu zár nélkül futtatja). A ChatGPT→Főnök
+  csatorna szűk zárja a `psx/tasks`-ot csak olvassa (2026-11-23).
 - **Root-lépés:** `rendszerlepes ker "<parancs>" --miert "…"` → panel `/r` (vagy beszélgetésben toti „jóváhagyom”
   üzenete) → `sudo` futtatás 15 perc korláttal, sha256-egyezéssel; hiteles napló `~/.local/state/project-s/rendszerlepes/`.
 
@@ -155,7 +158,8 @@ Alapelvek:
 - **Ügygazda** (`scripts/ugygazda.py`, időzítő 10 percenként, panel `/ugygazda`): üzemeltetés, ügyfolytatás, kezdeményezés,
   döntési sor, napi összesítő, kikapcsolás – részletesen `docs/UGYGAZDA.md`. Visszaállítási próba, ügyszintű eseménynapló is ott.
   Körsorrend (2026-11-17): figyel → élesítés → folytat → kezdeményez → ébresztés. Az 1 óránál hosszabb modellkorláton álló
-  saját ügy nem foglal kezdeményezési helyet. Ébresztés (`scripts/ebresztes.py`): eseményjelöltek + naponta egy `helyzet:napi`
+  saját ügy nem foglal kezdeményezési helyet. Ha elfogadott átnézés csak futó feladat miatt nem élesíthető, abban a körben nincs
+  új kezdeményezés (`kezdemenyezes_kihagyva`; a meglévő ügyek folytatódnak) – 2026-11-23. Ébresztés (`scripts/ebresztes.py`): eseményjelöltek + naponta egy `helyzet:napi`
   helyzetértékelés. ELAKADT főnök-szál feloldási feltétellel (`lezarasi_kapu.py zar … --feloldas`) magától újranyílik.
 - **Főnök a panelen** (Beszélgetések, `executor/beszelgetes.py`): modellválasztó, közös munkaállapot,
   helyettesítési lánc; OpenRouter-katalógus és eszközhívás-próba: `/c/modellek`. A szál saját
