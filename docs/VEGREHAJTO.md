@@ -333,6 +333,30 @@ a kulcsfájl csak környezeti változóból olvas, `config/openrouter.env.exampl
   `| HIBA |` sor → elutasítva; egyébként toti elfogad. Próba: szándékosan hibás `osszeg()` (a−b) → a Codex megtalálta,
   reprodukálta, a kapu elutasította (`t20261109-094044-626e0f`).
 
+## 15. Képességalapú jogok: olvasható bizonyíték, kérés-postafiók, két független átnéző (2026-11-23, toti)
+Szerepek és jogok:
+| szereplő | jog |
+|---|---|
+| Főnök (`beszelgetes.py`) | zár nélkül (toti, 2026-11-14) – koordináció, saját átnézés, élesítés a kapun |
+| Ügygazda | zár nélkül – felügyelet, helyreállítás, elfogadott átnézések élesítése (`elesites.py auto`) |
+| psx-végrehajtó (`zar.py --teljes`) | írás/futtatás mindenhol, kivéve titkok, fiókadatok, mentések és a psx-állapot; a `psx/tasks` és az `elesites.jsonl` OLVASHATÓ; a saját `<feladat>/kerelmek/` ÍRHATÓ |
+| független átnéző | ugyanaz, mint a végrehajtó; az átnézett commit külön munkafában; a bizonyítékot nem módosíthatja |
+| ChatGPT (MCP) | feladat-életciklus, diagnosztika, `review_request` (két átnéző → kapu), `deployment_request` (állapot) |
+| root | csak `rendszerlepes ker` → toti jóváhagyása (panel `/r`) |
+
+Kérések (`executor/kerelem.py`; a végrehajtó oldalon a `psx` CLI magától használja):
+- `psx submit <spec.json>` zárból → `submit` kérés. Csak `agent` lépés (a `cmd`/`loop` parancsa és a `parancs:` elfogadási szabály a
+  zár nélküli felügyelőben futna), engedélyezett végrehajtók, korlát: 2 óra, 0,5 USD, 4 kísérlet; `jog`, `olvas`, `elesites`
+  nem adható meg; feladatonként ≤ 6 kérés, lánc ≤ 3 mélység; `bekuldo.szulo` = a kérő feladat.
+- `psx kerelem atnezes <git-mappa>` → `atnezes` kérés: csak `~/project-s-dev/…` klón vagy psx-munkafa, tiszta, commitolt kódváltozás
+  az éles main-hez képest. Két átnéző (szerzőtől és egymástól eltérő gyártó: codex/copilot `gpt-5.3-codex` = OpenAI,
+  codewhale/or-olcso = DeepSeek, claude/copilot = Anthropic), az elfogadási szabályok a megbízható kódból (teljes tesztcsomag,
+  nincs `| HIBA |`, pontosan az átnézett commit). Az első átnézés hordozza az élesítési kérést, `elesites.tarsak` = a második;
+  a kapu (`scripts/elesites.py`) csak akkor élesít, ha a társ is elfogadta UGYANAZT a commitot; elutasított társ → nincs élesítés.
+- `psx kerelem allapot <kérés-id>`; a hiteles eredmény a kérő feladat naplójában: `vegrehajtoi_kerelem` esemény (a számláló is ebből).
+- Védelem: a postafiók-mappát a zár csak pontos `<psx/tasks>/<feladat>/kerelmek` alakban nyitja meg; a felügyelő a kéréseket és a
+  válaszokat szimbolikus link követése nélkül olvassa/írja; egy hibás kérés nem állítja meg a felügyelőt.
+
 ## Telefonos értesítések (Web Push)
 
 A tailnet HTTPS-címéről telepített Android panel PWA-ban az **Értesítések bekapcsolása**

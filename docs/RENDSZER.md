@@ -94,6 +94,12 @@ Alapelvek:
   A zárolt végrehajtó a PSX-állapotot nem látja: a `psx` ilyenkor **77-es kóddal, „NEM OLVASHATÓ”** üzenettel áll le – ez nem
   azt jelenti, hogy a feladat nem létezik; a `vedett-ellenor` ugyanígy 77 (a szabályt a kapu zár nélkül futtatja). A ChatGPT→Főnök
   csatorna szűk zárja a `psx/tasks`-ot csak olvassa (2026-11-23).
+- **Képességalapú jogok (toti, 2026-11-23; `executor/kerelem.py`, leírás: `docs/VEGREHAJTO.md` 15.):** a zárolt végrehajtó
+  OLVASHATJA a PSX-feladatokat és az élesítési naplót (bizonyíték, nem módosítható), és a saját feladatának `kerelmek/`
+  postafiókján át KÉRHET: al-feladatot (`psx submit` – csak `agent` lépés, deklaratív elfogadás, keret, mélység ≤ 3) és
+  független átnézést + élesítést (`psx kerelem atnezes <git-mappa>` – két, a szerzőtől és egymástól eltérő gyártójú átnéző;
+  a kapu mindkettő elfogadását megköveteli: `elesites.tarsak`). A kéréseket a zár nélküli psx-felügyelő ellenőrzi; a kérőt a
+  mappa helye azonosítja. MCP: `review_request` ugyanezt indítja egy befejezett, munkafás feladat commitjára.
 - **Root-lépés:** `rendszerlepes ker "<parancs>" --miert "…"` → panel `/r` (vagy beszélgetésben toti „jóváhagyom”
   üzenete) → `sudo` futtatás 15 perc korláttal, sha256-egyezéssel; hiteles napló `~/.local/state/project-s/rendszerlepes/`.
 
