@@ -312,6 +312,12 @@ a kulcsfájl csak környezeti változóból olvas, `config/openrouter.env.exampl
 - Próba (2026-11-08): zárolt végrehajtóból kért `id -u; whoami; …` → jóváhagyva → `0 / root`; elutasított
   `touch /root/nem-szabad` nem futott le; a megjelenítés után átírt kérés („echo HAMIS”) → „a parancs megváltozott – nem
   futtatom”; a naplót a zárolt folyamat nem tudta írni.
+- **Folytatás a döntés után (2026-11-24):** ha egy agent/loop lépés végén a feladatnak eldöntetlen kérése van
+  (`keresek/<id>.json` a `feladat` mezővel, `valaszok/<id>.json` még nincs), a psx nem ellenőriz, hanem a lépést újranyitja
+  (`step_reopened`) és `waiting_human` állapotba teszi (`waiting.rendszerlepes=[id…]`). A felügyelő minden körben nézi: ha mind
+  eldőlt (jóváhagyva vagy elutasítva), `resume_requested` → új kísérlet ugyanazzal a lépéssel; a munkacsomag és a prompt
+  tartalmazza a döntést és a kimenet végét. Keretek: legfeljebb 5 várakozás feladatonként, a `max_attempts` érvényes,
+  megszakított feladatot nem folytat. Teszt: `executor/tests/test_rendszerlepes_folytatas.py`.
 
 ## 14. Beszélgető asszisztens a panelen (2026-11-08)
 - Panel → **💬 Beszélgetés** (`/c`): szálak, buborékos csevegés, formázott válasz, automatikus frissítés amíg dolgozik.
