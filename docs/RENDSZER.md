@@ -91,6 +91,15 @@ Alapelvek:
   `check` esetén hurokkal, `tipus` szerinti modellel), `allapot`, `begyujt` → összesítő `~/.local/state/project-s/alugynokok/<csoport>.md`.
 - **Jog („teljes” az alapértelmezés):** írás/futtatás bárhol a gépen, KIVÉVE `zar.TELJES_KIVETEL` (kulcsok `~/.config`,
   `~/.ssh`, fiókadatok `~/.codex` `~/.claude*` `~/.copilot`, ATA-adat, mentések, psx-napló/bizonyíték); sudo nincs.
+  A zárolt végrehajtó a PSX-állapotot nem látja: a `psx` ilyenkor **77-es kóddal, „NEM OLVASHATÓ”** üzenettel áll le – ez nem
+  azt jelenti, hogy a feladat nem létezik; a `vedett-ellenor` ugyanígy 77 (a szabályt a kapu zár nélkül futtatja). A ChatGPT→Főnök
+  csatorna szűk zárja a `psx/tasks`-ot csak olvassa (2026-11-23).
+- **Képességalapú jogok (toti, 2026-11-23; `executor/kerelem.py`, leírás: `docs/VEGREHAJTO.md` 15.):** a zárolt végrehajtó
+  OLVASHATJA a PSX-feladatokat és az élesítési naplót (bizonyíték, nem módosítható), és a saját feladatának `kerelmek/`
+  postafiókján át KÉRHET: al-feladatot (`psx submit` – csak `agent` lépés, deklaratív elfogadás, keret, mélység ≤ 3) és
+  független átnézést + élesítést (`psx kerelem atnezes <git-mappa>` – két, a szerzőtől és egymástól eltérő gyártójú átnéző;
+  a kapu mindkettő elfogadását megköveteli: `elesites.tarsak`). A kéréseket a zár nélküli psx-felügyelő ellenőrzi; a kérőt a
+  mappa helye azonosítja. MCP: `review_request` ugyanezt indítja egy befejezett, munkafás feladat commitjára.
 - **Root-lépés:** `rendszerlepes ker "<parancs>" --miert "…"` → panel `/r` (vagy beszélgetésben toti „jóváhagyom”
   üzenete) → `sudo` futtatás 15 perc korláttal, sha256-egyezéssel; hiteles napló `~/.local/state/project-s/rendszerlepes/`.
 
@@ -155,7 +164,8 @@ Alapelvek:
 - **Ügygazda** (`scripts/ugygazda.py`, időzítő 10 percenként, panel `/ugygazda`): üzemeltetés, ügyfolytatás, kezdeményezés,
   döntési sor, napi összesítő, kikapcsolás – részletesen `docs/UGYGAZDA.md`. Visszaállítási próba, ügyszintű eseménynapló is ott.
   Körsorrend (2026-11-17): figyel → élesítés → folytat → kezdeményez → ébresztés. Az 1 óránál hosszabb modellkorláton álló
-  saját ügy nem foglal kezdeményezési helyet. Ébresztés (`scripts/ebresztes.py`): eseményjelöltek + naponta egy `helyzet:napi`
+  saját ügy nem foglal kezdeményezési helyet. Ha elfogadott átnézés csak futó feladat miatt nem élesíthető, abban a körben nincs
+  új kezdeményezés (`kezdemenyezes_kihagyva`; a meglévő ügyek folytatódnak) – 2026-11-23. Ébresztés (`scripts/ebresztes.py`): eseményjelöltek + naponta egy `helyzet:napi`
   helyzetértékelés. ELAKADT főnök-szál feloldási feltétellel (`lezarasi_kapu.py zar … --feloldas`) magától újranyílik.
 - **Főnök a panelen** (Beszélgetések, `executor/beszelgetes.py`): modellválasztó, közös munkaállapot,
   helyettesítési lánc; OpenRouter-katalógus és eszközhívás-próba: `/c/modellek`. A szál saját
@@ -247,3 +257,15 @@ Szabály: végrehajtó-feladat nem vált ágat és nem commitol az éles repóba
 | `~/.config/project-s/` | titkok (nem repó) |
 
 - Külső jelentések idézet- és linkellenőrzése: `ellenoriz-jelentes <fájl>`, panel: `/ellenorzes`; bizonyítékcsomaggal, háttérben (részletek: [VEGREHAJTO.md](VEGREHAJTO.md#külső-jelentés-ellenőrzése)).
+
+### Jóváhagyott célok és állapotok (2026-11-19, általános célvezérlés-javítás)
+A lezárási kapu (`scripts/lezarasi_kapu.py`) kiegészült: `cel-uj` (jóváhagyóval és géppel ellenőrzött lépésekkel), `cel-lepes`, `cel`. Állapotok: `RESZLEPES_KESZ` (részlépés kész, a cél nem – a szál nyitott), `VARAKOZIK` (feltételre vár, legfeljebb 1 órát, utána magától folytatódik), `ELKESZULT` (a teljes cél kész), `ELAKADT` (valódi akadály, döntési sorba). Részfeladat kész ≠ cél lezárása.
+A `fonok_auto` minden kör promptjába beteszi a hátralévő lépéseket; az ébresztés (`forras_cel_folytatas`) modellhívás nélkül kötelezően folytatja a jóváhagyott, befejezetlen célt (független az ötletek határidejétől, a küszöbtől és az óránkénti kezdeményezési korláttól; a próbaszámláló a haladáshoz kötött). Regressziós teszt: `test_fonok.KilencOrasUresjarat`.
+
+### Szerepek (ChatGPT + toti megállapodása, 2026-11-19)
+- **ChatGPT:** tervezés, fejlesztés irányítása, szervervezérlés a szuperpluginon át (`fonok_send` / `fonok_poll`: közvetlen utasításküldés a főnöknek és eredménylekérdezés).
+- **Főnök:** folyamatos, önálló végrehajtás, feladatkiosztás, állapotkövetés (ügygazda, ébresztés, élesítés a meglévő mechanizmusokkal).
+- **Claude Code:** a fejlesztés egyik felügyelője (kódátnézés, hibakeresés, tesztelés) – NEM a rendszer nélkülözhetetlen központja; a rendszernek Claude nélkül is teljes értékűen kell működnie, ha elérhető, kihasználjuk az erősségeit.
+- **Codex / DeepSeek / CodeWhale / OpenRouter / helyi modell:** párhuzamos fejlesztés és (olcsó, független) ellenőrzés a kapacitásgazda szerepkör-táblája szerint.
+- **Az ellenőr feladatonként választható** (kapacitásgazda szerepkör-tábla): gépi/reprodukálható tesztek először, olcsó független modell előszűrőként, szükség esetén más gyártójú erős ellenőr; **Claude Code nem kötelező állomás** és nem kizárólagos ellenőr (a Claude-kapacitást nem pazaroljuk rutinellenőrzésre). Az olcsó ellenőr (pl. DeepSeek) önmagában NEM elég élesítéshez: a benchmark szerint valódi hibákat is átengedett → mellé reprodukálható teszt és bizonyíték kell.
+- Szabály változatlan: kódváltozás = teszt + független átnézés (más gyártó) + ellenőrzött élesítés; a független átnézés `| HIBA |` találata megállítja az élesítést (a főnök javítja, új átnézés).
