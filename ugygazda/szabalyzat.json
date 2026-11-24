@@ -10,7 +10,8 @@
  ],
  "idozitok": {
   "project-s-near.timer": 2700,
-  "project-s-mentes.timer": 93600
+  "project-s-mentes.timer": 93600,
+  "project-s-modellkutatas.timer": 93600
  },
  "mentes_max_kor_ora": 26,
  "visszaallitasi_proba_ora": 24,
