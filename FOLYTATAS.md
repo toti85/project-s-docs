@@ -2,18 +2,31 @@
 
 # Folytatás – hol tartunk
 
-_Utolsó frissítés: 2026-11-18 08:45 UTC_
+_Utolsó frissítés: 2026-11-23 (helyreállítás: élesítési kapu, PSX-jogosultság)_
 
 > **A teljes rendszer leírása: `docs/RENDSZER.md`.** **Új munkamenet:** a `CLAUDE.md` automatikusan betöltődik. Utána: `ugy lista`, majd a kért ügy
 > (`ugy allapot <ügy>`, `ugy folytat <ügy>`). Rendszerellenőrzés: `systemctl status project-s-rc`,
 > `scripts/gpt-kapcsolat.sh status`.
 
-## ⏭️ HOL TARTUNK (2026-11-18 08:45 UTC) – a működés helyreállítva, bizonyítás folyamatban
+## ⏭️ HOL TARTUNK (2026-11-23 20:35 UTC) – élesítési kapu újra működik, PSX-jogosultsági félreértés javítva
+- **Élesítve a meglévő kapun:** Főnök-folytatás (32ffdede, elo-20261123-195812), mentes-drive (cbab17be), PSX 77-es kód +
+  csatorna-olvasás + vedett-ellenor 77 + nincs új kezdeményezés élesítésre várva (5510b0f4, elo-20261123-203052).
+- **Gyökérokok:** nem commitolt/követetlen helyi fájl az éles repóban; kiéheztetés az ügygazda új feladataitól; a Landlock-zár
+  szándékos „Permission denied”-jét a végrehajtók és a ChatGPT-csatorna „nem létezik”-nek értették.
+- **Napló, bizonyítékok, nyitott pontok:** `kozos/munka/rendszer-helyreallitas/HELYREALLITAS-20261123.md`.
+- **Szabály:** `psx` 77 = a PSX-állapot innen nem olvasható (zár), NEM azt jelenti, hogy a feladat nem létezik.
+
+## (korábbi) HOL TARTUNK (2026-11-18 08:45 UTC) – a működés helyreállítva, bizonyítás folyamatban
 - **Állapot:** a főnök-ébresztés, az ügygazda-kezdeményezés és a modellváltás működik (bizonyíték: `ugygazda/esemenyek.jsonl` 11-18 08:31: `elhalt_kor` → `fonok_ebresztes` → `kezdemenyezes`). Munkanapló és gyökérokok: `kozos/munka/rendszer-helyreallitas/` (ALLAPOT, NAPLO, VALTOZASOK, FOLYTATAS).
 - **Gyökérokok (mind bizonyítva, javítva):** (A) Codexre kötött ügyfeladat + `max_sajat_ugy` kapu; (A2) `ugy.py` tartalek; (E) az éles repó egy végrehajtó-feladat miatt NEM a `main` ágon állt – a `main` ff-elve, kicsekkolva, az ágváltás ezután ébresztési jelölt; (F) egy NEM auto szál halott `folyamatban` jelzője 38 órán át letiltotta az ébresztést (egy-főnök-zár) – `ebresztes.fonok_dolgozik` mostantól javítja; (G) az ügygazda LLM-JSON Copilot-hívása token nélkül hibázott (129 modellhiba) – `GH_TOKEN` a CLI környezetében.
 - **Ellenőrzendő/nyitott:** a Codewhale 11-17-i commitok (bc686ce, 10f9932, 17b0b16) független átnézése folyik (t20261118-082414-b44d9a, -b1f1f0); a Codex limitje 11-18 10:43Z-kor jár le; Drive-mentés rateLimit (ügy: mentes-drive-kvotahiba).
 - **Elv:** nincs új rendszer; kicsi, tesztelt javítás; kód: teszt + commit + független átnézés (más gyártó); végrehajtó-feladat NE váltson ágat/ne commitoljon az éles repóba – kódot a főnök (fejlesztési példány) vagy az ellenőrzött élesítés visz be.
 - **Az OpenRouter-független ellenőrzés a meglévő láncon megy** (`psx` `or-olcso`/`codewhale` + `beszelgetes.py` OpenRouter-választó); nem készült párhuzamos rendszer.
+
+### Bevételi folytatás (2026-11-21)
+
+- A meglévő bevételi ügyekben külön értékeljük az üzleti alkalmasságot, a kifizetés fogadhatóságát és toti pontos fiókteendőjét. A hiányzó bekötés önmagában nem kizáró ok. A NEAR USD/Stripe korlát kapcsolódó fiókteendő. A konkrét lehetőségnél a platformot, fizetési módot, díjakat, ország- és azonosítási feltételeket, valamint a felhasználói lépést és határidejét rögzítjük.
+- Új külső vállalás előtt a meglévő felhatalmazást és a teljesíthető fizetési feltételeket ellenőrizzük. Igazolt bevétel a munkához egyeztetett tényleges jóváírás. Az ígéret és az ajánlati összeg külön állapot. [Kifizetési irányelv](ugyek/bevetel-kutatas/eredmenyek/2026-11-11-dontes-kifizetes.md)
 
 ## (korábbi) HOL TARTUNK (2026-11-17 07:20 UTC) – rendszer-helyreállítás (teendőlista 15.)
 - Munkanapló: `kozos/munka/rendszer-helyreallitas/{ALLAPOT,FOLYTATAS,NAPLO}.md` (más végrehajtó is ebből folytatja).
