@@ -2,11 +2,22 @@
 
 # Folytatás – hol tartunk
 
-_Utolsó frissítés: 2026-11-23 (helyreállítás: élesítési kapu, PSX-jogosultság)_
+_Utolsó frissítés: 2026-11-25 07:02 CET (éjszakai Claude Code maraton)_
 
 > **A teljes rendszer leírása: `docs/RENDSZER.md`.** **Új munkamenet:** a `CLAUDE.md` automatikusan betöltődik. Utána: `ugy lista`, majd a kért ügy
 > (`ugy allapot <ügy>`, `ugy folytat <ügy>`). Rendszerellenőrzés: `systemctl status project-s-rc`,
 > `scripts/gpt-kapcsolat.sh status`.
+
+## ⏭️ HOL TARTUNK (2026-11-25 07:00 CET) – éjszakai maraton lezárva
+- **Összesítő:** `kozos/munka/maraton-20261124/REGGELI-OSSZESITO.md` (részletek: ALLAPOT.md, szalak.md ugyanott).
+- **Élő újdonságok:** független ellenőrrel történő gépi elfogadás (MCP-rutin, `itelet:` szabály), Claude a Landlock-zárban,
+  ürítési ablak + önjáró élesítés, eseményvezérelt ügygazda (5 perc), képességtár (8 képesség, `scripts/kepesseg.py`),
+  tudásbázis (`allapot/tudas.jsonl`), kutatólabor (`project-s-labor.service`), árnyékmódú tapasztalati útválasztás,
+  kezdeményezés-szűkítés (csak akadály/kiemelt cél), élő fában hagyott kód elutasítása, mentés ~200 MB.
+- **Kiemelt cél:** `ugyek/onallosag-proba-mentes` – 1. nap mérve teljesült (205,8 MB, visszaállítás RENDBEN), igazolás 10:44 UTC után.
+- **Üzem:** videotár 1 TB → 100 GB, root LV 246 GB; PSX párhuzamosság 6 (drop-in 91-maraton-parhuzamossag.conf).
+- **toti teendői:** Claude-bejelentkezés 11-29 előtt (`claude auth login`); a /var/backups/media-20261124 tartalék törlése
+  néhány nap múlva; árnyékmód → `ab` csak mérés után.
 
 ## ⏭️ HOL TARTUNK (2026-11-23 20:35 UTC) – élesítési kapu újra működik, PSX-jogosultsági félreértés javítva
 - **Élesítve a meglévő kapun:** Főnök-folytatás (32ffdede, elo-20261123-195812), mentes-drive (cbab17be), PSX 77-es kód +
