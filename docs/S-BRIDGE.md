@@ -52,3 +52,9 @@ Emulátor: `~/.local/opt/android/sdk` (AVD: `sb33`, Android 13), indítás:
 ## Élesítés
 A szolgáltatás a `~/.local/opt/sbridge/sbridge_szerver.py` másolatot futtatja (`python3 -I`): a kapun átment változat
 után `install -m 600 scripts/sbridge_szerver.py ~/.local/opt/sbridge/ && systemctl --user restart project-s-sbridge`.
+
+## Rendszer-hozzáférés (3.0.11+)
+Új, jóváhagyásköteles típusok: `hol` (egyszeri helylekérés – a telefonon minden lekérés látható értesítést tesz ki),
+`app_tilt` / `app_enged` / `app_torol`, `akku_mentesit`; megfigyelő: `rendszer_allapot`. A telefonon Shizuku
+(ADB-szintű, a felhasználó indítja és engedélyezi) vagy eszköztulajdonosi jog kell hozzájuk; enélkül hibát adnak, nem
+emelnek jogot. Rendszer-, S Bridge- és Shizuku-csomag nem tiltható le / távolítható el (szerver- és appoldali ellenőrzés).
