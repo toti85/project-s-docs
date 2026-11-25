@@ -12,13 +12,14 @@ sbrowser nyit https://pelda.hu --cel "időpontfoglalás"   # → munkamenet-azon
 sbrowser ir <id> 4 "keresett szöveg" --enter             # a [4] mezőbe ír, Enter
 sbrowser kattint <id> 12                                  # a [12] elem megnyomása
 sbrowser valaszt <id> 7 "Budapest" · sbrowser gomb <id> PageDown · sbrowser gorget <id> le · sbrowser vissza <id>
+sbrowser varj <id> "Betöltés" --eltunik                   # lassan töltő oldal: megvárja, míg a szöveg eltűnik / megjelenik
 sbrowser szoveg <id>                                      # az oldal teljes szövege
 sbrowser kep <id> ki.png · sbrowser feltolt <id> 9 fajl.pdf · sbrowser bezar <id> · sbrowser lista
 sbrowser ember <id> "be kell jelentkezni"                 # átadás totinak; a parancs megvárja a végét
 ```
 Minden művelet a lap friss **pillanatképét** adja vissza: cím, URL, a látható kezelőelemek számozva
 (`[szám] szerep „név” = érték`), címsorok és a szöveg eleje – a következő lépés ebből dönthető el, képfelismerés nélkül.
-A számok a legutóbbi pillanatképre érvényesek. Eszközjegyzék: `bongeszo`; képességtár: `kepesseg mutat bongeszo`.
+A számok az oldal élettartamára állandók (ugyanaz az elem ugyanazt a számot kapja), új oldalon újraindulnak. Eszközjegyzék: `bongeszo`; képességtár: `kepesseg mutat bongeszo`.
 
 ## Ami az ember kezében marad (a démon tartatja be)
 | Helyzet | Mi történik |
@@ -42,6 +43,11 @@ az ügynök nem nyúlhat a laphoz. Az emberi műveleteket a démon csak a panel 
 - **Napló:** `~/.local/state/project-s/sbrowser/naplo.jsonl`, hash-láncolt; a címek lekérdezés nélkül (`?…`), az emberi
   átvétel alatt begépelt szöveg egyáltalán nem kerül bele. A kimenetekben a titokgyanús címparaméterek kitakarva.
 - Letöltések: `kozos/bejovo/bongeszo/<munkamenet>/`. Legfeljebb 6 munkamenet; 45 perc tétlenség után a lap bezárul.
+
+## Éles próba (2026-11-25)
+Egy olcsó modell (DeepSeek, `or-olcso`, 0,025 USD) a psx-ben önállóan végigcsinálta: jegy.mav.hu → Honnan/Hova kitöltése a
+javaslatlistából → Keresés → az első három járat ideje, menetideje és ára táblázatban (`ugyek/s-browser/eredmenyek/mav-proba.md`,
+feladat: t20261125-125115-9e12f5). A visszajelzése alapján készült a `varj` parancs és az állandó elemszámozás.
 
 ## Korlátok (ismert)
 Csak a fő keret elemei számozottak (beágyazott iframe tartalma nem); a fizetésgomb-felismerés feliratalapú (magyar, angol,
