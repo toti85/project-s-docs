@@ -115,6 +115,9 @@ Alapelvek:
 - Ítélet: minden gépi szabály teljesül + nincs `ember` → `accepted`; van `ember` → `needs_acceptance`; bármi bukik → `rejected`/hiányos.
 
 ## 7. Felületek
+- **Control Center 2.0** (`/cc`, `mcp/cc*.py`, `mcp/static/cc/`): a panel új, élő felülete – áttekintés, kapcsolati térkép,
+  modellek/költség, élesítés/mentés, napló, S Bridge, terminál, fájlok; a `/` ide nyílik, a klasszikus panel: `/regi`.
+  Leírás: [CONTROL-CENTER.md](CONTROL-CENTER.md).
 - **Panel** (`mcp/panel.py`, `project-s-panel.service`): feladatlista, beküldés (végrehajtó-választás), feladat-részlet
   (összefoglaló formázva, jelentésfájl-linkek, futás alatt készült fájlok, gépi ellenőrzés, **újraellenőrzés** gomb,
   elfogadás/elutasítás/leállítás), ügyek (állapot, fájlok dokumentumnézetben, „Folytatás” természetes nyelvű céllal,
