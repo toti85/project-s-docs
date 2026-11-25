@@ -2,7 +2,8 @@
 
 # Projekt S – a teljes rendszer leírása (AI-olvasónak is)
 
-_Dokumentáció frissítése: 2026-11-14 (szuper-végrehajtó: hurok, eszközjegyzék, alügynökök, modellválasztás). Repó: `github.com/toti85/project-s-workshop` (privát). Ez a dokumentum önmagában érthető; a
+_Dokumentáció frissítése: 2026-11-14 (szuper-végrehajtó: hurok, eszközjegyzék, alügynökök, modellválasztás); 2026-11-25 (éjszakai
+élesítések: független gépi elfogadás, Claude-zár, ürítési ablak, képességtár, tudásbázis, kutatólabor, árnyék-útválasztás). Repó: `github.com/toti85/project-s-workshop` (privát). Ez a dokumentum önmagában érthető; a
 részletek a hivatkozott fájlokban vannak. A mért, napi frissülő állapot: `docs/KEPESSEGEK.md`._
 
 ## 1. Mi ez, és kinek készült
@@ -77,7 +78,7 @@ Alapelvek:
   |---|---|---|---|
   | `or-olcso` | saját ügynöki ciklus (`executor/agent.py`) DeepSeek V4 Flash-sel az OpenRouteren, árplafonnal | OpenRouter, feladatonkénti USD-keret | Landlock |
   | `or-free` | ugyanez, csak ingyenes modellekkel | 0 | Landlock |
-  | `claude` | Claude Code headless (`claude -p`) | toti Claude Pro kerete (közös a beszélgetéseivel) | saját engedélykezelés |
+  | `claude` | Claude Code headless (`claude -p`) | toti Claude Pro kerete (közös a beszélgetéseivel) | Landlock (2026-11-24; `PSX_CLAUDE_ZAR=0` kikapcsolja) |
   | `codex` | OpenAI Codex CLI (`codex exec`) | toti ChatGPT-előfizetése | Landlock (a teljes folyamat) |
   | `copilot` | GitHub Copilot CLI | Copilot-kredit | Landlock |
   | `codewhale` | CodeWhale (DeepSeek), `exec --auto` | OpenRouter, keret NEM érvényesül | **nincs** (toti döntése) |
@@ -100,16 +101,52 @@ Alapelvek:
   független átnézést + élesítést (`psx kerelem atnezes <git-mappa>` – két, a szerzőtől és egymástól eltérő gyártójú átnéző;
   a kapu mindkettő elfogadását megköveteli: `elesites.tarsak`). A kéréseket a zár nélküli psx-felügyelő ellenőrzi; a kérőt a
   mappa helye azonosítja. MCP: `review_request` ugyanezt indítja egy befejezett, munkafás feladat commitjára.
+- **Független ellenőr lépés (`fuggetlen_tol`, 2026-11-24):** egy `agent` lépés `fuggetlen_tol: [lépés-id…]` mezővel a megnevezett
+  szerzői lépések ellenőre. A láncából `fuggetlen_szures` kiveszi a szerzővel azonos TÉNYLEGES gyártójú végrehajtókat
+  (`valodi_gyarto`: Copilot alapból anthropic, `gpt-*` modellel openai; CodeWhale kifejezett modellnél az azonosító előtagja, pl.
+  `z-ai`, `qwen`). Indulás előtt a psx `ellenorzes_kezdet` eseményt ír a hash-láncolt naplóba (lépés, kísérlet, a munka
+  ujjlenyomata `acceptance.munka_ujjlenyomat` – git-mappánál HEAD + status + diff –, a szerzők szolgáltatója), és a szerző végső
+  szövegét a célba fűzi (`szerzo_osszegzes`, nem fájlba; az „ítélet” szó kitakarva). Az ítéletet az `itelet:` szabály értékeli (6.).
+- **Claude a zárban (2026-11-24):** a `ClaudeAdapter` a `claude_zar`-ral a `zar.py` alatt futtatja a `claude -p`-t (teljes jognál
+  `--teljes`; idegen tartalomnál/szűk jognál csak munkakönyvtár, `~/.claude`, ideiglenes mappa írható), `CLAUDE_CONFIG_DIR=~/.claude`;
+  kikapcsolás `PSX_CLAUDE_ZAR=0`. Így Claude-szerzőnél sem írható a psx-napló/bizonyíték. A kimenetben a „sign-in ends between …”
+  figyelmeztetést a `claude_belepes_figyel` rögzíti (`~/.local/state/project-s/claude-belepes.json`) és naponta egyszer push-t küld
+  (`claude auth login` – toti teendője).
+- **Ürítési ablak (`uritesi_ablak`, 2026-11-24):** ha élesítésre vár egy elfogadott, `elesites` kérést hordozó feladat (és az
+  `elesites.jsonl`-ben még nincs `elesitve`/`auto_vegleges_hiba`/`vedett_jovahagyas_kell` rá), a felügyelő 0. kísérletű (új)
+  feladatot nem indít – az elfogadástól legfeljebb `PSX_URITES_PERC` (alap 20) percig; a folytatások mennek. `0` = ki.
+- **Ügygazda-ébresztés (`ugygazda_ebresztes`):** `attempt_ended`/`cancelled`/`human_decision`/`failed` eseménykor
+  `systemctl --user start --no-block project-s-ugygazda.service` (ha fut, nem indul újra); legfeljebb 60 s-enként
+  (`PSX_EBRESZTES_MIN_S`) és óránként 30-szor (`PSX_EBRESZTES_MAX_ORA`, `0` = ki); állapot: `<PSX_HOME>/ebresztes.json`.
+- **Tapasztalati útválasztás – ÁRNYÉKMÓD (`_tapasztalati_valasztas`, `kapacitas.tapasztalati_sorrend`):** minden ügynöki lépésnél
+  `valasztas_tapasztalat` esemény (eredeti / javasolt sorrend, csoport). Mód: `~/.local/state/project-s/psx/valasztas.json` `mod`
+  mezője – `arnyek` (alap, ha nincs fájl: csak naplóz), `ab` (a feladatok felénél alkalmazza), `be`, `ki`. Javaslat csak ≥ 10 eldöntött
+  eset és ≥ 0,10 elfogadásiarány-előny mellett; `kodatnezes`/`ellenor` szerepnél nincs (ott a benchmark dönt); kifejezett `providers`
+  sosem módosul. Hibát a `valasztas-hibak.jsonl` gyűjt. Automatikus visszaállás: `modell_kutatas.visszaallit_ellenor` (napi
+  `ciklus`) `mod=ki`-t ír, ha az A/B-mérés (`valasztas_hatas`, csoportonként ≥ 10 lezárt feladat) „ROMLIK” vagy 24 órán belül ≥ 3
+  rendszerhiba volt; napló: `valasztas-naplo.jsonl`.
+- **Képességtár a promptban:** az ügynöki prompt a célhoz illő ≤ 3 tesztelt képességet ajánlja (`_kepesseg_szoveg` →
+  `kepesseg.keres`), futtatási paranccsal; az eszközjegyzékben `kepesseg` eszköz (lista | keres | mutat). Lásd 8.
 - **Root-lépés:** `rendszerlepes ker "<parancs>" --miert "…"` → panel `/r` (vagy beszélgetésben toti „jóváhagyom”
   üzenete) → `sudo` futtatás 15 perc korláttal, sha256-egyezéssel; hiteles napló `~/.local/state/project-s/rendszerlepes/`.
 
 ## 6. Elfogadási kapu és bizonyítékréteg (`executor/acceptance.py`, `executor/web.py`)
-- Szabályok: `letezik:`, `min-meret:`, `tartalmaz:`, `nem-tartalmaz:`, `json:`, `parancs:`, **`idezetek:<fájl>[:min]`**, `ember`.
+- Szabályok: `letezik:`, `min-meret:`, `tartalmaz:`, `nem-tartalmaz:`, `json:`, `parancs:`, **`idezetek:<fájl>[:min]`**, **`itelet:<lépés>`**, `ember`.
 - `idezetek:` a jelentés `[[idézet: "…" | URL]]` jelöléseit **függetlenül** ellenőrzi: a végrehajtó eredeti pillanatképe
   és egy friss letöltés is; ítélet `igazolt` / `hamis` (az oldal megvolt, a szöveg nincs benne) / `ellenőrizhetetlen`
   (emberi döntés). Csak a szöveg jelenlétét igazolja – azt, hogy az idézet alátámasztja-e az állítást, külön kell nézni.
 - **Független ellenőr lépés:** egy másik gyártó modellje (kutatásnál: Claude kutat, Codex ellenőriz) cáfolni próbálja a jelentést (IGAZOLT/CÁFOLT/ELLENŐRIZHETETLEN
   táblázat); cáfolt állítás → hiányos. Ez külön vélemény, nem bizonyíték.
+- **`itelet:<lépés>` – független ellenőrrel történő gépi elfogadás (2026-11-24):** a `fuggetlen_tol` lépés VÉGSŐ VÁLASZA számít
+  (`ellenor_valasz`: a feladatmappa `attempts/*/agent-<lépés>-<szolg>.txt` fájlja, csak a `step_done` napló-lenyomatával
+  (sha256[:16]) egyezően; a munkakönyvtár szándékosan nem). `fuggetlen_lepes`: a spec szerint valóban független, és a tényleges
+  gyártó egyik szerzőével sem egyezik. `hitelesseg_hiba`: ép hash-lánc, van `ellenorzes_kezdet` + `step_done` erre a lépésre, a
+  MOSTANI munka-ujjlenyomat egyezik az ellenőrzéskorival. Döntés: az ítélet csak a válasz ELSŐ nem üres sora lehet
+  (`ITÉLET: ELFOGADHATÓ | NEM ELFOGADHATÓ | BIZONYTALAN`), ellentmondó ítéletsor nélkül; ELFOGADHATÓ `| HIBA |` sor nélkül →
+  teljesül (gépi elfogadás); NEM ELFOGADHATÓ vagy HIBA-sor → nem teljesül; bizonytalan / hiányzó / nem igazolható → `ember`.
+- **MCP `task_submit` (2026-11-24, `mcp/server.py` `fuggetlen_ellenorzes`):** ha az elfogadás üres vagy csak `ember`, és
+  `emberi_dontes=false` (alap), a spec kap egy `ellenor` lépést (`fuggetlen_tol: ["munka"]`, lánc: codewhale, copilot, codex, claude,
+  or-olcso, tartalék nélkül, ≤ 30 perc) és az elfogadás `["itelet:ellenor"]` lesz. Valódi emberi döntéshez: `emberi_dontes=true`.
 - Eddigi valós találatok: DeepSeek forrás-hamis idézetei (kivonatot tulajdonított egy 403-as oldalnak), ellenőr-modell
   „összerakott” idézetei, Claude önbevallott „15 ellenőrzött idézete” (valójában 0) – mindet a gépi kapu fogta meg.
 - Ítélet: minden gépi szabály teljesül + nincs `ember` → `accepted`; van `ember` → `needs_acceptance`; bármi bukik → `rejected`/hiányos.
@@ -164,12 +201,16 @@ Alapelvek:
   elkészül (tájékoztató). Pontosság: ügy `ellenorzo-pontossag` (30 eset; ismert korlát: jelenlét ≠ alátámasztás).
 - **NEAR Agent Market:** belépés a panel `/near` oldalán (webes OAuth + PKCE, a visszairányított címet toti beilleszti); token
   `~/.config/project-s/near.env` (az mcp-jogkör írásra is jó!) → olvasás csak `near-olvaso`-val (engedélylista, readOnlyHint).
-- **Ügygazda** (`scripts/ugygazda.py`, időzítő 10 percenként, panel `/ugygazda`): üzemeltetés, ügyfolytatás, kezdeményezés,
+- **Ügygazda** (`scripts/ugygazda.py`, időzítő 5 percenként – 2026-11-24 óta, tartalékként az eseményvezérelt ébresztés mellett (5.); panel `/ugygazda`): üzemeltetés, ügyfolytatás, kezdeményezés,
   döntési sor, napi összesítő, kikapcsolás – részletesen `docs/UGYGAZDA.md`. Visszaállítási próba, ügyszintű eseménynapló is ott.
   Körsorrend (2026-11-17): figyel → élesítés → folytat → kezdeményez → ébresztés. Az 1 óránál hosszabb modellkorláton álló
   saját ügy nem foglal kezdeményezési helyet. Ha elfogadott átnézés csak futó feladat miatt nem élesíthető, abban a körben nincs
   új kezdeményezés (`kezdemenyezes_kihagyva`; a meglévő ügyek folytatódnak) – 2026-11-23. Ébresztés (`scripts/ebresztes.py`): eseményjelöltek + naponta egy `helyzet:napi`
   helyzetértékelés. ELAKADT főnök-szál feloldási feltétellel (`lezarasi_kapu.py zar … --feloldas`) magától újranyílik.
+  2026-11-24/25: új saját ügy csak `kotodes`-sel (nyitott akadály vagy `kiemelt_celok` cél + mérőszám, `kotodes_hiba`; jelenlegi
+  kiemelt cél: `onallosag-proba-mentes`); a tervező bemenete a `kepessegtar` (`_kepessegtar`); az export (`allapot/rendszer.json`)
+  `mentes` része a legutóbbi mentést és visszaállítási próbát adja; a `vedett-ellenor` az élő fában hagyott kódváltozást is
+  elutasítja; átnézési időkorlát 60 perc. Részletek: `docs/UGYGAZDA.md`.
 - **Főnök a panelen** (Beszélgetések, `executor/beszelgetes.py`): modellválasztó, közös munkaállapot,
   helyettesítési lánc; OpenRouter-katalógus és eszközhívás-próba: `/c/modellek`. A szál saját
   `~/project-s-dev/<szál>` klónjában, `fonok/<szál>` ágon dolgozik; az éles repó a szűk zárban csak olvasható.
@@ -177,7 +218,8 @@ Alapelvek:
   Az elfogadási szabályokat az éles kód állítja össze; csak dokumentáció módosítása önmagában nem indít kódátnézést.
 - **Automatikus élesítés** (`scripts/elesites.py`, hívója az ügygazda ciklusa): bekapcsolt ügygazda az elfogadott
   főnök-átnézéseket élesíti. A fejlesztési ág feje az átnézett commit kell legyen; új commit után új átnézés kell.
-  Futó/sorban álló psx-feladat, nem commitolt kód vagy ütköző helyi elem esetén később próbálkozik;
+  Futó/sorban álló psx-feladat (2026-11-25 óta az el sem indult – 0. kísérletű, `queued` – feladat nem számít: `fut_valami`;
+  különben az ürítési ablakkal holtpont lenne), nem commitolt kód vagy ütköző helyi elem esetén később próbálkozik;
   azonos akadálytípus 6 óra után egyszer jelez. A generált `docs/KEPESSEGEK.md` nem bukik a tisztaságvizsgálaton;
   ütköző helyi adatot továbbra sem ír felül. Egyéb hiba véglegesként naplózódik. Az összefésülés külön
   munkafában készül, teljes tesztcsomaggal; csak zöld eredménnyel változik az éles ág. Szolgáltatás-ellenőrzés,
@@ -205,6 +247,20 @@ Alapelvek:
   Frissítés: `python3 scripts/docs_tukor.py` (időzítő: `install/systemd-user/project-s-docs-tukor.timer`).
 - **HP laptop (hp-dev):** távoli gép a szerverről (`~/bin/hp`, kulcs a szerveren); a végrehajtók három diagnosztikai műveletet, a főnök (tokennel) általános parancsot és teljes sudo-t futtathat a laptopon a hídon át (naplózott, időkorlátos; részletek és a széles hozzáférés dokumentációja: `docs/HP-DEV-HOZZAFERES.md`)
   (`/usr/local/lib/project-s/hp_dev.py`); részletek, beállítások, mérések: `docs/HP-DEV-HOZZAFERES.md`.
+- **Képességtár (2026-11-24):** `scripts/kepesseg.py lista | keres | mutat | futtat | tesztel | javasol`; képesség =
+  `scripts/kepessegtar/<név>/` (`kepesseg.json` leíró, `fut.py` → JSON, `test_fut.py` unittest). 8 képesség: `benchmark-eset-igazolas`,
+  `bizonyitek-kotes`, `git-valtozas-osszegzo`, `idezet-ellenorzes`, `mentes-allapot`, `openrouter-modellkereso`, `psx-statisztika`,
+  `tudas-kereses`. A `javasol` az elfogadott ügyeredményekből jelöl új képességet. Használati napló:
+  `~/.local/state/project-s/kepessegek/hasznalat.jsonl`. Bekötés: psx-prompt (5.), eszközjegyzék `kepesseg`, ügygazda-tervező.
+- **Tudásbázis (`scripts/tapasztalat.py`, 2026-11-24):** a tapasztalati tár (`kinyer`; ügyfeladatok bevált/sikertelen, kezdeményezés-
+  tanulságok) kiegészült: `tudas_modell` (szerepkörönkénti éles elfogadási arány ≥ 10 eldöntött esettől és benchmark-összegzés a
+  `modell-meres.json`-ból), `tudas_dontes` (a `docs/*.md` „(toti, DÁTUM)” sorai, fájl:sor forrással), `tudas_csatlakozas` (`~/bin`
+  eszközök leírása). Titokszűrt; tár: `~/.local/state/project-s/tapasztalat/tudas.jsonl`, zárból olvasható másolat:
+  `allapot/tudas.jsonl` (gitignore-olt); 6 óránál régebbi tár keresés előtt újraépül. Keresés: `tudas-kereses` képesség.
+- **Kutatólabor (`project-s-labor.service`, 2026-11-24):** elkülönített psx-felügyelő `PSX_HOME=~/.local/state/project-s/labor/psx`,
+  2 párhuzamos, ébresztés és ürítési ablak nélkül. A `scripts/modell_kutatas.py` benchmark-feladatai ide mennek (`LABOR`,
+  `MODELL_LABOR=0` = éles psx; `_feladat_mappa`: előbb labor, aztán éles), így nem tartják fel az élesítési kaput. Esetek:
+  `kozos/munka/ellenor-benchmark/esetek.json`; „nem ajánlott ellenőr”: `NEM_AJANLOTT_ELLENOR`. Időzítő: `project-s-modellkutatas.timer`.
 - **Tesztcsomag:** `scripts/tesztek.sh` (végrehajtó + ATA tesztek + szintaxis); a beszélgetésben készült kódnál automatikusan fut.
 - **SMB-hozzáférés:** `smb-belepes [IP]` – Windows-megosztás belépési adatai a repón kívülre (pl. a <helyi-ip> mesemappája).
 - **Titokvédelem:** `scripts/titok_ellenor.py` pre-commit hook; titkok: `~/.config/project-s/` (600), soha nem repóba.
@@ -251,6 +307,7 @@ Szabály: végrehajtó-feladat nem vált ágat és nem commitol az éles repóba
 | `docs/UGYKEZELES.md` · `docs/ASSZISZTENS.md` · `docs/ATA.md` · `docs/KEPESSEGEK.md` | ügykezelés · asszisztens · Telegram · mért állapot |
 | `executor/` | `psx.py` (végrehajtó), `agent.py` (saját ciklus), `modell.py` (OpenRouter/helyi modellfelület), `acceptance.py`, `web.py`, `bongeszo.py`, `zar.py` (Landlock), `beszelgetes.py`, `tests/` |
 | `scripts/` | `ugy.py`, `rendszerlepes.py`, `kepessegek.py`, `mentes*.sh`, `drive-belepes.sh`, `titok_ellenor.py`, `project-s-rc.sh` |
+| `scripts/kepesseg.py` · `scripts/kepessegtar/` · `scripts/tapasztalat.py` · `scripts/modell_kutatas.py` | képességtár · képességek · tapasztalat/tudásbázis · modellkutatás, benchmark, árnyék-visszaállás |
 | `mcp/` | `panel.py` (panel), `server.py` (MCP), régi `jobs.py`/`runner.py` (az MCP előtti végrehajtó, ma nem ezt használjuk) |
 | `ata/` | Telegram-kliens és kutatási tároló |
 | `install/` | systemd-unitok (`systemd-user/`, `systemd/project-s-rc.service`), root-telepítő |
