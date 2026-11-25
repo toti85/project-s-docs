@@ -298,6 +298,7 @@ a kulcsfájl csak környezeti változóból olvas, `config/openrouter.env.exampl
 - Próba: unit-teszt `test_teljes_jog_titkok_nelkul`; éles: DeepSeek `t20261108-173858-1e5950`, Codex `t20261108-173622-297f69`,
   Copilot `t20261108-173623-4baaf0` – mind a munkakönyvtáron kívülre írt (`~/work/jogproba/`), elfogadva.
 - Claude: továbbra sem zárolt (eddig is a teljes felhasználói jogokkal futott, saját engedélykezeléssel).
+  _Frissítés 2026-11-24: a Claude is Landlock-zárban fut – lásd 16._
 
 ## 13. Jóváhagyásra váró rendszerlépés (root) (2026-11-08)
 - Végrehajtó (bármelyik): `~/bin/rendszerlepes ker "<parancs>" --miert "<indoklás>"` (`--var N`: N másodpercig vár a döntésre).
@@ -362,6 +363,39 @@ Kérések (`executor/kerelem.py`; a végrehajtó oldalon a `psx` CLI magától h
 - `psx kerelem allapot <kérés-id>`; a hiteles eredmény a kérő feladat naplójában: `vegrehajtoi_kerelem` esemény (a számláló is ebből).
 - Védelem: a postafiók-mappát a zár csak pontos `<psx/tasks>/<feladat>/kerelmek` alakban nyitja meg; a felügyelő a kéréseket és a
   válaszokat szimbolikus link követése nélkül olvassa/írja; egy hibás kérés nem állítja meg a felügyelőt.
+
+## 16. Független gépi elfogadás, egységes zár, élesítési ablak, labor (2026-11-24/25)
+- **Független ellenőr lépés:** `{"id": "ellenor", "kind": "agent", "fuggetlen_tol": ["munka"], "requires": ["munka"], …}` +
+  elfogadás `itelet:ellenor`. A psx (`executor/psx.py`): `fuggetlen_szures` a szerzővel azonos tényleges gyártót (`valodi_gyarto`)
+  kizárja a láncból, tartalékkal sem kerülhet vissza; indulás előtt `ellenorzes_kezdet` esemény (`step`, `attempt`, `ujjlenyomat`,
+  `fajlok` – nem git munkakönyvtárnál a feladat óta változott fájlok –, `szerzok`); a szerző végső összegzése a célba kerül
+  (`szerzo_osszegzes`, ≤ 8000 karakter). Rendszerlépés-várakozás után a szerzői lépéssel együtt az ellenőr is újranyílik
+  (`ujranyitando_lepesek`).
+- **`itelet:<lépés>` (`executor/acceptance.py`):** forrás a feladatmappa (a végrehajtó nem írhatja), nem a munkakönyvtár;
+  `ellenor_valasz` (napló-lenyomattal egyező kimenet), `fuggetlen_lepes` (spec + tényleges gyártó), `hitelesseg_hiba` (hash-lánc,
+  ellenőr-személyazonosság, munka-ujjlenyomat azonos az ellenőrzéskorival), első soros ítélet. Csak az egyértelmű, HIBA-sor nélküli
+  `ITÉLET: ELFOGADHATÓ` fogad el gépileg; minden kétes eset `ember`.
+- **MCP:** a `task_submit` alapból így küldi a rutinmunkát (`fuggetlen_ellenorzes`, `ELLENOR_LANC`); `emberi_dontes=true` → marad
+  az `ember`. Indok (toti, 2026-11-24): a heti emberi döntések nagy része rutinmunka volt.
+- **Claude a zárban:** `ClaudeAdapter.run` → `claude_zar` (`zar.py`, teljes jognál `--teljes`, írható: munkakönyvtár, `~/.claude`,
+  `<state_dir>/tmp`); `CLAUDE_CONFIG_DIR=~/.claude`, `TMPDIR` a zár ideiglenes mappája; `PSX_CLAUDE_ZAR=0` kikapcsolja.
+  Bejelentkezés-lejárat: `claude_belepes_figyel` → `~/.local/state/project-s/claude-belepes.json` + napi egy push.
+- **Ürítési ablak (`uritesi_ablak`, `PSX_URITES_PERC`, alap 20):** élesítésre váró elfogadott átnézés mellett új (0. kísérletű)
+  feladat nem indul, legfeljebb ennyi percig az elfogadástól. A kapu (`scripts/elesites.py fut_valami`) a 0. kísérletű, sorban álló
+  feladatot nem tekinti futónak (holtpont ellen, 2026-11-25).
+- **Ügygazda-ébresztés (`ugygazda_ebresztes`):** lezáró eseménynél azonnali ügygazda-kör (60 s összevonás, óránként ≤ 30,
+  `PSX_EBRESZTES_MIN_S` / `PSX_EBRESZTES_MAX_ORA`); az ügygazda-időzítő (`*:0/5`) a tartalék.
+- **Átnézők (`executor/kerelem.py` `ATNEZOK`, 2026-11-24):** a 15. pont listája kiegészült: `codewhale` + `z-ai/glm-5.3` (z-ai,
+  elsődleges harmadik gyártó) és `codewhale` + `qwen/qwen3.8-flash` (tartalék). Sorrend: a benchmarkon igazolt modellek előbb
+  (`_merttek`), majd a lista; az openai-gyártós átnéző a Codex lehűlésekor kimarad; ekkor – ha a mért lista nem ad elébe mást – a pár DeepSeek
+  (codewhale) + GLM-5.3.
+  Átnézési időkorlát: lépés 3600 s, feladat 3900 s.
+- **Kutatólabor:** `install/systemd-user/project-s-labor.service` – külön psx-felügyelő (`PSX_HOME=~/.local/state/project-s/labor/psx`,
+  `PSX_MAX_RUNNING=2`, `PSX_EBRESZTES_MAX_ORA=0`, `PSX_URITES_PERC=0`), ugyanaz a végrehajtó és zár. A `scripts/modell_kutatas.py`
+  benchmarkjai ide kerülnek (`MODELL_LABOR=0` → éles psx).
+- **Tapasztalati útválasztás árnyékmódban:** `valasztas.json` `mod` = `arnyek` (alap) | `ab` | `be` | `ki`; esemény:
+  `valasztas_tapasztalat`; hatásmérés `modell_kutatas.valasztas_hatas`, automatikus visszaállás `visszaallit_ellenor` (→ `mod=ki`).
+  Részletek: `docs/RENDSZER.md` 5.
 
 ## Telefonos értesítések (Web Push)
 
