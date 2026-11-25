@@ -12,7 +12,7 @@ sbrowser nyit https://pelda.hu --cel "időpontfoglalás"   # → munkamenet-azon
 sbrowser ir <id> 4 "keresett szöveg" --enter             # a [4] mezőbe ír, Enter
 sbrowser kattint <id> 12                                  # a [12] elem megnyomása
 sbrowser valaszt <id> 7 "Budapest" · sbrowser gomb <id> PageDown · sbrowser gorget <id> le · sbrowser vissza <id>
-sbrowser varj <id> "Betöltés" --eltunik                   # lassan töltő oldal: megvárja, míg a szöveg eltűnik / megjelenik (rövid lépésekben, a böngészőt nem foglalja)
+sbrowser varj <id> "Betöltés" --eltunik                   # lassan töltő oldal: megvárja, míg a szöveg eltűnik / megjelenik
 sbrowser szoveg <id>                                      # az oldal teljes szövege
 sbrowser kep <id> ki.png · sbrowser feltolt <id> 9 fajl.pdf · sbrowser bezar <id> · sbrowser lista
 sbrowser ember <id> "be kell jelentkezni"                 # átadás totinak; a parancs megvárja a végét
@@ -25,8 +25,7 @@ A számok az oldal élettartamára állandók (ugyanaz az elem ugyanazt a számo
 | Helyzet | Mi történik |
 |---|---|
 | jelszó- vagy bankkártyamező kitöltése | az ügynök hívása 423-mal megáll, a lap **átadódik totinak** |
-| jelszavas / kártyás űrlap elküldése (kattintással, Enterrel) – a kártyamezőt a címkéje, helyőrzője, ARIA-címkéje is azonosítja, ugyanazzal a szabállyal, mint a kitöltésnél | 423 (+ átadás) |
-| natív párbeszéd (confirm / prompt / alert) | ügynöknél mindig elvetve; átvétel alatt elvetve és a panelen jelezve – „Elfogadom” után a megismételt művelet ugyanilyen párbeszéde egyszer elfogadódik (2 perc, az átvételhez kötve) |
+| jelszavas / kártyás űrlap elküldése Enterrel | 423 |
 | fizetést, megrendelést véglegesítő gomb (Fizetés, Megrendelem, Pay now, Place order …) | 423 + átadás – pénzköltés toti döntése |
 | captcha, kétlépcsős kód, megerősítés | az ügynök kéri: `sbrowser ember <id> "miért"` |
 
