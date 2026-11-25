@@ -38,6 +38,8 @@ az ügynök nem nyúlhat a laphoz, és nem is olvashatja (pillanatkép, szöveg,
 - **Chromium-sandbox:** a böngésző saját sandboxszal fut; élesben (`SBROWSER_SANDBOX=kotelezo` a szolgáltatásegységben) enélkül
   nem indul. Előfeltétel Ubuntu 24.04-en: `sudo install -m 644 install/apparmor/playwright-chromium /etc/apparmor.d/ &&
   sudo apparmor_parser -r /etc/apparmor.d/playwright-chromium`. A `/health` `sandbox` mezője mutatja az állapotot.
+- **„Nem – visszaadom” (megszakított átvétel):** a félbehagyott lap bezárul, az ügynök ugyanabban a munkamenetben üres lappal
+  folytatja – részben kitöltött űrlap nem kerül vissza hozzá. Lezáráskor a munkamenet felugró lapjai is bezárulnak.
 - **Navigálni csak nyilvános http/https címre lehet** (`data:`, `blob:`, `about:`, `file:` nem nyitható).
 - **Emberi művelet csak épp átvett lapon**, az aktuális átvétel jelével megy át (`atvetel`); visszaadás után egy elavult
   panelnézet kattintása vagy gépelése 409-et kap. Új lapra a munkamenet csak akkor vált, ha az a saját lapjából nyílt.
