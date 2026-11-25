@@ -297,7 +297,7 @@ a kulcsfájl csak környezeti változóból olvas, `config/openrouter.env.exampl
   ez nem a kísérleti szervert, hanem toti fiókjait veszélyeztetné.
 - Próba: unit-teszt `test_teljes_jog_titkok_nelkul`; éles: DeepSeek `t20261108-173858-1e5950`, Codex `t20261108-173622-297f69`,
   Copilot `t20261108-173623-4baaf0` – mind a munkakönyvtáron kívülre írt (`~/work/jogproba/`), elfogadva.
-- Claude: továbbra sem zárolt (eddig is a teljes felhasználói jogokkal futott, saját engedélykezeléssel).
+- Claude: 2026-11-24 óta szintén a Landlock-zárban fut (lásd 16. szakasz; korábban saját engedélykezeléssel, zár nélkül).
   _Frissítés 2026-11-24: a Claude is Landlock-zárban fut – lásd 16._
 
 ## 13. Jóváhagyásra váró rendszerlépés (root) (2026-11-08)

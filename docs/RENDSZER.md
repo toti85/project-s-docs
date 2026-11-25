@@ -69,7 +69,7 @@ Alapelvek:
 - **Modellválasztás (`tipus`):** `kod` → codex, claude, copilot, or-olcso · `kutatas` → claude, codex · `tomeg` → or-olcso,
   or-free; kifejezett `providers` felülírja. Automatikus `max_cost_usd` csak az `or-olcso`-ra; az előfizetésesek névleges keretet kapnak.
 - **Napló:** feladatonként append-only, hash-láncolt `events.jsonl` (`~/.local/state/project-s/psx/tasks/<id>/`); az
-  állapot ebből számolt. Felügyelő: `project-s-executor.service` (max 3 párhuzamos), kísérletenként külön systemd-unit.
+  állapot ebből számolt. Felügyelő: `project-s-executor.service` (alap max 3 párhuzamos; élőben 6 – drop-in: `91-maraton-parhuzamossag.conf`), kísérletenként külön systemd-unit.
 - **Életciklus:** `queued → running → verifying → accepted | needs_acceptance | rejected`; közben `waiting_model`
   (limit/nincs modell → magától folytatja), `waiting_human`, `failed`, `cancelled`. Lépésenkénti ellenőrzőpont;
   megszakítás után onnan folytat; limitnél munkacsomaggal átad a következő megadott szolgáltatónak.
