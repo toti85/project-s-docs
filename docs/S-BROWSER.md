@@ -46,7 +46,10 @@ az ügynök nem nyúlhat a laphoz, és nem is olvashatja (pillanatkép, szöveg,
   A belépések megmaradnak, így egy egyszeri emberi bejelentkezés után az ügynök önállóan dolgozhat az adott oldalon.
 - **Napló:** `~/.local/state/project-s/sbrowser/naplo.jsonl`, hash-láncolt; a címek lekérdezés nélkül (`?…`), az emberi
   átvétel alatt begépelt szöveg egyáltalán nem kerül bele. A kimenetekben a titokgyanús címparaméterek kitakarva.
-- Letöltések: `kozos/bejovo/bongeszo/<munkamenet>/`. Legfeljebb 6 munkamenet; 45 perc tétlenség után a lap bezárul.
+- Letöltések: `kozos/bejovo/bongeszo/<dátum-véletlen>/` (a mappa neve nem a munkamenet-azonosító, mert az hozzáférési kulcs);
+  a böngészőszál nem vár rájuk, 180 mp vagy 500 MB fölött megszakadnak. Ha az emberi átvétel időkorlátja lejár, a lap
+  bezárul (az ügynök 410-et kap) – félbehagyott oldal nem kerül vissza az ügynökhöz. Érzékeny mezőnek számít az is,
+  amelyet csak a látható címkéje, helyőrzője vagy aria-címkéje azonosít. Legfeljebb 6 munkamenet; 45 perc tétlenség után a lap bezárul.
 
 ## Éles próba (2026-11-25)
 Egy olcsó modell (DeepSeek, `or-olcso`, 0,025 USD) a psx-ben önállóan végigcsinálta: jegy.mav.hu → Honnan/Hova kitöltése a
