@@ -2,30 +2,11 @@
 
 # Folytatás – hol tartunk
 
-_Utolsó frissítés: 2026-11-25 23:00 CET (Claude Code, napközbeni munka)_
+_Utolsó frissítés: 2026-11-25 07:02 CET (éjszakai Claude Code maraton)_
 
 > **A teljes rendszer leírása: `docs/RENDSZER.md`.** **Új munkamenet:** a `CLAUDE.md` automatikusan betöltődik. Utána: `ugy lista`, majd a kért ügy
 > (`ugy allapot <ügy>`, `ugy folytat <ügy>`). Rendszerellenőrzés: `systemctl status project-s-rc`,
 > `scripts/gpt-kapcsolat.sh status`.
-
-## ⏭️ HOL TARTUNK (2026-11-25 23:00 CET) – napközbeni javítások
-- **Élesítve ma (két független átnézéssel):** kiemelt cél azonosítójának fordítása, ami az „ismeretlen cél” hibát javítja (`009b71a2`);
-  költségkorlát: a qwen kikerült az átnézők közül, napi benchmark-keret 0,30 USD, feladatonként 0,10 USD (`892a9d6b`);
-  a kiemelt célt sikeres indítás foglalja, közös zár alatt (`61026f19`); a visszaállítási próba saját futásidőt mér (`baf26361`, `masodperc`);
-  Telefon-doktor (Android vizsgálata és javítása adb-n át), S Bridge rendszerszintű task-típusok, S-Browser, Control Center helykártya.
-- **Elutasítva, javítandó** (a Codex mindkettőnél valós HIBA-t talált; a második átnéző elfogadta):
-  1. `dev/zar-kodfa` (`fd38b8f6`, élő kód nem írható a zárban): a kifejezett `--ir` út (PSX `dir` mód) megkerüli a kizárást,
-     és az élő repó `.git`-je kimaradt. Kérelem: `kozos/kimeno/atnezes-kerelem-fd38b8f60c-1-*.md` (t20261125-150942-583445 munkafája).
-  2. `dev/ujraterv` (`79e937f5`, újratervezés 6 óra után): a 72 óránál régebbi bukást a `javitas()` a NEAR-/védettfájl-ellenőrzés előtt
-     „már kezelve”-nek jelöli, így külső hatású ügy is újratervezhető. Kérelem: t20261125-151449-b53c34.
-- **Kiemelt cél:** `onallosag-proba-mentes`. Az 1. nap kész (`eredmenyek/nap-2026-11-25.json`), a 2. nap 11-26 03:17 után jön: ellenőrizni, hogy
-  a Főnök magától rögzíti-e. A 11-25-i elavult döntési tételt lezártam (`vedett:t20261125-055116-7e237f`).
-- **Élő fában hagyott kód:** végrehajtók kétszer is az élő repóban módosítottak. A változást dev-ágra mentettem, az élő fájlt visszaállítottam.
-  A tartós zár az 1. pont javításával jön.
-- **Élesítés várakozik:** az éles munkafa nem tekerhető előre (`auto_varakozas` 21:29, helyi változás: `docs/KEPESSEGEK.md`). Ezzel a commit-tal megszűnik.
-- **Üzem:** az OpenRouter-egyenleget toti feltöltötte (a 402-es hiba miatt). A szerver 20 percre leállt, majd újraindult.
-- **Egyéb (nem Projekt-S):** a DEV laptopon (HP) toti fia a Waydroidba a Delta executort telepítette a Roblox helyett, ez okozta
-  a Roblox-kitiltást. Nincs kártevőre utaló nyom. A Delta és a Fleasion eltávolítása toti igenére vár.
 
 ## ⏭️ HOL TARTUNK (2026-11-25 07:00 CET) – éjszakai maraton lezárva
 - **Összesítő:** `kozos/munka/maraton-20261124/REGGELI-OSSZESITO.md` (részletek: ALLAPOT.md, szalak.md ugyanott).

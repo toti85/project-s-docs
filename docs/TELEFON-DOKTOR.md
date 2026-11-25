@@ -29,3 +29,9 @@ telefon_doktor.py valtozasok | visszaallit
 A vezeték nélküli hibakeresés portja változik, és a kapcsolat Wi-Fi-váltáskor megszűnik – ezért ez ma kézi indítású eszköz.
 Tartós megoldás: ugyanezek a vizsgálatok és javítások az S Bridge appon át (az már folyamatosan kapcsolódik a szerverhez),
 így a Control Center rendszeresen futtathatja, és a Főnök / ügygazda is indíthatja.
+
+## Az S Bridge appon át (hibakeresési kapcsolat nélkül)
+`telefon_doktor.py --sbridge <jóváhagyás-azonosító> vizsgal|ved|…` – a parancsok `rendszer_parancs` feladatként, a telefonon futó
+Shizukun át mennek (mobilneten is). A Control Center **Telefon → Telefon-egészség** kártyája ugyanezt indítja egy gombbal: a
+vizsgálat csak olvas; a „Védd meg”, a zároláskori tisztítás kikapcsolása és a visszaállítás a panelről indítva saját, arra az
+egy műveletre szóló jóváhagyást kap, amely a végén megszűnik. Emulátoron végigpróbálva (vizsgálat ≈ 9 mp, védelem, visszaállítás).
