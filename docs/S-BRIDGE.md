@@ -61,3 +61,5 @@ emelnek jogot. Rendszer-, S Bridge- és Shizuku-csomag nem tiltható le / távol
 Verzióváltás elleni védelem: a panel minden rendszerszintű kérés előtt frissen ellenőrzi, hogy a futó szolgáltatás hirdeti-e a
 `rendszer` képességet; az ilyen feladat legfeljebb 5 percig várhat a sorban; a telefon pedig önállóan is elutasítja a
 jóváhagyás nélkül érkező rendszerszintű feladatot – egy régebbi szerverváltozat így sem tudja jóváhagyás nélkül végrehajtatni.
+`rendszer_parancs` (3.0.14+): tetszőleges ADB-szintű parancs a Shizukun át – ez a „teljes hozzáférés”. Jóváhagyásköteles, a kimenet
+fájlként érkezik; erre épül a telefon-doktor appon át futó változata.
