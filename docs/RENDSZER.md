@@ -155,9 +155,6 @@ Alapelvek:
 - **Control Center 2.0** (`/cc`, `mcp/cc*.py`, `mcp/static/cc/`): a panel új, élő felülete – áttekintés, kapcsolati térkép,
   modellek/költség, élesítés/mentés, napló, S Bridge, terminál, fájlok; a `/` ide nyílik, a klasszikus panel: `/regi`.
   Leírás: [CONTROL-CENTER.md](CONTROL-CENTER.md).
-- **S-Browser** (`scripts/sbrowser.py`, `project-s-sbrowser.service`, 127.0.0.1:8861): valódi böngésző az ügynököknek – megnyitás,
-  kattintás, űrlap, olvasás, le-/feltöltés, tartós profil; jelszó / kártya / fizetés emberi átvétel a Control Center Böngésző
-  nézetéből; helyi és belső cím tiltva. Parancs: `sbrowser`. Leírás: [S-BROWSER.md](S-BROWSER.md).
 - **S Bridge 3.0** (`scripts/sbridge_szerver.py`, app: `~/project-s-android/s-bridge-3`): a telefon hídja – képernyőkép, UI-fa,
   koppintás/húzás/szöveg, appindítás, értesítések, fájlátvitel; olvasó és vezérlő parancs csak jóváhagyással
   (`sbridge jovahagy`, vagy a Control Center Telefon nézete). Leírás: [S-BRIDGE.md](S-BRIDGE.md).
