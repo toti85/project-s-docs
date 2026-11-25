@@ -35,8 +35,8 @@ az ügynök nem nyúlhat a laphoz, és nem is olvashatja (pillanatkép, szöveg,
 (`~/.config/project-s/sbrowser.titok` – a végrehajtók zárja nem engedi olvasni).
 
 ## Védelem
-- **A munkamenet-azonosító egyben kulcs:** kitalálhatatlan, és a `sbrowser lista` csak a hívó saját feladatának lapjait adja ki
-  (a panel mindet látja). A **profil viszont közös**: ami egy profilban be van léptetve, azt az a profilt használó bármely
+- **A munkamenet-azonosító egyben kulcs:** kitalálhatatlan, és a `sbrowser lista` ügynöknek csak darabszámot ad, azonosítót nem
+  (a saját lapját a `nyit` válaszából ismeri; elveszett azonosítójú lapot a panel zárhat be, vagy 45 perc tétlenség után magától bezárul). A **profil viszont közös**: ami egy profilban be van léptetve, azt az a profilt használó bármely
   ügynök eléri – érzékeny fiókhoz külön profilt érdemes használni (`--profil`).
 - **Jelszavas űrlapot** ügynök semmilyen úton nem küldhet el (kattintás, Enter): a teljes bejelentkezés emberi lépés.
 - **Belső címek tiltva** (127.0.0.1, 10/8, 192.168/16, 100.64/10 – tailnet, `*.ts.net`, `.local`, `file:`): az ügynök a
