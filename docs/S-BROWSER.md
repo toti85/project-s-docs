@@ -35,6 +35,12 @@ az ügynök nem nyúlhat a laphoz, és nem is olvashatja (pillanatkép, szöveg,
 (`~/.config/project-s/sbrowser.titok` – a végrehajtók zárja nem engedi olvasni).
 
 ## Védelem
+- **Chromium-sandbox:** a böngésző saját sandboxszal fut; élesben (`SBROWSER_SANDBOX=kotelezo` a szolgáltatásegységben) enélkül
+  nem indul. Előfeltétel Ubuntu 24.04-en: `sudo install -m 644 install/apparmor/playwright-chromium /etc/apparmor.d/ &&
+  sudo apparmor_parser -r /etc/apparmor.d/playwright-chromium`. A `/health` `sandbox` mezője mutatja az állapotot.
+- **Navigálni csak nyilvános http/https címre lehet** (`data:`, `blob:`, `about:`, `file:` nem nyitható).
+- **Emberi művelet csak épp átvett lapon**, az aktuális átvétel jelével megy át (`atvetel`); visszaadás után egy elavult
+  panelnézet kattintása vagy gépelése 409-et kap. Új lapra a munkamenet csak akkor vált, ha az a saját lapjából nyílt.
 - **A munkamenet-azonosító egyben kulcs:** kitalálhatatlan, és a `sbrowser lista` ügynöknek csak darabszámot ad, azonosítót nem
   (a saját lapját a `nyit` válaszából ismeri; elveszett azonosítójú lapot a panel zárhat be, vagy 45 perc tétlenség után magától bezárul). A **profil viszont közös**: ami egy profilban be van léptetve, azt az a profilt használó bármely
   ügynök eléri – érzékeny fiókhoz külön profilt érdemes használni (`--profil`).
