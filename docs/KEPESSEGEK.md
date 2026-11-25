@@ -1,6 +1,6 @@
 <!-- Automatikus tükör a privát Projekt S műhelyrepóból (scripts/docs_tukor.py). Személyes és hálózati adatok kitakarva. Ne itt szerkeszd. -->
 
-# Szerver-képességek (generált: 2026-11-16 03:17 UTC, `scripts/kepessegek.py`)
+# Szerver-képességek (generált: 2026-11-25 21:58 UTC, `scripts/kepessegek.py`)
 
 > Mért állapot. Ha ez ellentmond egy régebbi ügyiratnak vagy javaslatlistának, EZ az érvényes.
 
@@ -8,11 +8,11 @@
 ```
 claude   elérhető  ok
 copilot  elérhető  ok
-codex    NEM elérhető  lehűlés 2026-11-18T10:43:00+00:00-ig
+codex    elérhető  ok
 codewhale elérhető  ok
 or-free  elérhető  ok
 or-olcso elérhető  ok
-local    elérhető  ok
+local    NEM elérhető  a végpont nem válaszol (http://127.0.0.1:11434/v1): URLError
 proba    NEM elérhető  a végpont nem válaszol (http://127.0.0.1:18080/v1): URLError
 ```
 
@@ -38,7 +38,7 @@ proba    NEM elérhető  a végpont nem válaszol (http://127.0.0.1:18080/v1): U
 
 - ✅ `bwrap`
 
-- ❌ `gh`
+- ✅ `gh`
 
 - ✅ `git`
 
@@ -46,7 +46,7 @@ proba    NEM elérhető  a végpont nem válaszol (http://127.0.0.1:18080/v1): U
 
 - ✅ `pdftotext`
 
-- ❌ `node`
+- ✅ `node`
 
 ## Telefonos értesítések
 - Web Push: `~/bin/ertesites allapot`, próba: `ertesites proba`
@@ -54,12 +54,12 @@ proba    NEM elérhető  a végpont nem válaszol (http://127.0.0.1:18080/v1): U
 - Feliratkozások: 1
 
 ## Mentés
-- helyi: `~/mentes` (napi 03:17, 14 nap): 13 mentés
+- helyi: `~/mentes` (napi 03:17, 14 nap): 16 mentés
 - Google Drive (titkosított): ✅ bekötve
-- visszaállítási próba: ✅ RENDBEN (2026-11-15T10:10:23+00:00, 315/315 napló, `scripts/visszaallitas_proba.py`)
+- visszaállítási próba: ✅ RENDBEN (2026-11-25T03:20:00+00:00, 897/897 napló, `scripts/visszaallitas_proba.py`)
 
 ## Ügygazda (önálló irányító)
-- állapot: bekapcsolva; saját ügyek: dontesi-sor-konzisztencia, near-ellenorzok-tenyleges-hasznalata, mentes-fajllefedettseg, helyi-modell-vegpont-diagnozis, visszaallitasi-allapot-egysegesites, near-kovetelmeny-valtozas, near-kiosztas-munkakezdes, akadaly-ismetlodes-csoportosito, node-hordozhato-telepites, ellenorzok-regresszio-futtato; döntési sor: 18; elakadás (összes/megoldott): 1/1
+- állapot: bekapcsolva; saját ügyek: dontesi-sor-konzisztencia, akadaly-ismetlodes-csoportosito, node-hordozhato-telepites, mentes-drive-kvotahiba, nyitott-dontesek-kor-kimutatas, proba-vegpont-18080-diagnozis, akadaly-dontes-lezaras-javaslat, near-export-mezohiany-kimutatas, ugygazda-allapotfajl-olvashatosag, szolgaltatas-path-alkalmazas-csomag, path-javito-diff-alkalmazasi-kerelem-tervezet, psx-hibaosztaly-ismetlodes-rangsor, mentes-drive-rclone-korlat-alkalmazas, psx-hibaosztaly-ismetlodes-rangsor-ellenor, szolgaltatas-port-elo-proba, mentes-drive-rclone-korlat-javaslat-ellenor, kepesseg-gh-jogosultsag-ellenor, elfogadasi-szabaly-alak-ellenor, kezdemenyezes-cel-eloszlas-merleg, near-ajanlat-elozetes-kapu-elo-export-futtatas, visszaallitas-tmpdir-diff-alkalmazas-proba, mentes-300mb-kizaras-alkalmazas, onallosag-napi-igazolas-rogzito, onallosag-datumozott-igazolas-futtato, onallosag-holnapi-mentes-tartalek-elorejelzes, mentes-kizaras-alkalmazva-ellenor, onallosag-emberi-lepes-mentes-ellenor, onallosag-visszaallitas-teljesseg-keresztellenor; döntési sor: 73; elakadás (összes/megoldott): 2/2
 - leírás: `docs/UGYGAZDA.md`; NEAR külső műveletek: `scripts/near_kulso.py`; ügynapló: `ugy naplo ellenoriz`
 
 ## Főnök önállóan (szuper-végrehajtó)
