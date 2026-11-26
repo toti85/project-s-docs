@@ -65,15 +65,19 @@ jóváhagyás nélkül érkező rendszerszintű feladatot – egy régebbi szerv
 fájlként érkezik; erre épül a telefon-doktor appon át futó változata.
 
 ## Több telefon (családi flotta)
-A feladat címezhető: `feladat … --cel <eszköznév>` (a `kerdez` is: `--cel`) – csak a megnevezett, aktív eszköz kapja meg;
-ismeretlen vagy inaktív cél elutasítva (fail-closed). Több aktív eszköz mellett az olvasó, vezérlő és rendszerszintű feladathoz
-(minden jóváhagyásköteles típus, valamint hol, appkezelés, rendszerparancs) a cél kötelező; egyetlen aktív eszköznél ezek a
-feladatok cím nélkül is hozzá kötődnek (később aktivált másik telefon nem kapja meg), aktív eszköz nélkül rendszerszintű feladat
-nem rögzíthető. A cél a sorban, lekérdezésnél, visszaadás (kézbesítési hiba) után és a naplóban (`feladat … cel`) is megmarad;
-a lejárat a címzettől függetlenül érvényesül. Idempotens ismétlés (azonos `kulcs`) a cél visszavonása után is a meglévő
-azonosítót adja. A figyelő `ping`/`allapot` cím nélkül továbbra is bármelyik telefonnak mehet.
-A Control Center Telefon nézetében több aktív telefonnál készülékválasztó jelenik meg; több telefonos konfigurációban (akkor is,
-ha épp egy aktív) minden parancs kifejezetten címzett, a távvezérlő a kiválasztott telefon saját képét mutatja, a képre / eredményre
-koppintás a forrástelefonnak szól, a hely és a Telefon-egészség telefononként külön látszik (a régi közös jelentés csak
-egytelefonos konfigurációban). A telefon-doktor egy művelete végig ugyanannak a készüléknek szól; a cél ellenőrzése a „fut”
-állapot és a jóváhagyás előtt történik.
+A feladat címezhető: `feladat … --cel <eszköznév>` – csak a megnevezett eszköz kapja meg. Több aktív eszköz mellett a rendszerszintű
+feladathoz (hol, appkezelés, rendszerparancs) a cél kötelező. A Control Center Telefon nézetében több aktív telefonnál
+készülékválasztó jelenik meg; a hely és a Telefon-egészség telefononként külön látszik, a telefon-doktor egy művelete végig
+ugyanannak a készüléknek szól.
+
+## Családi telepítő
+`scripts/sbridge_telepito.py <eszköznév> [--mod tulajdonos|shizuku|alap] [--adb <serial>]` – egy telefon bekötése egy paranccsal
+(USB- vagy vezeték nélküli hibakeresésen át): app, hozzáférés, token, engedélyek, majd megvárja az első bejelentkezést.
+- **tulajdonos** (alap): eszköztulajdonosi mód – túléli az újraindítást. Csak frissen visszaállított, FIÓK NÉLKÜLI telefonon megy;
+  a telepítő ezt előre ellenőrzi, fiók mellett nem próbálkozik és semmit nem töröl. Eszköztulajdonosként megy: `hol` (a GPS-t is
+  bekapcsolja), app elrejtése / visszaállítása / csendes eltávolítása, `zarol`. Általános rendszerparancs (telefon-doktor) ehhez
+  Shizuku is kell.
+- **shizuku**: meglévő, használatban lévő telefonra (nincs visszaállítás); újraindítás után a Shizukut újra kell indítani.
+- Átláthatóság: az app állandó értesítése mutatja a kapcsolatot, minden helylekérés külön értesítést ad. Kiskorú telefonjára a szülő,
+  felnőttére csak az ő tudtával kerüljön.
+Friss (gyári állapotú) emulátoron végigpróbálva: telepítés → eszköztulajdonos → bejelentkezés 3 mp → hol, zarol.
