@@ -63,9 +63,3 @@ Verzióváltás elleni védelem: a panel minden rendszerszintű kérés előtt f
 jóváhagyás nélkül érkező rendszerszintű feladatot – egy régebbi szerverváltozat így sem tudja jóváhagyás nélkül végrehajtatni.
 `rendszer_parancs` (3.0.14+): tetszőleges ADB-szintű parancs a Shizukun át – ez a „teljes hozzáférés”. Jóváhagyásköteles, a kimenet
 fájlként érkezik; erre épül a telefon-doktor appon át futó változata.
-
-## Több telefon (családi flotta)
-A feladat címezhető: `feladat … --cel <eszköznév>` – csak a megnevezett eszköz kapja meg. Több aktív eszköz mellett a rendszerszintű
-feladathoz (hol, appkezelés, rendszerparancs) a cél kötelező. A Control Center Telefon nézetében több aktív telefonnál
-készülékválasztó jelenik meg; a hely és a Telefon-egészség telefononként külön látszik, a telefon-doktor egy művelete végig
-ugyanannak a készüléknek szól.
