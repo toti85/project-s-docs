@@ -35,3 +35,9 @@ Tartós megoldás: ugyanezek a vizsgálatok és javítások az S Bridge appon á
 Shizukun át mennek (mobilneten is). A Control Center **Telefon → Telefon-egészség** kártyája ugyanezt indítja egy gombbal: a
 vizsgálat csak olvas; a „Védd meg”, a zároláskori tisztítás kikapcsolása és a visszaállítás a panelről indítva saját, arra az
 egy műveletre szóló jóváhagyást kap, amely a végén megszűnik. Emulátoron végigpróbálva (vizsgálat ≈ 9 mp, védelem, visszaállítás).
+
+## Védd / Fogd vissza – appként (2026-11-26)
+A védelem nem ingyenes: kevés memóriánál minél több a védett app, annál inkább a többit lövi ki a rendszer. Ezért a Telefon-egészség
+kártyán appként lehet dönteni: **Védd** (a háttérben is éljen), **Fogd vissza** (`visszafog`: nem fut a háttérben, nem indul magától,
+most leáll – megnyitva működik, de háttérértesítést nem ad), és mindkettő appként visszavonható (`felold`). A vizsgálat jelzi, ha a
+MIUI magától visszakapcsolta a korábban kikapcsolt zároláskori tisztítást.
