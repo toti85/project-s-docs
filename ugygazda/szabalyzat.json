@@ -10,7 +10,8 @@
  ],
  "idozitok": {
   "project-s-near.timer": 2700,
-  "project-s-mentes.timer": 93600
+  "project-s-mentes.timer": 93600,
+  "project-s-modellkutatas.timer": 93600
  },
  "mentes_max_kor_ora": 26,
  "visszaallitasi_proba_ora": 24,
@@ -29,7 +30,8 @@
   "near-bevetel",
   "bevetel-kutatas",
   "ugynok-piac-felmeres",
-  "project-s-ujjaepites"
+  "project-s-ujjaepites",
+  "onallosag-proba-mentes"
  ],
  "vedett_fajlok": [
   "ugygazda/szabalyzat.json",
@@ -66,5 +68,13 @@
  "jovahagyast_igenylo_fajlok": [
   "ugygazda/szabalyzat.json"
  ],
- "_vedett_elesites": "toti tartós felhatalmazása (2026-11-13): a védett fájl érintése önmagában nem kér új engedélyt – a már felhatalmazott feladatok módosításai az ellenőrzött élesítésen mennek át (átnézett commit, más gyártó független átnézése, zöld éles teszt, futó feladat nélkül, automatikus visszaállítás); az élesítő rögzíti a jóváhagyást. Kivétel: a felhatalmazást rögzítő fájl (jovahagyast_igenylo_fajlok) módosítása toti kifejezett jóváhagyását kéri."
+ "_vedett_elesites": "toti tartós felhatalmazása (2026-11-13): a védett fájl érintése önmagában nem kér új engedélyt – a már felhatalmazott feladatok módosításai az ellenőrzött élesítésen mennek át (átnézett commit, más gyártó független átnézése, zöld éles teszt, futó feladat nélkül, automatikus visszaállítás); az élesítő rögzíti a jóváhagyást. Kivétel: a felhatalmazást rögzítő fájl (jovahagyast_igenylo_fajlok) módosítása toti kifejezett jóváhagyását kéri.",
+ "kiemelt_celok": [
+  {
+   "id": "onallosag-proba-mentes",
+   "leiras": "Első önállósági próba (toti, 2026-11-24): a napi mentés elkészül, kicsi marad, és ELKÜLÖNÍTETT környezetben visszaállítható – a Főnök ezt minden nap maga igazolja, emberi beavatkozás nélkül.",
+   "meroszam": "egymást követő napok, amikor a mentés ≤ 300 MB, a visszaállítási próba hiánytalan (minden napló és ügy), és az igazolást a Főnök emberi lépés nélkül rögzítette; cél: 3 nap, utána jobb idővel/költséggel megismételve"
+  }
+ ],
+ "_kezdemenyezes_szukites": "toti (2026-11-24): új saját ügy CSAK akkor, ha egy nyitott akadályt old meg vagy egy kiemelt célt visz előre mérhető eredménnyel (a terv `kotodes` mezője, gépileg ellenőrizve). Önálló, öncélú kimutatás nem indul; elsődleges a kijelölt célok lezárása."
 }

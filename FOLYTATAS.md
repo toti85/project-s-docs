@@ -2,18 +2,61 @@
 
 # Folytatás – hol tartunk
 
-_Utolsó frissítés: 2026-11-18 08:45 UTC_
+_Utolsó frissítés: 2026-11-25 23:00 CET (Claude Code, napközbeni munka)_
 
 > **A teljes rendszer leírása: `docs/RENDSZER.md`.** **Új munkamenet:** a `CLAUDE.md` automatikusan betöltődik. Utána: `ugy lista`, majd a kért ügy
 > (`ugy allapot <ügy>`, `ugy folytat <ügy>`). Rendszerellenőrzés: `systemctl status project-s-rc`,
 > `scripts/gpt-kapcsolat.sh status`.
 
-## ⏭️ HOL TARTUNK (2026-11-18 08:45 UTC) – a működés helyreállítva, bizonyítás folyamatban
+## ⏭️ HOL TARTUNK (2026-11-25 23:00 CET) – napközbeni javítások
+- **Élesítve ma (két független átnézéssel):** kiemelt cél azonosítójának fordítása, ami az „ismeretlen cél” hibát javítja (`009b71a2`);
+  költségkorlát: a qwen kikerült az átnézők közül, napi benchmark-keret 0,30 USD, feladatonként 0,10 USD (`892a9d6b`);
+  a kiemelt célt sikeres indítás foglalja, közös zár alatt (`61026f19`); a visszaállítási próba saját futásidőt mér (`baf26361`, `masodperc`);
+  Telefon-doktor (Android vizsgálata és javítása adb-n át), S Bridge rendszerszintű task-típusok, S-Browser, Control Center helykártya.
+- **Elutasítva, javítandó** (a Codex mindkettőnél valós HIBA-t talált; a második átnéző elfogadta):
+  1. `dev/zar-kodfa` (`fd38b8f6`, élő kód nem írható a zárban): a kifejezett `--ir` út (PSX `dir` mód) megkerüli a kizárást,
+     és az élő repó `.git`-je kimaradt. Kérelem: `kozos/kimeno/atnezes-kerelem-fd38b8f60c-1-*.md` (t20261125-150942-583445 munkafája).
+  2. `dev/ujraterv` (`79e937f5`, újratervezés 6 óra után): a 72 óránál régebbi bukást a `javitas()` a NEAR-/védettfájl-ellenőrzés előtt
+     „már kezelve”-nek jelöli, így külső hatású ügy is újratervezhető. Kérelem: t20261125-151449-b53c34.
+- **Kiemelt cél:** `onallosag-proba-mentes`. Az 1. nap kész (`eredmenyek/nap-2026-11-25.json`), a 2. nap 11-26 03:17 után jön: ellenőrizni, hogy
+  a Főnök magától rögzíti-e. A 11-25-i elavult döntési tételt lezártam (`vedett:t20261125-055116-7e237f`).
+- **Élő fában hagyott kód:** végrehajtók kétszer is az élő repóban módosítottak. A változást dev-ágra mentettem, az élő fájlt visszaállítottam.
+  A tartós zár az 1. pont javításával jön.
+- **Élesítés várakozik:** az éles munkafa nem tekerhető előre (`auto_varakozas` 21:29, helyi változás: `docs/KEPESSEGEK.md`). Ezzel a commit-tal megszűnik.
+- **Üzem:** az OpenRouter-egyenleget toti feltöltötte (a 402-es hiba miatt). A szerver 20 percre leállt, majd újraindult.
+- **Egyéb (nem Projekt-S):** a DEV laptopon (HP) toti fia a Waydroidba a Delta executort telepítette a Roblox helyett, ez okozta
+  a Roblox-kitiltást. Nincs kártevőre utaló nyom. A Delta és a Fleasion eltávolítása toti igenére vár.
+
+## ⏭️ HOL TARTUNK (2026-11-25 07:00 CET) – éjszakai maraton lezárva
+- **Összesítő:** `kozos/munka/maraton-20261124/REGGELI-OSSZESITO.md` (részletek: ALLAPOT.md, szalak.md ugyanott).
+- **Élő újdonságok:** független ellenőrrel történő gépi elfogadás (MCP-rutin, `itelet:` szabály), Claude a Landlock-zárban,
+  ürítési ablak + önjáró élesítés, eseményvezérelt ügygazda (5 perc), képességtár (8 képesség, `scripts/kepesseg.py`),
+  tudásbázis (`allapot/tudas.jsonl`), kutatólabor (`project-s-labor.service`), árnyékmódú tapasztalati útválasztás,
+  kezdeményezés-szűkítés (csak akadály/kiemelt cél), élő fában hagyott kód elutasítása, mentés ~200 MB.
+- **Kiemelt cél:** `ugyek/onallosag-proba-mentes` – 1. nap mérve teljesült (205,8 MB, visszaállítás RENDBEN), igazolás 10:44 UTC után.
+- **Üzem:** videotár 1 TB → 100 GB, root LV 246 GB; PSX párhuzamosság 6 (drop-in 91-maraton-parhuzamossag.conf).
+- **toti teendői:** Claude-bejelentkezés 11-29 előtt (`claude auth login`); a /var/backups/media-20261124 tartalék törlése
+  néhány nap múlva; árnyékmód → `ab` csak mérés után.
+
+## ⏭️ HOL TARTUNK (2026-11-23 20:35 UTC) – élesítési kapu újra működik, PSX-jogosultsági félreértés javítva
+- **Élesítve a meglévő kapun:** Főnök-folytatás (32ffdede, elo-20261123-195812), mentes-drive (cbab17be), PSX 77-es kód +
+  csatorna-olvasás + vedett-ellenor 77 + nincs új kezdeményezés élesítésre várva (5510b0f4, elo-20261123-203052).
+- **Gyökérokok:** nem commitolt/követetlen helyi fájl az éles repóban; kiéheztetés az ügygazda új feladataitól; a Landlock-zár
+  szándékos „Permission denied”-jét a végrehajtók és a ChatGPT-csatorna „nem létezik”-nek értették.
+- **Napló, bizonyítékok, nyitott pontok:** `kozos/munka/rendszer-helyreallitas/HELYREALLITAS-20261123.md`.
+- **Szabály:** `psx` 77 = a PSX-állapot innen nem olvasható (zár), NEM azt jelenti, hogy a feladat nem létezik.
+
+## (korábbi) HOL TARTUNK (2026-11-18 08:45 UTC) – a működés helyreállítva, bizonyítás folyamatban
 - **Állapot:** a főnök-ébresztés, az ügygazda-kezdeményezés és a modellváltás működik (bizonyíték: `ugygazda/esemenyek.jsonl` 11-18 08:31: `elhalt_kor` → `fonok_ebresztes` → `kezdemenyezes`). Munkanapló és gyökérokok: `kozos/munka/rendszer-helyreallitas/` (ALLAPOT, NAPLO, VALTOZASOK, FOLYTATAS).
 - **Gyökérokok (mind bizonyítva, javítva):** (A) Codexre kötött ügyfeladat + `max_sajat_ugy` kapu; (A2) `ugy.py` tartalek; (E) az éles repó egy végrehajtó-feladat miatt NEM a `main` ágon állt – a `main` ff-elve, kicsekkolva, az ágváltás ezután ébresztési jelölt; (F) egy NEM auto szál halott `folyamatban` jelzője 38 órán át letiltotta az ébresztést (egy-főnök-zár) – `ebresztes.fonok_dolgozik` mostantól javítja; (G) az ügygazda LLM-JSON Copilot-hívása token nélkül hibázott (129 modellhiba) – `GH_TOKEN` a CLI környezetében.
 - **Ellenőrzendő/nyitott:** a Codewhale 11-17-i commitok (bc686ce, 10f9932, 17b0b16) független átnézése folyik (t20261118-082414-b44d9a, -b1f1f0); a Codex limitje 11-18 10:43Z-kor jár le; Drive-mentés rateLimit (ügy: mentes-drive-kvotahiba).
 - **Elv:** nincs új rendszer; kicsi, tesztelt javítás; kód: teszt + commit + független átnézés (más gyártó); végrehajtó-feladat NE váltson ágat/ne commitoljon az éles repóba – kódot a főnök (fejlesztési példány) vagy az ellenőrzött élesítés visz be.
 - **Az OpenRouter-független ellenőrzés a meglévő láncon megy** (`psx` `or-olcso`/`codewhale` + `beszelgetes.py` OpenRouter-választó); nem készült párhuzamos rendszer.
+
+### Bevételi folytatás (2026-11-21)
+
+- A meglévő bevételi ügyekben külön értékeljük az üzleti alkalmasságot, a kifizetés fogadhatóságát és toti pontos fiókteendőjét. A hiányzó bekötés önmagában nem kizáró ok. A NEAR USD/Stripe korlát kapcsolódó fiókteendő. A konkrét lehetőségnél a platformot, fizetési módot, díjakat, ország- és azonosítási feltételeket, valamint a felhasználói lépést és határidejét rögzítjük.
+- Új külső vállalás előtt a meglévő felhatalmazást és a teljesíthető fizetési feltételeket ellenőrizzük. Igazolt bevétel a munkához egyeztetett tényleges jóváírás. Az ígéret és az ajánlati összeg külön állapot. [Kifizetési irányelv](ugyek/bevetel-kutatas/eredmenyek/2026-11-11-dontes-kifizetes.md)
 
 ## (korábbi) HOL TARTUNK (2026-11-17 07:20 UTC) – rendszer-helyreállítás (teendőlista 15.)
 - Munkanapló: `kozos/munka/rendszer-helyreallitas/{ALLAPOT,FOLYTATAS,NAPLO}.md` (más végrehajtó is ebből folytatja).
