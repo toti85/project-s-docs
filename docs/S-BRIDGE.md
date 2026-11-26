@@ -65,15 +65,7 @@ jóváhagyás nélkül érkező rendszerszintű feladatot – egy régebbi szerv
 fájlként érkezik; erre épül a telefon-doktor appon át futó változata.
 
 ## Több telefon (családi flotta)
-A feladat címezhető: `feladat … --cel <eszköznév>` (a `kerdez` is: `--cel`) – csak a megnevezett, aktív eszköz kapja meg;
-ismeretlen vagy inaktív cél elutasítva (fail-closed). Több aktív eszköz mellett az olvasó, vezérlő és rendszerszintű feladathoz
-(minden jóváhagyásköteles típus, valamint hol, appkezelés, rendszerparancs) a cél kötelező; egyetlen aktív eszköznél ezek a
-feladatok cím nélkül is hozzá kötődnek (később aktivált másik telefon nem kapja meg), aktív eszköz nélkül rendszerszintű feladat
-nem rögzíthető. A cél a sorban, lekérdezésnél, visszaadás (kézbesítési hiba) után és a naplóban (`feladat … cel`) is megmarad;
-a lejárat a címzettől függetlenül érvényesül. Idempotens ismétlés (azonos `kulcs`) a cél visszavonása után is a meglévő
-azonosítót adja. A figyelő `ping`/`allapot` cím nélkül továbbra is bármelyik telefonnak mehet.
-A Control Center Telefon nézetében több aktív telefonnál készülékválasztó jelenik meg; több telefonos konfigurációban (akkor is,
-ha épp egy aktív) minden parancs kifejezetten címzett, a távvezérlő a kiválasztott telefon saját képét mutatja, a képre / eredményre
-koppintás a forrástelefonnak szól, a hely és a Telefon-egészség telefononként külön látszik (a régi közös jelentés csak
-egytelefonos konfigurációban). A telefon-doktor egy művelete végig ugyanannak a készüléknek szól; a cél ellenőrzése a „fut”
-állapot és a jóváhagyás előtt történik.
+A feladat címezhető: `feladat … --cel <eszköznév>` – csak a megnevezett eszköz kapja meg. Több aktív eszköz mellett a rendszerszintű
+feladathoz (hol, appkezelés, rendszerparancs) a cél kötelező. A Control Center Telefon nézetében több aktív telefonnál
+készülékválasztó jelenik meg; a hely és a Telefon-egészség telefononként külön látszik, a telefon-doktor egy művelete végig
+ugyanannak a készüléknek szól.
