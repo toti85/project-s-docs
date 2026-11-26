@@ -11,8 +11,7 @@ Bizonyítékcímkék: **[MÉRT]** friss mérés (dátum, környezet, futásazono
 
 ## Szerepek
 - **Külső fejlesztő/irányító** (Claude Code munkamenet, toti megbízásából): fejleszti a rendszert, köztük az ügygazdát.
-- **Ügygazda** (`scripts/ugygazda.py`, időzítő `project-s-ugygazda.timer`, 2026-11-24 óta 5 percenként – korábban 10;
-  mellette eseményvezérelt ébresztés, lásd lent): a szerveren önállóan futó
+- **Ügygazda** (`scripts/ugygazda.py`, időzítő `project-s-ugygazda.timer`, 10 percenként): a szerveren önállóan futó
   irányító. A meglévő elemeket használja: `psx` (végrehajtó), `ugy` (ügykezelő), NEAR-munkás, mentés, értesítés.
 
 ## Három képesség
@@ -182,30 +181,6 @@ A ciklus bekapcsolt állapotban meghívja a `scripts/ebresztes.py`-t: modell né
 kezdeményezések (`kezdemenyezes:<id>`) is a döntési sorba kerülnek. Minden saját kezdeményezés alapító lapot kap
 (`scripts/kezdemenyezes.py`); lezáráskor mért kimenet és költség, amely a következő tervezés bemenete (`korabbi_kezdemenyezesek`).
 Az elakadt saját ügy nem foglalja a kezdeményezési helyet; `sajat-elakadt:<ügy>` döntési tételt kap. Részletek: `docs/AUTONOM-CELVEZERLES.md` 3. mérföldkő. Ugyanígy nem foglal helyet az a saját ügy, amelynek feladata 1 óránál hosszabb modellkorlátra vár (`waiting_model`; várakozási ok: „hosszú modellkorlát …”) – a feladat magától folytatódik, közben új kezdeményezés indulhat (2026-11-16: egy 2,5 napos Codex-limit blokkolta).
-
-## Eseményvezérelt ébresztés és élesítési ablak (2026-11-24/25)
-- **Ébresztés:** a psx egy feladat lezáró eseményénél (`attempt_ended`, `cancelled`, `human_decision`, `failed`) azonnal elindítja
-  a `project-s-ugygazda.service`-t (`executor/psx.py` `ugygazda_ebresztes`: `--no-block`, futó kör mellett nem indul újra; 60 s
-  összevonás, óránként ≤ 30; `PSX_EBRESZTES_MAX_ORA=0` = ki). Az 5 perces időzítő (`OnCalendar=*:0/5`) a tartalék.
-- **Ürítési ablak:** elfogadott, élesítésre váró átnézés mellett a psx legfeljebb `PSX_URITES_PERC` (alap 20) percig nem indít új
-  feladatot (`uritesi_ablak`), hogy a kapu futó feladat nélkül cserélhessen kódot. A kapu (`scripts/elesites.py` `fut_valami`)
-  az el sem indult (0. kísérletű, `queued`) feladatot nem számítja futónak – különben az ablak és a kapu egymásra várna.
-
-## Kezdeményezés-szűkítés, export, élő fa, átnézők (2026-11-24/25)
-- **Kötődés:** új saját ügy terve `kotodes` mezőt kér (`tipus`: `akadaly` | `kiemelt_cel`, `hivatkozas`, `meroszam`); a
-  `kotodes_hiba` elutasítja, ha a hivatkozás nem nyitott akadály (meg nem oldott elakadás, döntési tétel vagy `elakadt` ügy), nem
-  `kiemelt_celok`-beli cél, vagy nincs mérőszám (`ugygazda/szabalyzat.json` `_kezdemenyezes_szukites`).
-- **Kiemelt cél:** `onallosag-proba-mentes` – a napi mentés ≤ 300 MB, elkülönítetten hiánytalanul visszaállítható, és ezt a Főnök
-  emberi lépés nélkül igazolja; mérőszám: egymást követő ilyen napok, cél 3 nap (`szabalyzat.json` `kiemelt_celok`).
-- **Képességtár a tervezőben:** a kezdeményező tervező bemenete a `kepessegtar` (`_kepessegtar`: tesztelt képességek) – ami megvan,
-  azt ne építse újra.
-- **Export `mentes` része:** az `allapot/rendszer.json` (`export`) a zárolt végrehajtóknak a legutóbbi mentés nevét, méretét (MB),
-  idejét és a visszaállítási próba eredményét (a hibák darabszámával) adja; ezt olvassa a `mentes-allapot` képesség.
-- **Élő fában hagyott kódváltozás:** a `vedett-ellenor` (minden ügygazda-feladat elfogadási szabálya) 1-gyel tér vissza, ha az
-  élő repóban az `executor scripts mcp ugygazda install ata docs` alatt nem commitolt követett változás van (`docs/KEPESSEGEK.md`
-  kivétel; `ELO_KOD_UTAK`); a tervező promptja szerint kód csak `~/project-s-dev/…` klónban + `psx kerelem atnezes` útján változhat.
-- **Átnézők:** `executor/kerelem.py` `ATNEZOK` – Codex-lehűlésnél DeepSeek + `z-ai/glm-5.3` (elsődleges harmadik gyártó),
-  `qwen/qwen3.8-flash` tartalék; átnézési időkorlát 60 perc (lépés 3600 s). Részletek: `docs/VEGREHAJTO.md` 16.
 
 ## A NEAR-felhatalmazás pontos terjedelme
 A munkás önállóan: nyitott feladatok olvasása és besorolása; **ajánlattétel** (bármilyen pénznemben – toti, 2026-11-12; USD-hez a NEAR Stripe-bekötést kér, addig a munkás naponta újrapróbál; kutatási típusú, „vállalható”
