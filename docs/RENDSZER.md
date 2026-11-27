@@ -335,3 +335,9 @@ A `fonok_auto` minden kör promptjába beteszi a hátralévő lépéseket; az é
 - **Codex / DeepSeek / CodeWhale / OpenRouter / helyi modell:** párhuzamos fejlesztés és (olcsó, független) ellenőrzés a kapacitásgazda szerepkör-táblája szerint.
 - **Az ellenőr feladatonként választható** (kapacitásgazda szerepkör-tábla): gépi/reprodukálható tesztek először, olcsó független modell előszűrőként, szükség esetén más gyártójú erős ellenőr; **Claude Code nem kötelező állomás** és nem kizárólagos ellenőr (a Claude-kapacitást nem pazaroljuk rutinellenőrzésre). Az olcsó ellenőr (pl. DeepSeek) önmagában NEM elég élesítéshez: a benchmark szerint valódi hibákat is átengedett → mellé reprodukálható teszt és bizonyíték kell.
 - Szabály változatlan: kódváltozás = teszt + független átnézés (más gyártó) + ellenőrzött élesítés; a független átnézés `| HIBA |` találata megállítja az élesítést (a főnök javítja, új átnézés).
+
+## Üzletszerzés (kiemelt cél: első fizetett megbízás – toti, 2026-11-26)
+`scripts/uzletszerzes.py` – a lehetőségek nyilvántartása (hash-láncolt eseménynapló, `~/.local/state/project-s/uzletszerzes/`):
+talalt → ertekelt → ajanlat_kesz (toti jóváhagyására vár) → bekuldve → elnyert → teljesites → atadva → kifizetve (+ elvetve / elveszett /
+visszalepett). A beadás, az elnyerés és a kifizetés tényét toti rögzíti; a kifizetéshez összeg és igazolás kell. A napi számok
+(`napi`) a reggeli jelentésben és a Control Center áttekintésén látszanak; a stratégia: `ugyek/platform-strategia/`.
