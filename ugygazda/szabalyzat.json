@@ -71,11 +71,6 @@
  "_vedett_elesites": "toti tartós felhatalmazása (2026-11-13): a védett fájl érintése önmagában nem kér új engedélyt – a már felhatalmazott feladatok módosításai az ellenőrzött élesítésen mennek át (átnézett commit, más gyártó független átnézése, zöld éles teszt, futó feladat nélkül, automatikus visszaállítás); az élesítő rögzíti a jóváhagyást. Kivétel: a felhatalmazást rögzítő fájl (jovahagyast_igenylo_fajlok) módosítása toti kifejezett jóváhagyását kéri.",
  "kiemelt_celok": [
   {
-   "id": "elso-fizetett-megbizas",
-   "leiras": "Az első fizetett megbízás (toti jóváhagyása, 2026-11-26): a Projekt-S egy platformon (Upwork, Fiverr, Immunefi, HackenProof, Code4rena…) valódi lehetőséget talál, ajánlatot készít, amelyet toti jóváhagy és bead, a munkát teljesíti, és a kifizetés igazoltan megérkezik. Valós személyazonosság, tapasztalat és referenciák; a beküldés, a szerződés, a fizetés és az azonosítás toti lépése.",
-   "meroszam": "napi: talált valódi lehetőségek, toti jóváhagyására váró ajánlatok, beadott ajánlatok, folyamatban lévő munkák; a cél teljesül: 1 igazolt kifizetés (scripts/uzletszerzes.py, ugyek/platform-strategia)"
-  },
-  {
    "id": "onallosag-proba-mentes",
    "leiras": "Első önállósági próba (toti, 2026-11-24): a napi mentés elkészül, kicsi marad, és ELKÜLÖNÍTETT környezetben visszaállítható – a Főnök ezt minden nap maga igazolja, emberi beavatkozás nélkül.",
    "meroszam": "egymást követő napok, amikor a mentés ≤ 300 MB, a visszaállítási próba hiánytalan (minden napló és ügy), és az igazolást a Főnök emberi lépés nélkül rögzítette; cél: 3 nap, utána jobb idővel/költséggel megismételve"
