@@ -339,5 +339,8 @@ A `fonok_auto` minden kör promptjába beteszi a hátralévő lépéseket; az é
 ## Üzletszerzés (kiemelt cél: első fizetett megbízás – toti, 2026-11-26)
 `scripts/uzletszerzes.py` – a lehetőségek nyilvántartása (hash-láncolt eseménynapló, `~/.local/state/project-s/uzletszerzes/`):
 talalt → ertekelt → ajanlat_kesz (toti jóváhagyására vár) → bekuldve → elnyert → teljesites → atadva → kifizetve (+ elvetve / elveszett /
-visszalepett). A beadás, az elnyerés és a kifizetés tényét toti rögzíti; a kifizetéshez összeg és igazolás kell. A napi számok
-(`napi`) a reggeli jelentésben és a Control Center áttekintésén látszanak; a stratégia: `ugyek/platform-strategia/`.
+visszalepett). A beadást, az elnyerést, a szerződés elfogadását és a kifizetést toti rögzíti a Control Centerből.
+A panel szolgáltatásában az `UZLET_TOTI` változó toti egyetlen hitelesített panel-címét adja meg.
+Hiányzó vagy listaként megadott cím esetén a panel elutasítja a műveletet. A kifizetéshez összeg és igazolás kell.
+A reggeli jelentés és a Control Center áttekintése napi számokat mutat. Az igazolás az üzleti nyilvántartásban marad.
+Sérült hash-lánc esetén a nyilvántartás elutasítja az írást és a bevétel nem igazolható. Stratégia: `ugyek/platform-strategia/`.
