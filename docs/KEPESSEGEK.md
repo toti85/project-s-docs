@@ -1,14 +1,14 @@
 <!-- Automatikus tükör a privát Projekt S műhelyrepóból (scripts/docs_tukor.py). Személyes és hálózati adatok kitakarva. Ne itt szerkeszd. -->
 
-# Szerver-képességek (generált: 2026-11-28 03:17 UTC, `scripts/kepessegek.py`)
+# Szerver-képességek (generált: 2026-11-25 21:58 UTC, `scripts/kepessegek.py`)
 
 > Mért állapot. Ha ez ellentmond egy régebbi ügyiratnak vagy javaslatlistának, EZ az érvényes.
 
 ## Végrehajtók (`psx providers`)
 ```
 claude   elérhető  ok
-copilot  NEM elérhető  lehűlés 2026-11-28T03:42:31+00:00-ig
-codex    NEM elérhető  lehűlés 2026-12-02T11:03:00+00:00-ig
+copilot  elérhető  ok
+codex    elérhető  ok
 codewhale elérhető  ok
 or-free  elérhető  ok
 or-olcso elérhető  ok
@@ -56,10 +56,10 @@ proba    NEM elérhető  a végpont nem válaszol (http://127.0.0.1:18080/v1): U
 ## Mentés
 - helyi: `~/mentes` (napi 03:17, 14 nap): 16 mentés
 - Google Drive (titkosított): ✅ bekötve
-- visszaállítási próba: ✅ RENDBEN (2026-11-27T12:25:37+00:00, 1123/1123 napló, `scripts/visszaallitas_proba.py`)
+- visszaállítási próba: ✅ RENDBEN (2026-11-25T03:20:00+00:00, 897/897 napló, `scripts/visszaallitas_proba.py`)
 
 ## Ügygazda (önálló irányító)
-- állapot: bekapcsolva; saját ügyek: dontesi-sor-konzisztencia, akadaly-ismetlodes-csoportosito, node-hordozhato-telepites, mentes-drive-kvotahiba, nyitott-dontesek-kor-kimutatas, proba-vegpont-18080-diagnozis, akadaly-dontes-lezaras-javaslat, near-export-mezohiany-kimutatas, ugygazda-allapotfajl-olvashatosag, szolgaltatas-path-alkalmazas-csomag, path-javito-diff-alkalmazasi-kerelem-tervezet, psx-hibaosztaly-ismetlodes-rangsor, mentes-drive-rclone-korlat-alkalmazas, psx-hibaosztaly-ismetlodes-rangsor-ellenor, szolgaltatas-port-elo-proba, mentes-drive-rclone-korlat-javaslat-ellenor, kepesseg-gh-jogosultsag-ellenor, elfogadasi-szabaly-alak-ellenor, kezdemenyezes-cel-eloszlas-merleg, near-ajanlat-elozetes-kapu-elo-export-futtatas, visszaallitas-tmpdir-diff-alkalmazas-proba, mentes-300mb-kizaras-alkalmazas, onallosag-napi-igazolas-rogzito, onallosag-datumozott-igazolas-futtato, onallosag-holnapi-mentes-tartalek-elorejelzes, mentes-kizaras-alkalmazva-ellenor, onallosag-emberi-lepes-mentes-ellenor, onallosag-visszaallitas-teljesseg-keresztellenor, onallosag-burkolo-szamlalo-lanc-proba, onallosag-2-nap-igazolas-futtatas, mentes-feladat-tmp-kizaras-proba, visszaallitas-fifo-javitas-atnezes-ujrakuldes, mentes-11-27-meretugras-forras, mentes-meret-fa-bontas, mentes-archivum-tagonkenti-meretdiff, mentes-meretkizaras-klon-claude, near-munkas-osszeomlas-javitas-klon, elso-megbizas-nyitott-auditversenyek-lista; döntési sor: 99; elakadás (összes/megoldott): 4/4
+- állapot: bekapcsolva; saját ügyek: dontesi-sor-konzisztencia, akadaly-ismetlodes-csoportosito, node-hordozhato-telepites, mentes-drive-kvotahiba, nyitott-dontesek-kor-kimutatas, proba-vegpont-18080-diagnozis, akadaly-dontes-lezaras-javaslat, near-export-mezohiany-kimutatas, ugygazda-allapotfajl-olvashatosag, szolgaltatas-path-alkalmazas-csomag, path-javito-diff-alkalmazasi-kerelem-tervezet, psx-hibaosztaly-ismetlodes-rangsor, mentes-drive-rclone-korlat-alkalmazas, psx-hibaosztaly-ismetlodes-rangsor-ellenor, szolgaltatas-port-elo-proba, mentes-drive-rclone-korlat-javaslat-ellenor, kepesseg-gh-jogosultsag-ellenor, elfogadasi-szabaly-alak-ellenor, kezdemenyezes-cel-eloszlas-merleg, near-ajanlat-elozetes-kapu-elo-export-futtatas, visszaallitas-tmpdir-diff-alkalmazas-proba, mentes-300mb-kizaras-alkalmazas, onallosag-napi-igazolas-rogzito, onallosag-datumozott-igazolas-futtato, onallosag-holnapi-mentes-tartalek-elorejelzes, mentes-kizaras-alkalmazva-ellenor, onallosag-emberi-lepes-mentes-ellenor, onallosag-visszaallitas-teljesseg-keresztellenor; döntési sor: 73; elakadás (összes/megoldott): 2/2
 - leírás: `docs/UGYGAZDA.md`; NEAR külső műveletek: `scripts/near_kulso.py`; ügynapló: `ugy naplo ellenoriz`
 
 ## Főnök önállóan (szuper-végrehajtó)
